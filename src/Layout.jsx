@@ -23,16 +23,7 @@ const districts = [
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isScrolled, setIsScrolled] = React.useState(false);
   const [q, setQ] = React.useState("");
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const whatsappUrlFull = whatsappUrl(DEFAULT_WHATSAPP_MESSAGE);
 
@@ -53,9 +44,7 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-[var(--bg)] flex flex-col">
 
       {/* Header */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-[var(--bg-elev)] shadow-lg py-2" : "bg-[rgba(42,42,42,0.95)] backdrop-blur-md shadow-md py-4"
-      }`}>
+      <header className="sticky top-0 z-50 bg-[var(--bg-elev)] shadow-md py-2">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
@@ -63,9 +52,7 @@ export default function Layout({ children, currentPageName }) {
               <img
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
                 alt="AZ Inmuebles - Coto Brus, Costa Rica"
-                className={`transition-all duration-300 group-hover:scale-105 ${
-                  isScrolled ? "h-16 md:h-20" : "h-20 md:h-24"
-                }`}
+                className="h-16 md:h-20 group-hover:scale-105 transition-transform duration-300"
               />
             </Link>
 
