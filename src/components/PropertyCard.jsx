@@ -5,8 +5,11 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Bed, Bath, Ruler, ArrowRight, Sparkles } from "lucide-react";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function PropertyCard({ property }) {
+  const { t } = useTranslation();
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat("es-CR", {
       style: "currency",
@@ -38,7 +41,7 @@ export default function PropertyCard({ property }) {
           <div className="absolute top-4 right-4">
             <Badge className="bg-gradient-to-r from-[#C46542] to-[#A35436] border-0 shadow-lg flex items-center gap-1">
               <Sparkles className="w-3 h-3" />
-              Destacada
+              {t("propertyCard.featured")}
             </Badge>
           </div>
         )}
@@ -117,7 +120,7 @@ export default function PropertyCard({ property }) {
       <CardFooter className="p-6 pt-0">
         <Link to={createPageUrl(`PropertyDetail?id=${property.id}`)} className="w-full">
           <Button className="w-full gap-2 bg-gradient-to-r from-[#C46542] to-[#A35436] hover:from-[#A35436] hover:to-[#8B4530] group-hover:gap-3 transition-all shadow-lg text-white">
-            Ver Detalles
+            {t("propertyCard.viewDetails")}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </Link>

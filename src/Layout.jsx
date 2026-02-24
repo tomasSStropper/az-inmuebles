@@ -9,11 +9,13 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CONTACT, PHONE_URL, EMAIL_URL, DEFAULT_WHATSAPP_MESSAGE, whatsappUrl } from "@/config/contact";
+import { CONTACT, PHONE_URL, EMAIL_URL, whatsappUrl } from "@/config/contact";
+import { useTranslation } from "@/i18n/LanguageContext";
+import LanguageSwitch from "@/components/LanguageSwitch";
 
 const districts = [
   "San Vito",
-  "Sabalito", 
+  "Sabalito",
   "Agua Buena",
   "Limoncito",
   "Pittier",
@@ -25,6 +27,7 @@ export default function Layout({ children, currentPageName }) {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [q, setQ] = React.useState("");
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -34,12 +37,12 @@ export default function Layout({ children, currentPageName }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const whatsappUrlFull = whatsappUrl(DEFAULT_WHATSAPP_MESSAGE);
+  const whatsappUrlFull = whatsappUrl(t("whatsapp.defaultMessage"));
 
   const navigationLinks = [
-    { name: "Inicio", url: createPageUrl("Home"), icon: Home },
-    { name: "Propiedades", url: createPageUrl("Properties"), icon: MapPin },
-    { name: "Contacto", url: createPageUrl("Contact"), icon: Mail },
+    { name: t("nav.home"), url: createPageUrl("Home"), icon: Home },
+    { name: t("nav.properties"), url: createPageUrl("Properties"), icon: MapPin },
+    { name: t("nav.contact"), url: createPageUrl("Contact"), icon: Mail },
   ];
 
   const onSearch = (e) => {
@@ -71,7 +74,7 @@ export default function Layout({ children, currentPageName }) {
             <nav className="hidden lg:flex items-center gap-2">
               {navigationLinks.map((link) => (
                 <Link
-                  key={link.name}
+                  key={link.url}
                   to={link.url}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all font-medium ${
                     location.pathname === link.url
@@ -92,17 +95,18 @@ export default function Layout({ children, currentPageName }) {
                 <Input
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
-                  placeholder="Buscar por distrito, tipo o etiquetas..."
+                  placeholder={t("nav.searchPlaceholder")}
                   className="pl-9 h-10 border-2 focus:border-[#C46542]"
                 />
               </div>
               <Button type="submit" size="sm" className="bg-[#C46542] hover:bg-[#A35436]">
-                Buscar
+                {t("nav.search")}
               </Button>
             </form>
 
-            {/* Contact Buttons */}
+            {/* Contact Buttons + Language Switch */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
+              <LanguageSwitch />
               <a href={PHONE_URL}>
                 <Button variant="outline" size="sm" className="gap-2 border-2 border-[#C46542] text-[var(--text)] hover:bg-[var(--primary-50)]">
                   <Phone className="w-4 h-4" />
@@ -117,98 +121,101 @@ export default function Layout({ children, currentPageName }) {
               </a>
             </div>
 
-            {/* Mobile Menu */}
-            <Sheet>
-              <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon">
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <div className="flex flex-col gap-6 mt-8">
-                  {/* Logo in mobile menu */}
-                  <div className="flex justify-center pb-6 border-b border-[var(--border)]">
-                    <img
-                      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
-                      alt="AZ Inmuebles"
-                      className="h-20"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-
-                  {/* Quick Search (Mobile) */}
-                  <form onSubmit={onSearch} className="xl:hidden">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
-                      <Input
-                        value={q}
-                        onChange={(e) => setQ(e.target.value)}
-                        placeholder="Buscar..."
-                        className="pl-9 h-10 border-2 focus:border-[#C46542]"
+            {/* Mobile: Language Switch + Menu */}
+            <div className="flex lg:hidden items-center gap-2">
+              <LanguageSwitch />
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80">
+                  <div className="flex flex-col gap-6 mt-8">
+                    {/* Logo in mobile menu */}
+                    <div className="flex justify-center pb-6 border-b border-[var(--border)]">
+                      <img
+                        src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
+                        alt="AZ Inmuebles"
+                        className="h-20"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
-                    <Button type="submit" className="w-full mt-2 bg-[#C46542] hover:bg-[#A35436]">
-                      Buscar
-                    </Button>
-                  </form>
 
-                  <div className="space-y-2">
-                    {navigationLinks.map((link) => (
-                      <Link
-                        key={link.name}
-                        to={link.url}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                          location.pathname === link.url
-                            ? "bg-[var(--primary-50)] text-[#C46542] font-medium"
-                            : "text-[var(--text)] hover:bg-[var(--bg-elev2)]"
-                        }`}
-                      >
-                        <link.icon className="w-5 h-5" />
-                        {link.name}
-                      </Link>
-                    ))}
-                  </div>
+                    {/* Quick Search (Mobile) */}
+                    <form onSubmit={onSearch} className="xl:hidden">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
+                        <Input
+                          value={q}
+                          onChange={(e) => setQ(e.target.value)}
+                          placeholder={t("nav.searchShort")}
+                          className="pl-9 h-10 border-2 focus:border-[#C46542]"
+                        />
+                      </div>
+                      <Button type="submit" className="w-full mt-2 bg-[#C46542] hover:bg-[#A35436]">
+                        {t("nav.search")}
+                      </Button>
+                    </form>
 
-                  <div className="border-t border-[var(--border)] pt-6">
-                    <h3 className="text-sm font-semibold text-[var(--muted)] mb-3">DISTRITOS</h3>
                     <div className="space-y-2">
-                      {districts.map((district) => (
+                      {navigationLinks.map((link) => (
                         <Link
-                          key={district}
-                          to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}
-                          className="flex items-center gap-3 px-4 py-2 rounded-lg text-[var(--text)] hover:bg-[var(--bg-elev2)]"
+                          key={link.url}
+                          to={link.url}
+                          className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                            location.pathname === link.url
+                              ? "bg-[var(--primary-50)] text-[#C46542] font-medium"
+                              : "text-[var(--text)] hover:bg-[var(--bg-elev2)]"
+                          }`}
                         >
-                          <MapPin className="w-4 h-4" />
-                          {district}
+                          <link.icon className="w-5 h-5" />
+                          {link.name}
                         </Link>
                       ))}
                     </div>
-                  </div>
 
-                  <div className="border-t border-[var(--border)] pt-6 space-y-3">
-                    <a href={PHONE_URL} className="block">
-                      <Button variant="outline" className="w-full gap-2 border-[#C46542] text-[var(--text)]">
-                        <Phone className="w-4 h-4" />
-                        {CONTACT.phoneDisplay}
-                      </Button>
-                    </a>
-                    <a href={whatsappUrlFull} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button className="w-full gap-2 bg-green-600 hover:bg-green-700">
-                        <MessageCircle className="w-4 h-4" />
-                        WhatsApp
-                      </Button>
-                    </a>
-                    <a href={EMAIL_URL} className="block">
-                      <Button variant="outline" className="w-full gap-2">
-                        <Mail className="w-4 h-4" />
-                        Correo
-                      </Button>
-                    </a>
+                    <div className="border-t border-[var(--border)] pt-6">
+                      <h3 className="text-sm font-semibold text-[var(--muted)] mb-3">{t("nav.districts")}</h3>
+                      <div className="space-y-2">
+                        {districts.map((district) => (
+                          <Link
+                            key={district}
+                            to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}
+                            className="flex items-center gap-3 px-4 py-2 rounded-lg text-[var(--text)] hover:bg-[var(--bg-elev2)]"
+                          >
+                            <MapPin className="w-4 h-4" />
+                            {district}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="border-t border-[var(--border)] pt-6 space-y-3">
+                      <a href={PHONE_URL} className="block">
+                        <Button variant="outline" className="w-full gap-2 border-[#C46542] text-[var(--text)]">
+                          <Phone className="w-4 h-4" />
+                          {CONTACT.phoneDisplay}
+                        </Button>
+                      </a>
+                      <a href={whatsappUrlFull} target="_blank" rel="noopener noreferrer" className="block">
+                        <Button className="w-full gap-2 bg-green-600 hover:bg-green-700">
+                          <MessageCircle className="w-4 h-4" />
+                          WhatsApp
+                        </Button>
+                      </a>
+                      <a href={EMAIL_URL} className="block">
+                        <Button variant="outline" className="w-full gap-2">
+                          <Mail className="w-4 h-4" />
+                          {t("nav.email")}
+                        </Button>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>
@@ -232,13 +239,13 @@ export default function Layout({ children, currentPageName }) {
                 decoding="async"
               />
               <p className="text-sm text-[var(--muted)]">
-                Propiedades con datos claros y asesoría local en Coto Brus
+                {t("footer.tagline")}
               </p>
             </div>
 
             {/* Districts */}
             <div>
-              <h3 className="font-semibold text-[var(--text)] mb-4">Distritos</h3>
+              <h3 className="font-semibold text-[var(--text)] mb-4">{t("footer.districtsTitle")}</h3>
               <ul className="space-y-2 text-sm">
                 {districts.map((district) => (
                   <li key={district}>
@@ -255,26 +262,26 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Links */}
             <div>
-              <h3 className="font-semibold text-[var(--text)] mb-4">Navegación</h3>
+              <h3 className="font-semibold text-[var(--text)] mb-4">{t("footer.navigationTitle")}</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link to={createPageUrl("Home")} className="hover:text-[#E8D5C4] transition-colors">
-                    Inicio
+                    {t("nav.home")}
                   </Link>
                 </li>
                 <li>
                   <Link to={createPageUrl("Properties")} className="hover:text-[#E8D5C4] transition-colors">
-                    Propiedades
+                    {t("nav.properties")}
                   </Link>
                 </li>
                 <li>
                   <Link to={createPageUrl("Contact")} className="hover:text-[#E8D5C4] transition-colors">
-                    Contacto
+                    {t("nav.contact")}
                   </Link>
                 </li>
                 <li>
                   <Link to={createPageUrl("TerminosPrivacidad")} className="hover:text-[#E8D5C4] transition-colors">
-                    Términos y Privacidad
+                    {t("footer.termsLink")}
                   </Link>
                 </li>
               </ul>
@@ -282,7 +289,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Contact */}
             <div>
-              <h3 className="font-semibold text-[var(--text)] mb-4">Contacto</h3>
+              <h3 className="font-semibold text-[var(--text)] mb-4">{t("footer.contactTitle")}</h3>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
@@ -307,9 +314,9 @@ export default function Layout({ children, currentPageName }) {
           </div>
 
           <div className="border-t border-[var(--border)] mt-8 pt-8 text-center text-sm text-[var(--muted)]">
-            <p>© {new Date().getFullYear()} AZ Inmuebles. Todos los derechos reservados.</p>
+            <p>{t("footer.copyright", { year: new Date().getFullYear() })}</p>
             <p className="mt-2">
-              La información de cada propiedad es proporcionada por los propietarios o sus representantes y puede variar; verifíquela antes de cualquier decisión.
+              {t("footer.disclaimer")}
             </p>
           </div>
         </div>
@@ -321,7 +328,7 @@ export default function Layout({ children, currentPageName }) {
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-600 hover:bg-green-700 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
-        aria-label="Contactar por WhatsApp"
+        aria-label={t("nav.whatsappAria")}
       >
         <MessageCircle className="w-8 h-8 text-white" />
       </a>

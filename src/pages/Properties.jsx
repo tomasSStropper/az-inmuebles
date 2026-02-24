@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import PropertyCard from "../components/PropertyCard";
 import PropertyFilters from "../components/PropertyFilters";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function Properties() {
   const [properties, setProperties] = useState([]);
@@ -33,6 +34,7 @@ export default function Properties() {
     minConstructionSize: "",
     maxConstructionSize: ""
   });
+  const { t } = useTranslation();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -144,7 +146,9 @@ export default function Properties() {
     setSearchQuery("");
   };
 
-  const districtTitle = filters.district ? `Propiedades en ${filters.district}` : "Todas las Propiedades";
+  const districtTitle = filters.district
+    ? t("properties.propertiesIn", { district: filters.district })
+    : t("properties.allProperties");
 
   return (
     <div>
@@ -152,7 +156,7 @@ export default function Properties() {
       <section className="relative h-96 overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=1920&h=600&fit=crop"
-          alt="Propiedades"
+          alt={t("nav.properties")}
           className="w-full h-full object-cover"
           loading="lazy"
           decoding="async"
@@ -161,11 +165,11 @@ export default function Properties() {
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 text-white w-full">
             <div className="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold">
-              CATÁLOGO COMPLETO
+              {t("properties.catalogBadge")}
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-4">{districtTitle}</h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-2xl">
-              Encuentra la propiedad perfecta en Coto Brus
+              {t("properties.findPerfect")}
             </p>
           </div>
         </div>
@@ -178,7 +182,7 @@ export default function Properties() {
           <div className="flex-1 relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[var(--muted)]" />
             <Input
-              placeholder="Buscar por título, distrito, tipo o etiquetas..."
+              placeholder={t("properties.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-12 h-12 text-lg border-2 focus:border-[#C46542]"
@@ -186,14 +190,14 @@ export default function Properties() {
           </div>
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-full md:w-64 h-12 border-2 focus:border-[#C46542]">
-              <SelectValue placeholder="Ordenar por" />
+              <SelectValue placeholder={t("properties.sortBy")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="-created_date">Más recientes</SelectItem>
-              <SelectItem value="price_asc">Precio: menor a mayor</SelectItem>
-              <SelectItem value="price_desc">Precio: mayor a menor</SelectItem>
-              <SelectItem value="area_asc">Área: menor a mayor</SelectItem>
-              <SelectItem value="area_desc">Área: mayor a menor</SelectItem>
+              <SelectItem value="-created_date">{t("properties.sortRecent")}</SelectItem>
+              <SelectItem value="price_asc">{t("properties.sortPriceAsc")}</SelectItem>
+              <SelectItem value="price_desc">{t("properties.sortPriceDesc")}</SelectItem>
+              <SelectItem value="area_asc">{t("properties.sortAreaAsc")}</SelectItem>
+              <SelectItem value="area_desc">{t("properties.sortAreaDesc")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -212,11 +216,11 @@ export default function Properties() {
           <div className="lg:col-span-3">
             <div className="mb-8 flex items-center justify-between">
               <h2 className="text-2xl md:text-3xl font-bold text-[var(--text)]">
-                {filteredProperties.length} {filteredProperties.length === 1 ? "propiedad" : "propiedades"}
+                {filteredProperties.length} {filteredProperties.length === 1 ? t("properties.propertySingular") : t("properties.propertyPlural")}
               </h2>
               {filteredProperties.length > 0 && (
                 <div className="hidden md:block text-sm text-[var(--muted)]">
-                  Mostrando resultados
+                  {t("properties.showingResults")}
                 </div>
               )}
             </div>
@@ -233,13 +237,13 @@ export default function Properties() {
                   <Search className="w-10 h-10 text-[#C46542]" />
                 </div>
                 <h3 className="text-2xl font-bold text-[var(--text)] mb-3">
-                  No se encontraron propiedades
+                  {t("properties.noResults")}
                 </h3>
                 <p className="text-[var(--muted)] mb-6 max-w-md mx-auto">
-                  Intenta ajustar los filtros o realiza una búsqueda diferente
+                  {t("properties.noResultsHint")}
                 </p>
                 <Button onClick={clearFilters} variant="outline" size="lg" className="border-[#C46542] text-[#C46542] hover:bg-[var(--primary-50)]">
-                  Limpiar Filtros
+                  {t("properties.clearFilters")}
                 </Button>
               </div>
             )}

@@ -3,15 +3,18 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Card } from "@/components/ui/card";
 import { MapPin, ArrowRight } from "lucide-react";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function DistrictCard({ district, image, description }) {
+  const { t } = useTranslation();
+
   return (
     <Link to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}>
       <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full border-2 border-[var(--accent-border)] hover:border-[#C46542]">
         <div className="relative h-64 overflow-hidden">
           <img
             src={image}
-            alt={`Distrito de ${district}`}
+            alt={`${t("districtCard.altPrefix")} ${district}`}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             loading="lazy"
             decoding="async"
@@ -31,7 +34,7 @@ export default function DistrictCard({ district, image, description }) {
         </div>
         <div className="p-5 bg-[var(--bg-elev)] group-hover:bg-[var(--primary-50)] transition-colors">
           <div className="flex items-center justify-between text-[#C46542] font-semibold">
-            <span>Explorar propiedades</span>
+            <span>{t("districtCard.explore")}</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
           </div>
         </div>

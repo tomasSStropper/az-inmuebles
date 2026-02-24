@@ -9,44 +9,30 @@ import { motion } from "framer-motion";
 import DistrictCard from "../components/DistrictCard";
 import PropertyCard from "../components/PropertyCard";
 import ContactButtons from "../components/ContactButtons";
+import { useTranslation } from "@/i18n/LanguageContext";
 
-const districts = [
-{ name: "San Vito", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/30d2e28c6_image.png", description: "Centro urbano principal del cantón" },
-{ name: "Sabalito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop", description: "Zona comercial en crecimiento" },
-{ name: "Agua Buena", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop", description: "Tranquilidad en la montaña" },
-{ name: "Limoncito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop", description: "Comunidad familiar acogedora" },
-{ name: "Pittier", image: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&h=600&fit=crop", description: "Naturaleza y cultivos de altura" },
-{ name: "Gutiérrez Braun", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop", description: "Tradición agrícola y ganadera" }];
+const districtKeys = {
+  "San Vito": "sanVito",
+  "Sabalito": "sabalito",
+  "Agua Buena": "aguaBuena",
+  "Limoncito": "limoncito",
+  "Pittier": "pittier",
+  "Gutiérrez Braun": "gutierrezBraun"
+};
 
-
-const trustReasons = [
-{
-  icon: Shield,
-  title: "Transparencia Documental",
-  description: "Verificamos y presentamos toda la documentación legal de cada propiedad"
-},
-{
-  icon: Users,
-  title: "Acompañamiento Personalizado",
-  description: "Te guiamos en cada paso del proceso de compra o venta"
-},
-{
-  icon: MapPin,
-  title: "Conocimiento Local",
-  description: "Años de experiencia en Coto Brus y profundo conocimiento del área"
-}];
-
-
-const stats = [
-{ icon: Award, value: "15+", label: "Años de Experiencia" },
-{ icon: Users, value: "200+", label: "Clientes Satisfechos" },
-{ icon: TrendingUp, value: "100%", label: "Asesoría Legal" },
-{ icon: Clock, value: "24/7", label: "Disponibilidad WhatsApp" }];
-
+const districtData = [
+  { name: "San Vito", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/30d2e28c6_image.png" },
+  { name: "Sabalito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop" },
+  { name: "Agua Buena", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop" },
+  { name: "Limoncito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop" },
+  { name: "Pittier", image: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&h=600&fit=crop" },
+  { name: "Gutiérrez Braun", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop" }
+];
 
 export default function Home() {
   const [properties, setProperties] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadProperties();
@@ -65,6 +51,36 @@ export default function Home() {
       window.location.href = createPageUrl(`Properties?search=${encodeURIComponent(searchQuery)}`);
     }
   };
+
+  const stats = [
+    { icon: Award, value: "15+", label: t("home.statYears") },
+    { icon: Users, value: "200+", label: t("home.statClients") },
+    { icon: TrendingUp, value: "100%", label: t("home.statLegal") },
+    { icon: Clock, value: "24/7", label: t("home.statAvailability") },
+  ];
+
+  const trustReasons = [
+    {
+      icon: Shield,
+      title: t("home.trustTransparencyTitle"),
+      description: t("home.trustTransparencyDesc"),
+    },
+    {
+      icon: Users,
+      title: t("home.trustGuidanceTitle"),
+      description: t("home.trustGuidanceDesc"),
+    },
+    {
+      icon: MapPin,
+      title: t("home.trustLocalTitle"),
+      description: t("home.trustLocalDesc"),
+    },
+  ];
+
+  const districts = districtData.map((d) => ({
+    ...d,
+    description: t(`districts.${districtKeys[d.name]}`),
+  }));
 
   return (
     <div>
@@ -91,14 +107,14 @@ export default function Home() {
 
             <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-[#C46542] rounded-full text-sm font-medium shadow-lg">
               <MapPin className="w-4 h-4" />
-              Coto Brus, Puntarenas
+              {t("home.heroBadge")}
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Propiedades con datos claros y{" "}
-              <span className="text-[#E8D5C4]">asesoría local</span>
+              {t("home.heroTitle")}
+              <span className="text-[#E8D5C4]">{t("home.heroTitleHighlight")}</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-gray-200">
-              Encuentra tu próximo hogar o inversión en el corazón de la zona sur
+              {t("home.heroSubtitle")}
             </p>
 
             <ContactButtons />
@@ -111,7 +127,7 @@ export default function Home() {
               className="mt-12 bg-[var(--bg-elev)] rounded-2xl p-3 flex gap-3 max-w-xl shadow-2xl">
 
               <Input
-                placeholder="Buscar por distrito, tipo o características..."
+                placeholder={t("home.searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -160,13 +176,13 @@ export default function Home() {
           className="text-center mb-16">
 
           <div className="inline-block mb-4 px-4 py-2 bg-[var(--primary-50)] text-[#C46542] rounded-full text-sm font-semibold">
-            EXPLORA COTO BRUS
+            {t("home.districtsBadge")}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
-            Descubre por Distrito
+            {t("home.districtsTitle")}
           </h2>
           <p className="text-xl text-[var(--muted)] max-w-2xl mx-auto">
-            Seis distritos únicos con propiedades que se adaptan a tu estilo de vida
+            {t("home.districtsSubtitle")}
           </p>
         </motion.div>
 
@@ -202,18 +218,18 @@ export default function Home() {
 
               <div>
                 <div className="inline-block mb-4 px-4 py-2 bg-[var(--primary-50)] text-[#C46542] rounded-full text-sm font-semibold border border-[var(--accent-border)]">
-                  OPORTUNIDADES
+                  {t("home.featuredBadge")}
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
-                  Propiedades Destacadas
+                  {t("home.featuredTitle")}
                 </h2>
                 <p className="text-xl text-[var(--muted)]">
-                  Las mejores oportunidades del momento
+                  {t("home.featuredSubtitle")}
                 </p>
               </div>
               <Link to={createPageUrl("Properties")} className="hidden md:block">
                 <Button size="lg" variant="outline" className="shadow-lg border-2 border-[#C46542] text-[#C46542] hover:bg-[var(--primary-50)]">
-                  Ver Todas
+                  {t("home.viewAll")}
                 </Button>
               </Link>
             </motion.div>
@@ -235,7 +251,7 @@ export default function Home() {
             <div className="text-center md:hidden">
               <Link to={createPageUrl("Properties")}>
                 <Button size="lg" variant="outline" className="shadow-lg border-2 border-[#C46542] text-[#C46542] hover:bg-[var(--primary-50)]">
-                  Ver Todas las Propiedades
+                  {t("home.viewAllProperties")}
                 </Button>
               </Link>
             </div>
@@ -253,13 +269,13 @@ export default function Home() {
           className="text-center mb-16">
 
           <div className="inline-block mb-4 px-4 py-2 bg-[var(--primary-50)] text-[#C46542] rounded-full text-sm font-semibold">
-            CONFIANZA Y EXPERIENCIA
+            {t("home.trustBadge")}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
-            ¿Por qué elegir AZ Inmuebles?
+            {t("home.trustTitle")}
           </h2>
           <p className="text-xl text-[var(--muted)] max-w-2xl mx-auto">
-            Nuestro compromiso con la transparencia y el servicio de calidad
+            {t("home.trustSubtitle")}
           </p>
         </motion.div>
 
@@ -305,13 +321,13 @@ export default function Home() {
             viewport={{ once: true }}>
 
             <div className="inline-block mb-6 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-semibold">
-              COMIENZA HOY
+              {t("home.ctaBadge")}
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              ¿Listo para encontrar tu propiedad ideal?
+              {t("home.ctaTitle")}
             </h2>
             <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-2xl mx-auto">
-              Contáctanos hoy y te ayudaremos a dar el siguiente paso con asesoría profesional
+              {t("home.ctaSubtitle")}
             </p>
             <div className="flex justify-center">
               <ContactButtons />
