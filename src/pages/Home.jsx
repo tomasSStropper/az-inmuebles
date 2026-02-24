@@ -34,6 +34,7 @@ export default function Home() {
   const [properties, setProperties] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { t } = useTranslation();
+  const heroBackgroundImage = import.meta.env.VITE_HERO_BG_IMAGE_URL || HERO_COTO_BRUS_DATA_URI;
 
   useEffect(() => {
     loadProperties();
@@ -90,7 +91,7 @@ export default function Home() {
         <div
           className="absolute inset-0"
           style={{
-
+> main
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat"
