@@ -7,7 +7,7 @@ import { MapPin, ArrowRight } from "lucide-react";
 export default function DistrictCard({ district, image, description }) {
   return (
     <Link to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}>
-      <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full border-2 border-[#E8D5C4] hover:border-[#C46542]">
+      <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full border-2 border-[var(--accent-border)] hover:border-[#C46542]">
         <div className="relative h-64 overflow-hidden">
           <img
             src={image}
@@ -29,7 +29,7 @@ export default function DistrictCard({ district, image, description }) {
             )}
           </div>
         </div>
-        <div className="p-5 bg-white group-hover:bg-[#FDF5F0] transition-colors">
+        <div className="p-5 bg-[var(--bg-elev)] group-hover:bg-[var(--primary-50)] transition-colors">
           <div className="flex items-center justify-between text-[#C46542] font-semibold">
             <span>Explorar propiedades</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />

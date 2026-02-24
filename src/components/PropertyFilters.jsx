@@ -72,7 +72,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
         <Label>Rango de Precio (USD)</Label>
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label className="text-xs text-gray-500">Mínimo</Label>
+            <Label className="text-xs text-[var(--muted)]">Mínimo</Label>
             <Input
               type="number"
               placeholder="$0"
@@ -81,7 +81,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs text-gray-500">Máximo</Label>
+            <Label className="text-xs text-[var(--muted)]">Máximo</Label>
             <Input
               type="number"
               placeholder="Sin límite"
@@ -96,7 +96,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
         <Label>Tamaño de Terreno (m²)</Label>
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label className="text-xs text-gray-500">Mínimo</Label>
+            <Label className="text-xs text-[var(--muted)]">Mínimo</Label>
             <Input
               type="number"
               placeholder="0"
@@ -105,7 +105,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs text-gray-500">Máximo</Label>
+            <Label className="text-xs text-[var(--muted)]">Máximo</Label>
             <Input
               type="number"
               placeholder="Sin límite"
@@ -120,7 +120,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
         <Label>Construcción (m²)</Label>
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label className="text-xs text-gray-500">Mínimo</Label>
+            <Label className="text-xs text-[var(--muted)]">Mínimo</Label>
             <Input
               type="number"
               placeholder="0"
@@ -129,7 +129,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs text-gray-500">Máximo</Label>
+            <Label className="text-xs text-[var(--muted)]">Máximo</Label>
             <Input
               type="number"
               placeholder="Sin límite"
@@ -231,7 +231,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
               className={`cursor-pointer transition-colors ${
                 filters.tags?.includes(tag)
                   ? "bg-[#C46542] hover:bg-[#A35436] text-white"
-                  : "hover:bg-[#FDF5F0] border-[#C46542] text-[#C46542]"
+                  : "hover:bg-[var(--primary-50)] border-[#C46542] text-[#C46542]"
               }`}
               onClick={() => {
                 const currentTags = filters.tags || [];
@@ -249,7 +249,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
 
       <Button
         variant="outline"
-        className="w-full border-[#C46542] text-[#C46542] hover:bg-[#FDF5F0]"
+        className="w-full border-[#C46542] text-[#C46542] hover:bg-[var(--primary-50)]"
         onClick={onClearFilters}
       >
         <X className="w-4 h-4 mr-2" />
@@ -261,8 +261,8 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
   return (
     <>
       {/* Desktop Filters */}
-      <Card className="hidden lg:block border-[#E8D5C4]">
-        <CardHeader className="bg-[#FDF5F0]">
+      <Card className="hidden lg:block border-[var(--accent-border)]">
+        <CardHeader className="bg-[var(--primary-50)]">
           <CardTitle className="flex items-center gap-2 text-[#C46542]">
             <SlidersHorizontal className="w-5 h-5" />
             Filtros

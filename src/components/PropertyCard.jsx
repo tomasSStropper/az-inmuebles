@@ -23,7 +23,7 @@ export default function PropertyCard({ property }) {
   const mainImage = property.images?.[0] || "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop";
 
   return (
-    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col border-2 border-[#E8D5C4] hover:border-[#C46542]">
+    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col border-2 border-[var(--accent-border)] hover:border-[#C46542]">
       <div className="relative h-64 overflow-hidden">
         <img
           src={mainImage}
@@ -43,7 +43,7 @@ export default function PropertyCard({ property }) {
           </div>
         )}
         <div className="absolute top-4 left-4">
-          <Badge variant="secondary" className="bg-white/95 text-gray-900 font-semibold shadow-lg">
+          <Badge variant="secondary" className="bg-[rgba(42,42,42,0.95)] text-[var(--text)] font-semibold shadow-lg">
             {property.property_type}
           </Badge>
         </div>
@@ -51,38 +51,38 @@ export default function PropertyCard({ property }) {
 
       <CardContent className="p-6 flex-1 flex flex-col">
         <div className="flex items-start justify-between mb-3">
-          <h3 className="font-bold text-xl text-gray-900 line-clamp-2 flex-1 group-hover:text-[#C46542] transition-colors">
+          <h3 className="font-bold text-xl text-[var(--text)] line-clamp-2 flex-1 group-hover:text-[#C46542] transition-colors">
             {property.title}
           </h3>
         </div>
 
-        <div className="flex items-center gap-2 text-gray-600 mb-4">
+        <div className="flex items-center gap-2 text-[var(--muted)] mb-4">
           <MapPin className="w-4 h-4 flex-shrink-0 text-[#C46542]" />
           <span className="text-sm font-medium">
             {property.neighborhood ? `${property.neighborhood}, ` : ""}{property.district}
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-4 mb-4 pb-4 border-b border-[#E8D5C4]">
+        <div className="flex flex-wrap gap-4 mb-4 pb-4 border-b border-[var(--accent-border)]">
           {property.bedrooms && (
-            <div className="flex items-center gap-2 text-sm text-gray-700">
-              <div className="w-8 h-8 bg-[#FDF5F0] rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-2 text-sm text-[var(--text)]">
+              <div className="w-8 h-8 bg-[var(--primary-50)] rounded-lg flex items-center justify-center">
                 <Bed className="w-4 h-4 text-[#C46542]" />
               </div>
               <span className="font-semibold">{property.bedrooms}</span>
             </div>
           )}
           {property.bathrooms && (
-            <div className="flex items-center gap-2 text-sm text-gray-700">
-              <div className="w-8 h-8 bg-[#FDF5F0] rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-2 text-sm text-[var(--text)]">
+              <div className="w-8 h-8 bg-[var(--primary-50)] rounded-lg flex items-center justify-center">
                 <Bath className="w-4 h-4 text-[#C46542]" />
               </div>
               <span className="font-semibold">{property.bathrooms}</span>
             </div>
           )}
           {property.land_size && (
-            <div className="flex items-center gap-2 text-sm text-gray-700">
-              <div className="w-8 h-8 bg-[#FDF5F0] rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-2 text-sm text-[var(--text)]">
+              <div className="w-8 h-8 bg-[var(--primary-50)] rounded-lg flex items-center justify-center">
                 <Ruler className="w-4 h-4 text-[#C46542]" />
               </div>
               <span className="font-semibold">{formatArea(property.land_size, property.land_unit)}</span>
@@ -93,7 +93,7 @@ export default function PropertyCard({ property }) {
         {property.tags && property.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {property.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs bg-[#FDF5F0] text-[#C46542] border-[#E8D5C4]">
+              <Badge key={tag} variant="outline" className="text-xs bg-[var(--primary-50)] text-[#C46542] border-[var(--accent-border)]">
                 {tag}
               </Badge>
             ))}
@@ -107,7 +107,7 @@ export default function PropertyCard({ property }) {
             </span>
           </div>
           {property.price_colones && (
-            <span className="text-sm text-gray-500 font-medium">
+            <span className="text-sm text-[var(--muted)] font-medium">
               ₡{property.price_colones.toLocaleString("es-CR")}
             </span>
           )}

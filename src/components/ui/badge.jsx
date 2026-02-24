@@ -3,8 +3,8 @@ import React from "react";
 export function Badge({ className = "", variant = "default", ...props }) {
   const variants = {
     default: "bg-black text-white",
-    secondary: "bg-gray-100 text-gray-900",
-    outline: "border border-gray-300 bg-white text-gray-900",
+    secondary: "bg-[var(--bg-elev2)] text-[var(--text)]",
+    outline: "border border-[var(--border-strong)] bg-[var(--bg-elev)] text-[var(--text)]",
   };
   const v = variants[variant] ?? variants.default;
   return (

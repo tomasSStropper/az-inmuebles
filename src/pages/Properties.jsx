@@ -169,14 +169,14 @@ export default function Properties() {
             </p>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[var(--bg)] to-transparent" />
       </section>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Search and Sort */}
         <div className="mb-8 flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[var(--muted)]" />
             <Input
               placeholder="Buscar por título, distrito, tipo o etiquetas..."
               value={searchQuery}
@@ -211,11 +211,11 @@ export default function Properties() {
           {/* Properties Grid */}
           <div className="lg:col-span-3">
             <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              <h2 className="text-2xl md:text-3xl font-bold text-[var(--text)]">
                 {filteredProperties.length} {filteredProperties.length === 1 ? "propiedad" : "propiedades"}
               </h2>
               {filteredProperties.length > 0 && (
-                <div className="hidden md:block text-sm text-gray-600">
+                <div className="hidden md:block text-sm text-[var(--muted)]">
                   Mostrando resultados
                 </div>
               )}
@@ -228,17 +228,17 @@ export default function Properties() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 bg-[#FDF5F0] rounded-2xl">
-                <div className="w-20 h-20 bg-[#E8D5C4] rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="text-center py-20 bg-[var(--primary-50)] rounded-2xl">
+                <div className="w-20 h-20 bg-[rgba(196,101,66,0.25)] rounded-full flex items-center justify-center mx-auto mb-6">
                   <Search className="w-10 h-10 text-[#C46542]" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                <h3 className="text-2xl font-bold text-[var(--text)] mb-3">
                   No se encontraron propiedades
                 </h3>
-                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                <p className="text-[var(--muted)] mb-6 max-w-md mx-auto">
                   Intenta ajustar los filtros o realiza una búsqueda diferente
                 </p>
-                <Button onClick={clearFilters} variant="outline" size="lg" className="border-[#C46542] text-[#C46542] hover:bg-[#FDF5F0]">
+                <Button onClick={clearFilters} variant="outline" size="lg" className="border-[#C46542] text-[#C46542] hover:bg-[var(--primary-50)]">
                   Limpiar Filtros
                 </Button>
               </div>

@@ -5,8 +5,8 @@ export function Button({ className = "", variant = "default", size = "md", ...pr
     "inline-flex items-center justify-center rounded-xl font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
   const variants = {
     default: "bg-black text-white hover:opacity-90",
-    outline: "border border-gray-300 bg-white hover:bg-gray-50 text-gray-900",
-    ghost: "hover:bg-gray-100 text-gray-900",
+    outline: "border border-[var(--border-strong)] bg-[var(--bg-elev)] hover:bg-[var(--bg-elev2)] text-[var(--text)]",
+    ghost: "hover:bg-[var(--bg-elev2)] text-[var(--text)]",
   };
   const sizes = {
     sm: "h-9 px-3 text-sm",
