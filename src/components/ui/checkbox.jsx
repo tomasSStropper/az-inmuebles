@@ -7,7 +7,7 @@ export function Checkbox({ checked, onCheckedChange, id }) {
       type="checkbox"
       checked={!!checked}
       onChange={(e) => onCheckedChange?.(e.target.checked)}
-      className="h-5 w-5 rounded border-gray-300 text-[#C46542] focus:ring-[#C46542]"
+      className="h-5 w-5 rounded border-[var(--border-strong)] bg-[var(--bg-elev)] text-[#C46542] focus:ring-[#C46542]"
     />
   );
 }

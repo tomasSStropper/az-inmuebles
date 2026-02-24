@@ -19,7 +19,7 @@ export default function ContactButtons({ propertyTitle = null }) {
         </Button>
       </a>
       <a href={PHONE_URL}>
-        <Button size="lg" variant="outline" className="gap-2 bg-white shadow-lg hover:shadow-xl transition-all border-2 border-[#C46542] text-gray-900 hover:bg-[#FDF5F0] hover:text-gray-900">
+        <Button size="lg" variant="outline" className="gap-2 bg-[var(--bg-elev)] shadow-lg hover:shadow-xl transition-all border-2 border-[#C46542] text-[var(--text)] hover:bg-[var(--primary-50)] hover:text-[var(--text)]">
           <Phone className="w-5 h-5" />
           Llamar Ahora
         </Button>

@@ -43,13 +43,13 @@ export function SheetContent({ side = "right", className = "", children }) {
         aria-hidden="true"
       />
       <div
-        className={`absolute top-0 ${align} h-full w-80 max-w-[90vw] bg-white shadow-2xl p-6 overflow-y-auto ${className}`}
+        className={`absolute top-0 ${align} h-full w-80 max-w-[90vw] bg-[var(--bg-elev)] shadow-2xl p-6 overflow-y-auto ${className}`}
         role="dialog"
         aria-modal="true"
       >
         <button
           onClick={() => ctx.setOpen(false)}
-          className="absolute top-4 right-4 rounded-lg px-2 py-1 text-gray-600 hover:bg-gray-100"
+          className="absolute top-4 right-4 rounded-lg px-2 py-1 text-[var(--muted)] hover:bg-[var(--bg-elev2)]"
           aria-label="Cerrar"
           type="button"
         >

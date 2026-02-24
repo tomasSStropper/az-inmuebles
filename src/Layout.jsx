@@ -50,20 +50,11 @@ export default function Layout({ children, currentPageName }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <style>{`
-        :root {
-          --primary-600: #C46542;
-          --primary-700: #A35436;
-          --primary-50: #FDF5F0;
-          --secondary-500: #E8D5C4;
-          --dark-800: #2C2C2C;
-        }
-      `}</style>
+    <div className="min-h-screen bg-[var(--bg)] flex flex-col">
 
       {/* Header */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-lg py-2" : "bg-white/95 backdrop-blur-md shadow-md py-4"
+        isScrolled ? "bg-[var(--bg-elev)] shadow-lg py-2" : "bg-[rgba(42,42,42,0.95)] backdrop-blur-md shadow-md py-4"
       }`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
@@ -87,7 +78,7 @@ export default function Layout({ children, currentPageName }) {
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all font-medium ${
                     location.pathname === link.url
                       ? "bg-[#C46542] text-white shadow-md"
-                      : "text-gray-700 hover:bg-[#FDF5F0]"
+                      : "text-[var(--text)] hover:bg-[var(--primary-50)]"
                   }`}
                 >
                   <link.icon className="w-4 h-4" />
@@ -99,7 +90,7 @@ export default function Layout({ children, currentPageName }) {
             {/* Header Search (Desktop) */}
             <form onSubmit={onSearch} className="hidden xl:flex items-center gap-2 flex-1 max-w-md">
               <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
                 <Input
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
@@ -115,7 +106,7 @@ export default function Layout({ children, currentPageName }) {
             {/* Contact Buttons */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
               <a href={PHONE_URL}>
-                <Button variant="outline" size="sm" className="gap-2 border-2 border-[#C46542] text-gray-900 hover:bg-[#FDF5F0]">
+                <Button variant="outline" size="sm" className="gap-2 border-2 border-[#C46542] text-[var(--text)] hover:bg-[var(--primary-50)]">
                   <Phone className="w-4 h-4" />
                   {CONTACT.phoneDisplay}
                 </Button>
@@ -138,7 +129,7 @@ export default function Layout({ children, currentPageName }) {
               <SheetContent side="right" className="w-80">
                 <div className="flex flex-col gap-6 mt-8">
                   {/* Logo in mobile menu */}
-                  <div className="flex justify-center pb-6 border-b">
+                  <div className="flex justify-center pb-6 border-b border-[var(--border)]">
                     <img
                       src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
                       alt="AZ Inmuebles"
@@ -151,7 +142,7 @@ export default function Layout({ children, currentPageName }) {
                   {/* Quick Search (Mobile) */}
                   <form onSubmit={onSearch} className="xl:hidden">
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
                       <Input
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
@@ -171,8 +162,8 @@ export default function Layout({ children, currentPageName }) {
                         to={link.url}
                         className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                           location.pathname === link.url
-                            ? "bg-[#FDF5F0] text-[#C46542] font-medium"
-                            : "text-gray-700 hover:bg-gray-100"
+                            ? "bg-[var(--primary-50)] text-[#C46542] font-medium"
+                            : "text-[var(--text)] hover:bg-[var(--bg-elev2)]"
                         }`}
                       >
                         <link.icon className="w-5 h-5" />
@@ -181,14 +172,14 @@ export default function Layout({ children, currentPageName }) {
                     ))}
                   </div>
 
-                  <div className="border-t pt-6">
-                    <h3 className="text-sm font-semibold text-gray-500 mb-3">DISTRITOS</h3>
+                  <div className="border-t border-[var(--border)] pt-6">
+                    <h3 className="text-sm font-semibold text-[var(--muted)] mb-3">DISTRITOS</h3>
                     <div className="space-y-2">
                       {districts.map((district) => (
                         <Link
                           key={district}
                           to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}
-                          className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100"
+                          className="flex items-center gap-3 px-4 py-2 rounded-lg text-[var(--text)] hover:bg-[var(--bg-elev2)]"
                         >
                           <MapPin className="w-4 h-4" />
                           {district}
@@ -197,9 +188,9 @@ export default function Layout({ children, currentPageName }) {
                     </div>
                   </div>
 
-                  <div className="border-t pt-6 space-y-3">
+                  <div className="border-t border-[var(--border)] pt-6 space-y-3">
                     <a href={PHONE_URL} className="block">
-                      <Button variant="outline" className="w-full gap-2 border-[#C46542] text-gray-900">
+                      <Button variant="outline" className="w-full gap-2 border-[#C46542] text-[var(--text)]">
                         <Phone className="w-4 h-4" />
                         {CONTACT.phoneDisplay}
                       </Button>
@@ -230,7 +221,7 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#2C2C2C] text-gray-300 mt-20">
+      <footer className="bg-[#161616] text-[var(--muted)] mt-20">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid md:grid-cols-4 gap-8">
             {/* Brand */}
@@ -242,14 +233,14 @@ export default function Layout({ children, currentPageName }) {
                 loading="lazy"
                 decoding="async"
               />
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-[var(--muted)]">
                 Propiedades con datos claros y asesoría local en Coto Brus
               </p>
             </div>
 
             {/* Districts */}
             <div>
-              <h3 className="font-semibold text-white mb-4">Distritos</h3>
+              <h3 className="font-semibold text-[var(--text)] mb-4">Distritos</h3>
               <ul className="space-y-2 text-sm">
                 {districts.map((district) => (
                   <li key={district}>
@@ -266,7 +257,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Links */}
             <div>
-              <h3 className="font-semibold text-white mb-4">Navegación</h3>
+              <h3 className="font-semibold text-[var(--text)] mb-4">Navegación</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link to={createPageUrl("Home")} className="hover:text-[#E8D5C4] transition-colors">
@@ -293,7 +284,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Contact */}
             <div>
-              <h3 className="font-semibold text-white mb-4">Contacto</h3>
+              <h3 className="font-semibold text-[var(--text)] mb-4">Contacto</h3>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
@@ -317,7 +308,7 @@ export default function Layout({ children, currentPageName }) {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
+          <div className="border-t border-[var(--border)] mt-8 pt-8 text-center text-sm text-[var(--muted)]">
             <p>© {new Date().getFullYear()} AZ Inmuebles. Todos los derechos reservados.</p>
             <p className="mt-2">
               La información de cada propiedad es proporcionada por los propietarios o sus representantes y puede variar; verifíquela antes de cualquier decisión.

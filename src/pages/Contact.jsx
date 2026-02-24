@@ -97,66 +97,66 @@ ${formData.message}
           {/* Contact Info */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl font-bold text-[var(--text)] mb-4">
                 Información de Contacto
               </h2>
-              <p className="text-gray-600 mb-8">
+              <p className="text-[var(--muted)] mb-8">
                 Responderemos tu consulta lo antes posible. También puedes contactarnos directamente por los medios disponibles.
               </p>
             </div>
 
             <Card>
               <CardContent className="p-6 space-y-4">
-                <a href={PHONE_URL} className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <a href={PHONE_URL} className="flex items-start gap-4 p-4 rounded-lg hover:bg-[var(--bg-elev2)] transition-colors">
+                  <div className="w-12 h-12 bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Phone className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-1">Teléfono</h3>
-                    <p className="text-gray-600">{CONTACT.phoneDisplay}</p>
+                    <h3 className="font-bold text-[var(--text)] mb-1">Teléfono</h3>
+                    <p className="text-[var(--muted)]">{CONTACT.phoneDisplay}</p>
                   </div>
                 </a>
 
-                <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-lg hover:bg-[var(--bg-elev2)] transition-colors">
+                  <div className="w-12 h-12 bg-green-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                     <MessageCircle className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-1">WhatsApp</h3>
-                    <p className="text-gray-600">Mensaje directo</p>
+                    <h3 className="font-bold text-[var(--text)] mb-1">WhatsApp</h3>
+                    <p className="text-[var(--muted)]">Mensaje directo</p>
                   </div>
                 </a>
 
-                <a href={EMAIL_URL} className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <a href={EMAIL_URL} className="flex items-start gap-4 p-4 rounded-lg hover:bg-[var(--bg-elev2)] transition-colors">
+                  <div className="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Mail className="w-6 h-6 text-purple-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-1">Correo</h3>
-                    <p className="text-gray-600 break-all">{CONTACT.email}</p>
+                    <h3 className="font-bold text-[var(--text)] mb-1">Correo</h3>
+                    <p className="text-[var(--muted)] break-all">{CONTACT.email}</p>
                   </div>
                 </a>
 
                 <div className="flex items-start gap-4 p-4">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-emerald-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-emerald-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-1">Ubicación</h3>
-                    <p className="text-gray-600">{CONTACT.location}</p>
+                    <h3 className="font-bold text-[var(--text)] mb-1">Ubicación</h3>
+                    <p className="text-[var(--muted)]">{CONTACT.location}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4 p-4">
-                  <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-amber-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Clock className="w-6 h-6 text-amber-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-1">Horario</h3>
+                    <h3 className="font-bold text-[var(--text)] mb-1">Horario</h3>
                     {CONTACT.hours.map((h) => (
-                      <p key={h} className="text-gray-600">{h}</p>
+                      <p key={h} className="text-[var(--muted)]">{h}</p>
                     ))}
-                    <p className="text-gray-600 mt-2"><strong>Promesa:</strong> respuesta ágil por WhatsApp en horario de atención.</p>
+                    <p className="text-[var(--muted)] mt-2"><strong>Promesa:</strong> respuesta ágil por WhatsApp en horario de atención.</p>
                   </div>
                 </div>
               </CardContent>
@@ -172,13 +172,13 @@ ${formData.message}
               <CardContent>
                 {isSuccess ? (
                   <div className="text-center py-8">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                       <CheckCircle2 className="w-8 h-8 text-green-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-xl font-bold text-[var(--text)] mb-2">
                       ¡Mensaje Enviado!
                     </h3>
-                    <p className="text-gray-600 mb-6">
+                    <p className="text-[var(--muted)] mb-6">
                       Gracias por contactarnos. Te responderemos pronto.
                     </p>
                     <Button onClick={() => setIsSuccess(false)} variant="outline">
@@ -241,7 +241,7 @@ ${formData.message}
                         checked={formData.consent}
                         onCheckedChange={(checked) => handleChange("consent", checked)}
                       />
-                      <Label htmlFor="consent" className="text-sm text-gray-600 cursor-pointer">
+                      <Label htmlFor="consent" className="text-sm text-[var(--muted)] cursor-pointer">
                         Acepto que AZ Inmuebles use mis datos para responder mi consulta, según los{" "}
                         <Link to={createPageUrl("TerminosPrivacidad")} className="text-[#C46542] hover:underline">
                           Términos y Privacidad
@@ -270,12 +270,12 @@ ${formData.message}
               >
                 <Card className="hover:shadow-lg transition-all cursor-pointer h-full">
                   <CardContent className="p-6 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-green-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                       <MessageCircle className="w-6 h-6 text-green-600" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900">WhatsApp</h3>
-                      <p className="text-sm text-gray-600">Respuesta inmediata</p>
+                      <h3 className="font-bold text-[var(--text)]">WhatsApp</h3>
+                      <p className="text-sm text-[var(--muted)]">Respuesta inmediata</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -284,12 +284,12 @@ ${formData.message}
               <a href={EMAIL_URL}>
                 <Card className="hover:shadow-lg transition-all cursor-pointer h-full">
                   <CardContent className="p-6 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Mail className="w-6 h-6 text-purple-600" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900">Correo</h3>
-                      <p className="text-sm text-gray-600">{CONTACT.email}</p>
+                      <h3 className="font-bold text-[var(--text)]">Correo</h3>
+                      <p className="text-sm text-[var(--muted)]">{CONTACT.email}</p>
                     </div>
                   </CardContent>
                 </Card>

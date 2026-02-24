@@ -92,7 +92,7 @@ export default function PropertyDetail() {
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center">
-          <p className="text-gray-500">Cargando propiedad...</p>
+          <p className="text-[var(--muted)]">Cargando propiedad...</p>
         </div>
       </div>
     );
@@ -109,9 +109,9 @@ export default function PropertyDetail() {
   return (
     <div>
       {/* Breadcrumb */}
-      <div className="bg-gray-100 py-4">
+      <div className="bg-[var(--bg-elev)] py-4">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
             <Link to={createPageUrl("Home")} className="hover:text-emerald-600">
               Inicio
             </Link>
@@ -120,7 +120,7 @@ export default function PropertyDetail() {
               Propiedades
             </Link>
             <span>/</span>
-            <span className="text-gray-900">{property.title}</span>
+            <span className="text-[var(--text)]">{property.title}</span>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@ export default function PropertyDetail() {
           <div className="lg:col-span-2 space-y-8">
             {/* Image Gallery */}
             <div className="space-y-4">
-              <div className="relative h-[500px] rounded-2xl overflow-hidden bg-gray-100">
+              <div className="relative h-[500px] rounded-2xl overflow-hidden bg-[var(--bg-elev)]">
                 <img
                   src={images[currentImageIndex]}
                   alt={`${property.title} - Imagen ${currentImageIndex + 1}`}
@@ -145,15 +145,15 @@ export default function PropertyDetail() {
                   <>
                     <button
                       onClick={prevImage}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all shadow-lg"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[rgba(42,42,42,0.9)] hover:bg-[var(--bg-elev)] rounded-full flex items-center justify-center transition-all shadow-lg"
                     >
-                      <ChevronLeft className="w-6 h-6 text-gray-900" />
+                      <ChevronLeft className="w-6 h-6 text-[var(--text)]" />
                     </button>
                     <button
                       onClick={nextImage}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all shadow-lg"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[rgba(42,42,42,0.9)] hover:bg-[var(--bg-elev)] rounded-full flex items-center justify-center transition-all shadow-lg"
                     >
-                      <ChevronRight className="w-6 h-6 text-gray-900" />
+                      <ChevronRight className="w-6 h-6 text-[var(--text)]" />
                     </button>
                   </>
                 )}
@@ -193,10 +193,10 @@ export default function PropertyDetail() {
             <div>
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                  <h1 className="text-3xl md:text-4xl font-bold text-[var(--text)] mb-2">
                     {property.title}
                   </h1>
-                  <div className="flex items-center gap-2 text-gray-600">
+                  <div className="flex items-center gap-2 text-[var(--muted)]">
                     <MapPin className="w-5 h-5" />
                     <span className="text-lg">
                       {property.neighborhood ? `${property.neighborhood}, ` : ""}{property.district}
@@ -213,7 +213,7 @@ export default function PropertyDetail() {
                   {formatPrice(property.price_dollars)}
                 </span>
                 {property.price_colones && (
-                  <span className="text-xl text-gray-500">
+                  <span className="text-xl text-[var(--muted)]">
                     ₡{property.price_colones.toLocaleString("es-CR")}
                   </span>
                 )}
@@ -229,12 +229,12 @@ export default function PropertyDetail() {
                 <div className="grid md:grid-cols-2 gap-6">
                   {property.land_size && (
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-emerald-900/30 rounded-xl flex items-center justify-center">
                         <Ruler className="w-6 h-6 text-emerald-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Terreno</p>
-                        <p className="font-semibold text-gray-900">
+                        <p className="text-sm text-[var(--muted)]">Terreno</p>
+                        <p className="font-semibold text-[var(--text)]">
                           {formatArea(property.land_size, property.land_unit)}
                         </p>
                       </div>
@@ -243,12 +243,12 @@ export default function PropertyDetail() {
 
                   {property.construction_size && (
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-blue-900/30 rounded-xl flex items-center justify-center">
                         <Ruler className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Construcción</p>
-                        <p className="font-semibold text-gray-900">
+                        <p className="text-sm text-[var(--muted)]">Construcción</p>
+                        <p className="font-semibold text-[var(--text)]">
                           {formatArea(property.construction_size, "m²")}
                         </p>
                       </div>
@@ -257,68 +257,68 @@ export default function PropertyDetail() {
 
                   {property.bedrooms && (
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center">
                         <Bed className="w-6 h-6 text-purple-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Dormitorios</p>
-                        <p className="font-semibold text-gray-900">{property.bedrooms}</p>
+                        <p className="text-sm text-[var(--muted)]">Dormitorios</p>
+                        <p className="font-semibold text-[var(--text)]">{property.bedrooms}</p>
                       </div>
                     </div>
                   )}
 
                   {property.bathrooms && (
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-cyan-900/30 rounded-xl flex items-center justify-center">
                         <Bath className="w-6 h-6 text-cyan-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Baños</p>
-                        <p className="font-semibold text-gray-900">{property.bathrooms}</p>
+                        <p className="text-sm text-[var(--muted)]">Baños</p>
+                        <p className="font-semibold text-[var(--text)]">{property.bathrooms}</p>
                       </div>
                     </div>
                   )}
 
                   {property.parking && (
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-amber-900/30 rounded-xl flex items-center justify-center">
                         <Car className="w-6 h-6 text-amber-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Parqueos</p>
-                        <p className="font-semibold text-gray-900">{property.parking}</p>
+                        <p className="text-sm text-[var(--muted)]">Parqueos</p>
+                        <p className="font-semibold text-[var(--text)]">{property.parking}</p>
                       </div>
                     </div>
                   )}
 
                   {property.year_built && (
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-green-900/30 rounded-xl flex items-center justify-center">
                         <Calendar className="w-6 h-6 text-green-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Año de Construcción</p>
-                        <p className="font-semibold text-gray-900">{property.year_built}</p>
+                        <p className="text-sm text-[var(--muted)]">Año de Construcción</p>
+                        <p className="font-semibold text-[var(--text)]">{property.year_built}</p>
                       </div>
                     </div>
                   )}
 
                   {property.condition && (
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-pink-900/30 rounded-xl flex items-center justify-center">
                         <FileText className="w-6 h-6 text-pink-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Estado</p>
-                        <p className="font-semibold text-gray-900">{property.condition}</p>
+                        <p className="text-sm text-[var(--muted)]">Estado</p>
+                        <p className="font-semibold text-[var(--text)]">{property.condition}</p>
                       </div>
                     </div>
                   )}
                 </div>
 
                 {property.services && property.services.length > 0 && (
-                  <div className="mt-6 pt-6 border-t">
-                    <h4 className="font-semibold text-gray-900 mb-3">Servicios Disponibles</h4>
+                  <div className="mt-6 pt-6 border-t border-[var(--border)]">
+                    <h4 className="font-semibold text-[var(--text)] mb-3">Servicios Disponibles</h4>
                     <div className="flex flex-wrap gap-2">
                       {property.services.map((service, index) => (
                         <Badge key={index} variant="secondary">
@@ -330,11 +330,11 @@ export default function PropertyDetail() {
                 )}
 
                 {property.tags && property.tags.length > 0 && (
-                  <div className="mt-6 pt-6 border-t">
-                    <h4 className="font-semibold text-gray-900 mb-3">Características</h4>
+                  <div className="mt-6 pt-6 border-t border-[var(--border)]">
+                    <h4 className="font-semibold text-[var(--text)] mb-3">Características</h4>
                     <div className="flex flex-wrap gap-2">
                       {property.tags.map((tag, index) => (
-                        <Badge key={index} variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200">
+                        <Badge key={index} variant="outline" className="bg-emerald-900/20 text-emerald-400 border-emerald-800/40">
                           {tag}
                         </Badge>
                       ))}
@@ -351,7 +351,7 @@ export default function PropertyDetail() {
                   <CardTitle>Descripción</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                  <p className="text-[var(--text)] leading-relaxed whitespace-pre-line">
                     {property.description}
                   </p>
                 </CardContent>
@@ -372,13 +372,13 @@ export default function PropertyDetail() {
                         href={doc.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                        className="flex items-center justify-between p-4 bg-[var(--bg-elev2)] rounded-lg hover:bg-[var(--bg)] transition-colors"
                       >
                         <div className="flex items-center gap-3">
                           <FileText className="w-5 h-5 text-emerald-600" />
-                          <span className="font-medium text-gray-900">{doc.name}</span>
+                          <span className="font-medium text-[var(--text)]">{doc.name}</span>
                         </div>
-                        <Download className="w-5 h-5 text-gray-400" />
+                        <Download className="w-5 h-5 text-[var(--muted)]" />
                       </a>
                     ))}
                   </div>
@@ -393,7 +393,7 @@ export default function PropertyDetail() {
                   <CardTitle>Ubicación Aproximada</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-96 bg-gray-100 rounded-lg flex items-center justify-center">
+                  <div className="h-96 bg-[var(--bg-elev2)] rounded-lg flex items-center justify-center">
                     <iframe
                       src={`https://www.google.com/maps?q=${property.map_coordinates.lat},${property.map_coordinates.lng}&output=embed`}
                       width="100%"
@@ -402,7 +402,7 @@ export default function PropertyDetail() {
                       loading="lazy"
                     />
                   </div>
-                  <p className="text-sm text-gray-500 mt-3">
+                  <p className="text-sm text-[var(--muted)] mt-3">
                     La ubicación mostrada es aproximada. Se proporcionará la ubicación exacta al contactarnos.
                   </p>
                 </CardContent>
@@ -414,7 +414,7 @@ export default function PropertyDetail() {
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
               {/* Contact Card */}
-              <Card className="bg-emerald-50 border-emerald-200">
+              <Card className="bg-emerald-900/20 border-emerald-800/30">
                 <CardHeader>
                   <CardTitle className="text-center">¿Interesado en esta propiedad?</CardTitle>
                 </CardHeader>
@@ -447,11 +447,11 @@ export default function PropertyDetail() {
                     <div className="w-20 h-20 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-white font-bold text-2xl">AZ</span>
                     </div>
-                    <h3 className="font-bold text-gray-900 mb-1">AZ Inmuebles</h3>
-                    <p className="text-sm text-gray-600 mb-4">
+                    <h3 className="font-bold text-[var(--text)] mb-1">AZ Inmuebles</h3>
+                    <p className="text-sm text-[var(--muted)] mb-4">
                       Asesoría profesional en Coto Brus
                     </p>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-[var(--muted)]">
                       <p>📞 {CONTACT.phoneDisplay}</p>
                       <p>📧 {CONTACT.email}</p>
                     </div>
@@ -460,9 +460,9 @@ export default function PropertyDetail() {
               </Card>
 
               {/* Legal Notice */}
-              <Card className="bg-yellow-50 border-yellow-200">
+              <Card className="bg-yellow-900/20 border-yellow-800/30">
                 <CardContent className="p-4">
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-[var(--muted)]">
                     <strong>Aviso:</strong> La información de cada propiedad es proporcionada por los propietarios o sus representantes y puede variar; verifíquela antes de cualquier decisión.
                   </p>
                 </CardContent>
@@ -474,7 +474,7 @@ export default function PropertyDetail() {
         {/* Related Properties */}
         {relatedProperties.length > 0 && (
           <div className="mt-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            <h2 className="text-3xl font-bold text-[var(--text)] mb-8">
               Propiedades Relacionadas
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

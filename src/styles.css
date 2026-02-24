@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* Dark mode palette */
+    --bg: #1e1e1e;
+    --bg-elev: #2a2a2a;
+    --bg-elev2: #333333;
+    --text: #f0f0f0;
+    --muted: #a0a0a0;
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.18);
+
+    /* Brand accents (unchanged) */
+    --primary-600: #C46542;
+    --primary-700: #A35436;
+    --primary-800: #8B4530;
+    --primary-50: #352820;
+    --secondary-500: #E8D5C4;
+    --accent-border: rgba(196, 101, 66, 0.3);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  ::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+}
+
 /* Helpers mínimos para que el look sea igual al builder */
 .line-clamp-2{
   display:-webkit-box;

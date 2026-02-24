@@ -108,14 +108,14 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="mt-12 bg-white rounded-2xl p-3 flex gap-3 max-w-xl shadow-2xl">
+              className="mt-12 bg-[var(--bg-elev)] rounded-2xl p-3 flex gap-3 max-w-xl shadow-2xl">
 
               <Input
                 placeholder="Buscar por distrito, tipo o características..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                className="border-0 focus-visible:ring-0 text-gray-900 text-lg" />
+                className="border-0 focus-visible:ring-0 text-[var(--text)] text-lg" />
 
               <Button onClick={handleSearch} className="bg-[#C46542] hover:bg-[#A35436] px-6">
                 <Search className="w-5 h-5" />
@@ -124,13 +124,13 @@ export default function Home() {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--bg)] to-transparent" />
       </section>
 
       {/* Stats Bar */}
       <section className="relative -mt-20 z-10">
         <div className="my-20 px-4 max-w-7xl">
-          <div className="bg-white rounded-3xl shadow-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-6 border-2 border-[#E8D5C4]">
+          <div className="bg-[var(--bg-elev)] rounded-3xl shadow-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-6 border-2 border-[var(--accent-border)]">
             {stats.map((stat, index) =>
             <motion.div
               key={index}
@@ -142,8 +142,8 @@ export default function Home() {
                 <div className="w-14 h-14 bg-gradient-to-br from-[#C46542] to-[#A35436] rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg">
                   <stat.icon className="w-7 h-7 text-white" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+                <div className="text-3xl font-bold text-[var(--text)] mb-1">{stat.value}</div>
+                <div className="text-sm text-[var(--muted)]">{stat.label}</div>
               </motion.div>
             )}
           </div>
@@ -159,13 +159,13 @@ export default function Home() {
           viewport={{ once: true }}
           className="text-center mb-16">
 
-          <div className="inline-block mb-4 px-4 py-2 bg-[#FDF5F0] text-[#C46542] rounded-full text-sm font-semibold">
+          <div className="inline-block mb-4 px-4 py-2 bg-[var(--primary-50)] text-[#C46542] rounded-full text-sm font-semibold">
             EXPLORA COTO BRUS
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
             Descubre por Distrito
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-[var(--muted)] max-w-2xl mx-auto">
             Seis distritos únicos con propiedades que se adaptan a tu estilo de vida
           </p>
         </motion.div>
@@ -191,7 +191,7 @@ export default function Home() {
 
       {/* Featured Properties */}
       {displayProperties.length > 0 &&
-      <section className="bg-gradient-to-br from-gray-50 to-[#FDF5F0] py-24">
+      <section className="bg-gradient-to-br from-[var(--bg)] to-[var(--primary-50)] py-24">
           <div className="max-w-7xl mx-auto px-4">
             <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -201,18 +201,18 @@ export default function Home() {
             className="flex items-center justify-between mb-16">
 
               <div>
-                <div className="inline-block mb-4 px-4 py-2 bg-[#FDF5F0] text-[#C46542] rounded-full text-sm font-semibold border border-[#E8D5C4]">
+                <div className="inline-block mb-4 px-4 py-2 bg-[var(--primary-50)] text-[#C46542] rounded-full text-sm font-semibold border border-[var(--accent-border)]">
                   OPORTUNIDADES
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
                   Propiedades Destacadas
                 </h2>
-                <p className="text-xl text-gray-600">
+                <p className="text-xl text-[var(--muted)]">
                   Las mejores oportunidades del momento
                 </p>
               </div>
               <Link to={createPageUrl("Properties")} className="hidden md:block">
-                <Button size="lg" variant="outline" className="shadow-lg border-2 border-[#C46542] text-[#C46542] hover:bg-[#FDF5F0]">
+                <Button size="lg" variant="outline" className="shadow-lg border-2 border-[#C46542] text-[#C46542] hover:bg-[var(--primary-50)]">
                   Ver Todas
                 </Button>
               </Link>
@@ -234,7 +234,7 @@ export default function Home() {
 
             <div className="text-center md:hidden">
               <Link to={createPageUrl("Properties")}>
-                <Button size="lg" variant="outline" className="shadow-lg border-2 border-[#C46542] text-[#C46542] hover:bg-[#FDF5F0]">
+                <Button size="lg" variant="outline" className="shadow-lg border-2 border-[#C46542] text-[#C46542] hover:bg-[var(--primary-50)]">
                   Ver Todas las Propiedades
                 </Button>
               </Link>
@@ -252,13 +252,13 @@ export default function Home() {
           viewport={{ once: true }}
           className="text-center mb-16">
 
-          <div className="inline-block mb-4 px-4 py-2 bg-[#FDF5F0] text-[#C46542] rounded-full text-sm font-semibold">
+          <div className="inline-block mb-4 px-4 py-2 bg-[var(--primary-50)] text-[#C46542] rounded-full text-sm font-semibold">
             CONFIANZA Y EXPERIENCIA
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
             ¿Por qué elegir AZ Inmuebles?
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-[var(--muted)] max-w-2xl mx-auto">
             Nuestro compromiso con la transparencia y el servicio de calidad
           </p>
         </motion.div>
@@ -273,14 +273,14 @@ export default function Home() {
             viewport={{ once: true }}
             className="group">
 
-              <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-[#E8D5C4] h-full">
+              <div className="bg-[var(--bg-elev)] rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-[var(--accent-border)] h-full">
                 <div className="w-20 h-20 bg-gradient-to-br from-[#C46542] to-[#A35436] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <reason.icon className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl font-bold text-[var(--text)] mb-4">
                   {reason.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed text-lg">
+                <p className="text-[var(--muted)] leading-relaxed text-lg">
                   {reason.description}
                 </p>
               </div>
