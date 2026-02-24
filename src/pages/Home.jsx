@@ -10,6 +10,7 @@ import DistrictCard from "../components/DistrictCard";
 import PropertyCard from "../components/PropertyCard";
 import ContactButtons from "../components/ContactButtons";
 import { useTranslation } from "@/i18n/LanguageContext";
+import { HERO_COTO_BRUS_DATA_URI } from "@/assets/heroCotoBrusDataUri";
 
 const districtKeys = {
   "San Vito": "sanVito",
@@ -89,7 +90,7 @@ export default function Home() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&q=80')",
+
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat"
