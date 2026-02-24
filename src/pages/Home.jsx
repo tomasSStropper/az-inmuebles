@@ -86,17 +86,16 @@ export default function Home() {
     <div>
       {/* Hero Section */}
       <section className="relative h-[650px] md:h-[750px] overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/d1ec5528a_image.png"
-            alt="Coto Brus, Puntarenas"
-            className="w-full h-full object-cover"
-            loading="lazy"
-            decoding="async" />
-
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        </div>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&q=80')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat"
+          }}
+          aria-label="Coto Brus, Puntarenas"
+        />
 
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
           <motion.div
