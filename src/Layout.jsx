@@ -53,8 +53,8 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-[var(--bg)] flex flex-col">
 
       {/* Header */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-[var(--bg-elev)] shadow-lg py-2" : "bg-[rgba(42,42,42,0.95)] backdrop-blur-md shadow-md py-4"
+      <header className={`sticky top-0 z-50 py-2 transition-colors duration-300 ${
+        isScrolled ? "bg-[var(--bg-elev)] shadow-lg" : "bg-[rgba(42,42,42,0.95)] backdrop-blur-md shadow-md"
       }`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
@@ -63,9 +63,7 @@ export default function Layout({ children, currentPageName }) {
               <img
                 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
                 alt="AZ Inmuebles - Coto Brus, Costa Rica"
-                className={`transition-all duration-300 group-hover:scale-105 ${
-                  isScrolled ? "h-16 md:h-20" : "h-20 md:h-24"
-                }`}
+                className="h-16 md:h-20 group-hover:scale-105 transition-transform duration-300"
               />
             </Link>
 

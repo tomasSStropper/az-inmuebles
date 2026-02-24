@@ -129,7 +129,7 @@ export default function Home() {
 
       {/* Stats Bar */}
       <section className="relative -mt-20 z-10">
-        <div className="my-20 px-4 max-w-7xl">
+        <div className="my-20 px-4 max-w-7xl mx-auto">
           <div className="bg-[var(--bg-elev)] rounded-3xl shadow-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-6 border-2 border-[var(--accent-border)]">
             {stats.map((stat, index) =>
             <motion.div
