@@ -19,26 +19,38 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { useTranslation } from "@/i18n/LanguageContext";
 
-const propertyTypes = ["Casa", "Lote", "Finca", "Apartamento", "Comercial"];
-const conditions = ["Nueva", "Usada"];
+const propertyTypeKeys = [
+  { value: "Casa", key: "typeHouse" },
+  { value: "Lote", key: "typeLot" },
+  { value: "Finca", key: "typeFarm" },
+  { value: "Apartamento", key: "typeApartment" },
+  { value: "Comercial", key: "typeCommercial" },
+];
+const conditionKeys = [
+  { value: "Nueva", key: "conditionNew" },
+  { value: "Usada", key: "conditionUsed" },
+];
 const districts = ["San Vito", "Sabalito", "Agua Buena", "Limoncito", "Pittier", "Gutiérrez Braun"];
 const allTags = ["montaña", "centro", "vista", "cafetal", "río", "acceso asfaltado", "servicios públicos"];
 
 export default function PropertyFilters({ filters, setFilters, onClearFilters }) {
+  const { t } = useTranslation();
+
   const FilterContent = () => (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label>Distrito</Label>
+        <Label>{t("filters.district")}</Label>
         <Select
           value={filters.district || "all"}
           onValueChange={(value) => setFilters({ ...filters, district: value === "all" ? "" : value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Todos" />
+            <SelectValue placeholder={t("filters.all")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos los distritos</SelectItem>
+            <SelectItem value="all">{t("filters.allDistricts")}</SelectItem>
             {districts.map((district) => (
               <SelectItem key={district} value={district}>
                 {district}
@@ -49,19 +61,19 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
       </div>
 
       <div className="space-y-2">
-        <Label>Tipo de Inmueble</Label>
+        <Label>{t("filters.propertyType")}</Label>
         <Select
           value={filters.propertyType || "all"}
           onValueChange={(value) => setFilters({ ...filters, propertyType: value === "all" ? "" : value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Todos" />
+            <SelectValue placeholder={t("filters.all")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos</SelectItem>
-            {propertyTypes.map((type) => (
-              <SelectItem key={type} value={type}>
-                {type}
+            <SelectItem value="all">{t("filters.all")}</SelectItem>
+            {propertyTypeKeys.map(({ value, key }) => (
+              <SelectItem key={value} value={value}>
+                {t(`filters.${key}`)}
               </SelectItem>
             ))}
           </SelectContent>
@@ -69,10 +81,10 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
       </div>
 
       <div className="space-y-4">
-        <Label>Rango de Precio (USD)</Label>
+        <Label>{t("filters.priceRange")}</Label>
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label className="text-xs text-[var(--muted)]">Mínimo</Label>
+            <Label className="text-xs text-[var(--muted)]">{t("filters.minimum")}</Label>
             <Input
               type="number"
               placeholder="$0"
@@ -81,10 +93,10 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs text-[var(--muted)]">Máximo</Label>
+            <Label className="text-xs text-[var(--muted)]">{t("filters.maximum")}</Label>
             <Input
               type="number"
-              placeholder="Sin límite"
+              placeholder={t("filters.noLimit")}
               value={filters.maxPrice || ""}
               onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
             />
@@ -93,10 +105,10 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
       </div>
 
       <div className="space-y-4">
-        <Label>Tamaño de Terreno (m²)</Label>
+        <Label>{t("filters.landSize")}</Label>
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label className="text-xs text-[var(--muted)]">Mínimo</Label>
+            <Label className="text-xs text-[var(--muted)]">{t("filters.minimum")}</Label>
             <Input
               type="number"
               placeholder="0"
@@ -105,10 +117,10 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs text-[var(--muted)]">Máximo</Label>
+            <Label className="text-xs text-[var(--muted)]">{t("filters.maximum")}</Label>
             <Input
               type="number"
-              placeholder="Sin límite"
+              placeholder={t("filters.noLimit")}
               value={filters.maxLandSize || ""}
               onChange={(e) => setFilters({ ...filters, maxLandSize: e.target.value })}
             />
@@ -117,10 +129,10 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
       </div>
 
       <div className="space-y-4">
-        <Label>Construcción (m²)</Label>
+        <Label>{t("filters.constructionSize")}</Label>
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-2">
-            <Label className="text-xs text-[var(--muted)]">Mínimo</Label>
+            <Label className="text-xs text-[var(--muted)]">{t("filters.minimum")}</Label>
             <Input
               type="number"
               placeholder="0"
@@ -129,10 +141,10 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-xs text-[var(--muted)]">Máximo</Label>
+            <Label className="text-xs text-[var(--muted)]">{t("filters.maximum")}</Label>
             <Input
               type="number"
-              placeholder="Sin límite"
+              placeholder={t("filters.noLimit")}
               value={filters.maxConstructionSize || ""}
               onChange={(e) => setFilters({ ...filters, maxConstructionSize: e.target.value })}
             />
@@ -141,19 +153,19 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
       </div>
 
       <div className="space-y-2">
-        <Label>Estado</Label>
+        <Label>{t("filters.condition")}</Label>
         <Select
           value={filters.condition || "all"}
           onValueChange={(value) => setFilters({ ...filters, condition: value === "all" ? "" : value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Todos" />
+            <SelectValue placeholder={t("filters.all")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos</SelectItem>
-            {conditions.map((condition) => (
-              <SelectItem key={condition} value={condition}>
-                {condition}
+            <SelectItem value="all">{t("filters.all")}</SelectItem>
+            {conditionKeys.map(({ value, key }) => (
+              <SelectItem key={value} value={value}>
+                {t(`filters.${key}`)}
               </SelectItem>
             ))}
           </SelectContent>
@@ -162,16 +174,16 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label>Dormitorios</Label>
+          <Label>{t("filters.bedrooms")}</Label>
           <Select
             value={filters.bedrooms || "all"}
             onValueChange={(value) => setFilters({ ...filters, bedrooms: value === "all" ? "" : value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Todos" />
+              <SelectValue placeholder={t("filters.all")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todos</SelectItem>
+              <SelectItem value="all">{t("filters.all")}</SelectItem>
               {[1, 2, 3, 4, 5, 6].map((num) => (
                 <SelectItem key={num} value={num.toString()}>
                   {num}+
@@ -181,16 +193,16 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
           </Select>
         </div>
         <div className="space-y-2">
-          <Label>Baños</Label>
+          <Label>{t("filters.bathrooms")}</Label>
           <Select
             value={filters.bathrooms || "all"}
             onValueChange={(value) => setFilters({ ...filters, bathrooms: value === "all" ? "" : value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Todos" />
+              <SelectValue placeholder={t("filters.all")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todos</SelectItem>
+              <SelectItem value="all">{t("filters.all")}</SelectItem>
               {[1, 2, 3, 4, 5].map((num) => (
                 <SelectItem key={num} value={num.toString()}>
                   {num}+
@@ -202,16 +214,16 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
       </div>
 
       <div className="space-y-2">
-        <Label>Parqueos</Label>
+        <Label>{t("filters.parking")}</Label>
         <Select
           value={filters.parking || "all"}
           onValueChange={(value) => setFilters({ ...filters, parking: value === "all" ? "" : value })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Todos" />
+            <SelectValue placeholder={t("filters.all")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todos</SelectItem>
+            <SelectItem value="all">{t("filters.all")}</SelectItem>
             {[1, 2, 3, 4].map((num) => (
               <SelectItem key={num} value={num.toString()}>
                 {num}+
@@ -222,7 +234,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
       </div>
 
       <div className="space-y-2">
-        <Label>Características</Label>
+        <Label>{t("filters.features")}</Label>
         <div className="flex flex-wrap gap-2">
           {allTags.map((tag) => (
             <Badge
@@ -253,7 +265,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
         onClick={onClearFilters}
       >
         <X className="w-4 h-4 mr-2" />
-        Limpiar Filtros
+        {t("filters.clearFilters")}
       </Button>
     </div>
   );
@@ -265,7 +277,7 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
         <CardHeader className="bg-[var(--primary-50)]">
           <CardTitle className="flex items-center gap-2 text-[#C46542]">
             <SlidersHorizontal className="w-5 h-5" />
-            Filtros
+            {t("filters.title")}
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
@@ -278,12 +290,12 @@ export default function PropertyFilters({ filters, setFilters, onClearFilters })
         <SheetTrigger asChild className="lg:hidden">
           <Button variant="outline" className="w-full gap-2 border-[#C46542] text-[#C46542]">
             <SlidersHorizontal className="w-4 h-4" />
-            Filtros
+            {t("filters.title")}
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-80 overflow-y-auto">
           <SheetHeader>
-            <SheetTitle className="text-[#C46542]">Filtros</SheetTitle>
+            <SheetTitle className="text-[#C46542]">{t("filters.title")}</SheetTitle>
           </SheetHeader>
           <div className="mt-6">
             <FilterContent />

@@ -22,12 +22,14 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import PropertyCard from "../components/PropertyCard";
 import { CONTACT, PHONE_URL, EMAIL_URL, whatsappUrl } from "@/config/contact";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function PropertyDetail() {
   const [property, setProperty] = useState(null);
   const [relatedProperties, setRelatedProperties] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadProperty();
@@ -51,8 +53,8 @@ export default function PropertyDetail() {
   const loadRelatedProperties = async (currentProperty) => {
     const allProperties = await Property.list();
     const related = allProperties
-      .filter(p => 
-        p.id !== currentProperty.id && 
+      .filter(p =>
+        p.id !== currentProperty.id &&
         (p.district === currentProperty.district || p.property_type === currentProperty.property_type)
       )
       .slice(0, 3);
@@ -74,7 +76,7 @@ export default function PropertyDetail() {
 
   const nextImage = () => {
     if (property.images) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === property.images.length - 1 ? 0 : prev + 1
       );
     }
@@ -82,7 +84,7 @@ export default function PropertyDetail() {
 
   const prevImage = () => {
     if (property.images) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? property.images.length - 1 : prev - 1
       );
     }
@@ -92,18 +94,18 @@ export default function PropertyDetail() {
     return (
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center">
-          <p className="text-[var(--muted)]">Cargando propiedad...</p>
+          <p className="text-[var(--muted)]">{t("propertyDetail.loading")}</p>
         </div>
       </div>
     );
   }
 
-  const images = property.images && property.images.length > 0 
-    ? property.images 
+  const images = property.images && property.images.length > 0
+    ? property.images
     : ["https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&h=800&fit=crop"];
 
   const whatsapp = whatsappUrl(
-    `Hola, estoy interesado en la propiedad: ${property.title} en ${property.district}. ¿Podrían brindarme más información sobre precio, disponibilidad y opciones de visita? Gracias.`
+    t("whatsapp.propertyDetailMessage", { title: property.title, district: property.district })
   );
 
   return (
@@ -113,11 +115,11 @@ export default function PropertyDetail() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
             <Link to={createPageUrl("Home")} className="hover:text-emerald-600">
-              Inicio
+              {t("propertyDetail.breadcrumbHome")}
             </Link>
             <span>/</span>
             <Link to={createPageUrl("Properties")} className="hover:text-emerald-600">
-              Propiedades
+              {t("propertyDetail.breadcrumbProperties")}
             </Link>
             <span>/</span>
             <span className="text-[var(--text)]">{property.title}</span>
@@ -134,7 +136,7 @@ export default function PropertyDetail() {
               <div className="relative h-[500px] rounded-2xl overflow-hidden bg-[var(--bg-elev)]">
                 <img
                   src={images[currentImageIndex]}
-                  alt={`${property.title} - Imagen ${currentImageIndex + 1}`}
+                  alt={t("propertyDetail.imageAlt", { title: property.title, index: currentImageIndex + 1 })}
                   className="w-full h-full object-cover cursor-pointer"
                   loading="lazy"
                   decoding="async"
@@ -178,7 +180,7 @@ export default function PropertyDetail() {
                     >
                       <img
                         src={img}
-                        alt={`Miniatura ${index + 1}`}
+                        alt={t("propertyDetail.thumbnailAlt", { index: index + 1 })}
                         className="w-full h-full object-cover"
                         loading="lazy"
                         decoding="async"
@@ -223,7 +225,7 @@ export default function PropertyDetail() {
             {/* Technical Details */}
             <Card>
               <CardHeader>
-                <CardTitle>Datos Técnicos</CardTitle>
+                <CardTitle>{t("propertyDetail.technicalData")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-6">
@@ -233,7 +235,7 @@ export default function PropertyDetail() {
                         <Ruler className="w-6 h-6 text-emerald-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-[var(--muted)]">Terreno</p>
+                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.land")}</p>
                         <p className="font-semibold text-[var(--text)]">
                           {formatArea(property.land_size, property.land_unit)}
                         </p>
@@ -247,7 +249,7 @@ export default function PropertyDetail() {
                         <Ruler className="w-6 h-6 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-[var(--muted)]">Construcción</p>
+                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.construction")}</p>
                         <p className="font-semibold text-[var(--text)]">
                           {formatArea(property.construction_size, "m²")}
                         </p>
@@ -261,7 +263,7 @@ export default function PropertyDetail() {
                         <Bed className="w-6 h-6 text-purple-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-[var(--muted)]">Dormitorios</p>
+                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.bedrooms")}</p>
                         <p className="font-semibold text-[var(--text)]">{property.bedrooms}</p>
                       </div>
                     </div>
@@ -273,7 +275,7 @@ export default function PropertyDetail() {
                         <Bath className="w-6 h-6 text-cyan-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-[var(--muted)]">Baños</p>
+                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.bathrooms")}</p>
                         <p className="font-semibold text-[var(--text)]">{property.bathrooms}</p>
                       </div>
                     </div>
@@ -285,7 +287,7 @@ export default function PropertyDetail() {
                         <Car className="w-6 h-6 text-amber-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-[var(--muted)]">Parqueos</p>
+                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.parking")}</p>
                         <p className="font-semibold text-[var(--text)]">{property.parking}</p>
                       </div>
                     </div>
@@ -297,7 +299,7 @@ export default function PropertyDetail() {
                         <Calendar className="w-6 h-6 text-green-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-[var(--muted)]">Año de Construcción</p>
+                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.yearBuilt")}</p>
                         <p className="font-semibold text-[var(--text)]">{property.year_built}</p>
                       </div>
                     </div>
@@ -309,7 +311,7 @@ export default function PropertyDetail() {
                         <FileText className="w-6 h-6 text-pink-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-[var(--muted)]">Estado</p>
+                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.condition")}</p>
                         <p className="font-semibold text-[var(--text)]">{property.condition}</p>
                       </div>
                     </div>
@@ -318,7 +320,7 @@ export default function PropertyDetail() {
 
                 {property.services && property.services.length > 0 && (
                   <div className="mt-6 pt-6 border-t border-[var(--border)]">
-                    <h4 className="font-semibold text-[var(--text)] mb-3">Servicios Disponibles</h4>
+                    <h4 className="font-semibold text-[var(--text)] mb-3">{t("propertyDetail.availableServices")}</h4>
                     <div className="flex flex-wrap gap-2">
                       {property.services.map((service, index) => (
                         <Badge key={index} variant="secondary">
@@ -331,7 +333,7 @@ export default function PropertyDetail() {
 
                 {property.tags && property.tags.length > 0 && (
                   <div className="mt-6 pt-6 border-t border-[var(--border)]">
-                    <h4 className="font-semibold text-[var(--text)] mb-3">Características</h4>
+                    <h4 className="font-semibold text-[var(--text)] mb-3">{t("propertyDetail.characteristics")}</h4>
                     <div className="flex flex-wrap gap-2">
                       {property.tags.map((tag, index) => (
                         <Badge key={index} variant="outline" className="bg-emerald-900/20 text-emerald-400 border-emerald-800/40">
@@ -348,7 +350,7 @@ export default function PropertyDetail() {
             {property.description && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Descripción</CardTitle>
+                  <CardTitle>{t("propertyDetail.description")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-[var(--text)] leading-relaxed whitespace-pre-line">
@@ -362,7 +364,7 @@ export default function PropertyDetail() {
             {property.documents && property.documents.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Documentos</CardTitle>
+                  <CardTitle>{t("propertyDetail.documents")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
@@ -390,7 +392,7 @@ export default function PropertyDetail() {
             {property.map_coordinates && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Ubicación Aproximada</CardTitle>
+                  <CardTitle>{t("propertyDetail.approximateLocation")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="h-96 bg-[var(--bg-elev2)] rounded-lg flex items-center justify-center">
@@ -403,7 +405,7 @@ export default function PropertyDetail() {
                     />
                   </div>
                   <p className="text-sm text-[var(--muted)] mt-3">
-                    La ubicación mostrada es aproximada. Se proporcionará la ubicación exacta al contactarnos.
+                    {t("propertyDetail.locationNotice")}
                   </p>
                 </CardContent>
               </Card>
@@ -416,25 +418,25 @@ export default function PropertyDetail() {
               {/* Contact Card */}
               <Card className="bg-emerald-900/20 border-emerald-800/30">
                 <CardHeader>
-                  <CardTitle className="text-center">¿Interesado en esta propiedad?</CardTitle>
+                  <CardTitle className="text-center">{t("propertyDetail.interested")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <a href={whatsapp} target="_blank" rel="noopener noreferrer">
                     <Button className="w-full gap-2 bg-green-600 hover:bg-green-700">
                       <MessageCircle className="w-5 h-5" />
-                      Consultar por WhatsApp
+                      {t("propertyDetail.askWhatsApp")}
                     </Button>
                   </a>
                   <a href={PHONE_URL}>
                     <Button variant="outline" className="w-full gap-2">
                       <Phone className="w-5 h-5" />
-                      Llamar: {CONTACT.phoneDisplay}
+                      {t("propertyDetail.call", { phone: CONTACT.phoneDisplay })}
                     </Button>
                   </a>
                   <a href={EMAIL_URL}>
                     <Button variant="outline" className="w-full gap-2">
                       <Mail className="w-5 h-5" />
-                      Enviar Correo
+                      {t("propertyDetail.sendEmail")}
                     </Button>
                   </a>
                 </CardContent>
@@ -449,7 +451,7 @@ export default function PropertyDetail() {
                     </div>
                     <h3 className="font-bold text-[var(--text)] mb-1">AZ Inmuebles</h3>
                     <p className="text-sm text-[var(--muted)] mb-4">
-                      Asesoría profesional en Coto Brus
+                      {t("propertyDetail.agentSubtitle")}
                     </p>
                     <div className="text-sm text-[var(--muted)]">
                       <p>📞 {CONTACT.phoneDisplay}</p>
@@ -463,7 +465,7 @@ export default function PropertyDetail() {
               <Card className="bg-yellow-900/20 border-yellow-800/30">
                 <CardContent className="p-4">
                   <p className="text-xs text-[var(--muted)]">
-                    <strong>Aviso:</strong> La información de cada propiedad es proporcionada por los propietarios o sus representantes y puede variar; verifíquela antes de cualquier decisión.
+                    <strong>{t("propertyDetail.legalNoticeLabel")}</strong> {t("propertyDetail.legalNotice")}
                   </p>
                 </CardContent>
               </Card>
@@ -475,7 +477,7 @@ export default function PropertyDetail() {
         {relatedProperties.length > 0 && (
           <div className="mt-16">
             <h2 className="text-3xl font-bold text-[var(--text)] mb-8">
-              Propiedades Relacionadas
+              {t("propertyDetail.relatedProperties")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedProperties.map((relProp) => (

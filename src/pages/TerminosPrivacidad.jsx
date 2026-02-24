@@ -1,16 +1,21 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Eye, Lock, FileText } from "lucide-react";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function TerminosPrivacidad() {
+  const { t, lang } = useTranslation();
+
+  const dateLocale = lang === "en" ? "en-US" : "es-CR";
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-[var(--text)] mb-4">
-          Términos y Privacidad
+          {t("terms.pageTitle")}
         </h1>
         <p className="text-lg text-[var(--muted)]">
-          Tu seguridad y confianza son nuestra prioridad
+          {t("terms.pageSubtitle")}
         </p>
       </div>
 
@@ -20,56 +25,51 @@ export default function TerminosPrivacidad() {
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <Shield className="w-6 h-6 text-[#C46542]" />
-              Aviso de Privacidad
+              {t("terms.privacyTitle")}
             </CardTitle>
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
-            <h3 className="text-lg font-semibold mb-3">Recopilación de Datos</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.dataCollection")}</h3>
             <p className="text-[var(--text)] mb-4">
-              AZ Inmuebles recopila información personal como nombre, correo electrónico, teléfono y
-              otros datos que voluntariamente nos proporciones a través de formularios de contacto,
-              consultas sobre propiedades o comunicaciones directas.
+              {t("terms.dataCollectionText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Uso de la Información</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.dataUse")}</h3>
             <p className="text-[var(--text)] mb-4">
-              Utilizamos tus datos exclusivamente para:
+              {t("terms.dataUseIntro")}
             </p>
             <ul className="list-disc pl-6 mb-4 text-[var(--text)] space-y-2">
-              <li>Responder tus consultas sobre propiedades</li>
-              <li>Coordinar visitas y proporcionar información solicitada</li>
-              <li>Enviarte actualizaciones sobre propiedades de tu interés (solo si lo autorizas)</li>
-              <li>Mejorar nuestros servicios y experiencia de usuario</li>
+              <li>{t("terms.dataUseItem1")}</li>
+              <li>{t("terms.dataUseItem2")}</li>
+              <li>{t("terms.dataUseItem3")}</li>
+              <li>{t("terms.dataUseItem4")}</li>
             </ul>
 
-            <h3 className="text-lg font-semibold mb-3">Protección de Datos</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.dataProtection")}</h3>
             <p className="text-[var(--text)] mb-4">
-              Implementamos medidas de seguridad técnicas y organizativas para proteger tu
-              información personal contra acceso no autorizado, pérdida o alteración.
+              {t("terms.dataProtectionText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Compartir Información</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.dataSharing")}</h3>
             <p className="text-[var(--text)] mb-4">
-              No vendemos, alquilamos ni compartimos tus datos personales con terceros, excepto
-              cuando sea necesario para completar una transacción inmobiliaria (propietarios,
-              notarios, entidades financieras) y siempre con tu consentimiento expreso.
+              {t("terms.dataSharingText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Tus Derechos</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.yourRights")}</h3>
             <p className="text-[var(--text)] mb-4">
-              Tienes derecho a:
+              {t("terms.yourRightsIntro")}
             </p>
             <ul className="list-disc pl-6 mb-4 text-[var(--text)] space-y-2">
-              <li>Acceder a tus datos personales</li>
-              <li>Rectificar información incorrecta o desactualizada</li>
-              <li>Solicitar la eliminación de tus datos</li>
-              <li>Oponerte al procesamiento de tu información</li>
-              <li>Revocar tu consentimiento en cualquier momento</li>
+              <li>{t("terms.rightsItem1")}</li>
+              <li>{t("terms.rightsItem2")}</li>
+              <li>{t("terms.rightsItem3")}</li>
+              <li>{t("terms.rightsItem4")}</li>
+              <li>{t("terms.rightsItem5")}</li>
             </ul>
 
-            <h3 className="text-lg font-semibold mb-3">Contacto</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.contactSection")}</h3>
             <p className="text-[var(--text)]">
-              Para ejercer tus derechos o realizar consultas sobre privacidad, contáctanos en:{" "}
+              {t("terms.contactText")}
               <a href="mailto:azinmmuebles@gmail.com" className="text-[#C46542] hover:underline">
                 azinmmuebles@gmail.com
               </a>
@@ -82,60 +82,49 @@ export default function TerminosPrivacidad() {
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <FileText className="w-6 h-6 text-[#C46542]" />
-              Términos de Uso
+              {t("terms.termsTitle")}
             </CardTitle>
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
-            <h3 className="text-lg font-semibold mb-3">Uso del Sitio Web</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.websiteUse")}</h3>
             <p className="text-[var(--text)] mb-4">
-              Este sitio web es proporcionado por AZ Inmuebles para facilitar la búsqueda y consulta
-              de propiedades inmobiliarias en Coto Brus. Al usar este sitio, aceptas estos términos.
+              {t("terms.websiteUseText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Información de Propiedades</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.propertyInfo")}</h3>
             <p className="text-[var(--text)] mb-4">
-              La información de cada propiedad es proporcionada por los propietarios o sus
-              representantes autorizados. Aunque nos esforzamos por mantener la información
-              actualizada y precisa, esta puede variar. Te recomendamos verificar todos los detalles
-              directamente antes de tomar cualquier decisión de compra o inversión.
+              {t("terms.propertyInfoText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Propiedad Intelectual</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.intellectualProperty")}</h3>
             <p className="text-[var(--text)] mb-4">
-              Todo el contenido del sitio, incluyendo textos, diseños, logotipos e imágenes, es
-              propiedad de AZ Inmuebles o utilizado con autorización. No está permitido copiar,
-              reproducir o distribuir el contenido sin autorización expresa.
+              {t("terms.intellectualPropertyText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Limitación de Responsabilidad</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.liability")}</h3>
             <p className="text-[var(--text)] mb-4">
-              AZ Inmuebles actúa como intermediario entre compradores y vendedores. No somos
-              responsables por:
+              {t("terms.liabilityIntro")}
             </p>
             <ul className="list-disc pl-6 mb-4 text-[var(--text)] space-y-2">
-              <li>Inexactitudes en la información proporcionada por terceros</li>
-              <li>Cambios en disponibilidad o precios de propiedades</li>
-              <li>Decisiones de inversión tomadas basándose en la información del sitio</li>
-              <li>Interrupciones o errores técnicos del sitio web</li>
+              <li>{t("terms.liabilityItem1")}</li>
+              <li>{t("terms.liabilityItem2")}</li>
+              <li>{t("terms.liabilityItem3")}</li>
+              <li>{t("terms.liabilityItem4")}</li>
             </ul>
 
-            <h3 className="text-lg font-semibold mb-3">Asesoría Legal</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.legalAdvice")}</h3>
             <p className="text-[var(--text)] mb-4">
-              Aunque Carlos Azofeifa Arias es abogado y notario, la información en este sitio no
-              constituye asesoría legal formal. Para asuntos legales específicos, se recomienda
-              consultar directamente con un profesional del derecho.
+              {t("terms.legalAdviceText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Modificaciones</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.modifications")}</h3>
             <p className="text-[var(--text)] mb-4">
-              Nos reservamos el derecho de modificar estos términos en cualquier momento. Los
-              cambios entrarán en vigor al ser publicados en el sitio.
+              {t("terms.modificationsText")}
             </p>
 
-            <h3 className="text-lg font-semibold mb-3">Ley Aplicable</h3>
+            <h3 className="text-lg font-semibold mb-3">{t("terms.applicableLaw")}</h3>
             <p className="text-[var(--text)]">
-              Estos términos se rigen por las leyes de Costa Rica. Cualquier disputa será resuelta
-              en los tribunales competentes de Costa Rica.
+              {t("terms.applicableLawText")}
             </p>
           </CardContent>
         </Card>
@@ -145,17 +134,12 @@ export default function TerminosPrivacidad() {
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <Eye className="w-6 h-6 text-yellow-600" />
-              Aviso Importante
+              {t("terms.importantNotice")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-[var(--text)]">
-              <strong>Verificación Necesaria:</strong> La información de cada propiedad es
-              proporcionada por los propietarios o sus representantes y puede variar. Es tu
-              responsabilidad verificar todos los datos, documentos legales, medidas, condiciones y
-              cualquier otro aspecto relevante antes de tomar una decisión de compra. Recomendamos
-              realizar inspecciones físicas, revisar documentación legal y consultar con
-              profesionales especializados cuando sea necesario.
+              <strong>{t("terms.verificationNeeded")}</strong> {t("terms.verificationText")}
             </p>
           </CardContent>
         </Card>
@@ -169,11 +153,10 @@ export default function TerminosPrivacidad() {
               </div>
               <div>
                 <h3 className="font-bold text-[var(--text)] mb-2">
-                  ¿Preguntas sobre Términos y Privacidad?
+                  {t("terms.questionsTitle")}
                 </h3>
                 <p className="text-[var(--text)] mb-3">
-                  Si tienes dudas sobre cómo manejamos tus datos o sobre nuestros términos de uso,
-                  estamos aquí para ayudarte.
+                  {t("terms.questionsText")}
                 </p>
                 <a
                   href="mailto:azinmmuebles@gmail.com"
@@ -188,7 +171,7 @@ export default function TerminosPrivacidad() {
       </div>
 
       <div className="mt-12 text-center text-sm text-[var(--muted)]">
-        <p>Última actualización: {new Date().toLocaleDateString("es-CR", { year: "numeric", month: "long", day: "numeric" })}</p>
+        <p>{t("terms.lastUpdate", { date: new Date().toLocaleDateString(dateLocale, { year: "numeric", month: "long", day: "numeric" }) })}</p>
       </div>
     </div>
   );
