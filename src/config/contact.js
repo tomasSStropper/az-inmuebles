@@ -2,7 +2,7 @@ export const CONTACT = {
   phoneLocal: "83819331",
   phoneDisplay: "8381-9331",
   phoneE164: "+50683819331",
-  email: "azinmmuebles@gmail.com",
+  email: "carlosazofeifa1@gmail.com",
   location: "San Vito, Coto Brus, Puntarenas",
   hours: [
     "Lunes a Viernes: 8:00 AM - 5:00 PM",

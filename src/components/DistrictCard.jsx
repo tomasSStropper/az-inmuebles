@@ -1,52 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Card } from "@/components/ui/card";
 import { MapPin, ArrowRight } from "lucide-react";
 import { useTranslation } from "@/i18n/LanguageContext";
 
-export default function DistrictCard({ district, image, description }) {
+export default function DistrictCard({ district, image }) {
   const { t } = useTranslation();
   const [imgError, setImgError] = React.useState(false);
 
   return (
     <Link to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}>
-      <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full border-2 border-[var(--accent-border)] hover:border-[#C46542]">
-        <div className="relative h-64 overflow-hidden">
+      <div className="group overflow-hidden rounded-2xl bg-white shadow-sm border border-[var(--border)] hover:shadow-xl hover:border-[#B07D3A] transition-all duration-400 h-full">
+        <div className="relative h-60 overflow-hidden">
           {!imgError ? (
             <img
               src={image}
               alt={`${t("districtCard.altPrefix")} ${district}`}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
               loading="lazy"
               decoding="async"
               onError={() => setImgError(true)}
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#C46542]/30 to-[#A35436]/10 flex items-center justify-center">
-              <MapPin className="w-16 h-16 text-[#C46542]/40" />
+            <div className="w-full h-full bg-[var(--bg-secondary)] flex items-center justify-center">
+              <MapPin className="w-14 h-14 text-[#B07D3A]/30" />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-[#C46542] rounded-lg flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">{district}</h3>
-            </div>
-            {description && (
-              <p className="text-white/90 text-sm line-clamp-2 mb-2">{description}</p>
-            )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-5">
+            <h3 className="font-playfair text-xl font-semibold text-white leading-tight">
+              {district}
+            </h3>
           </div>
         </div>
-        <div className="p-5 bg-[var(--bg-elev)] group-hover:bg-[var(--primary-50)] transition-colors">
-          <div className="flex items-center justify-between text-[#C46542] font-semibold">
-            <span>{t("districtCard.explore")}</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-          </div>
+        <div className="px-5 py-4 flex items-center justify-between">
+          <span className="text-sm font-medium text-[#B07D3A] font-inter">
+            {t("districtCard.explore")}
+          </span>
+          <ArrowRight className="w-4 h-4 text-[#B07D3A] group-hover:translate-x-1.5 transition-transform duration-300" />
         </div>
-      </Card>
+      </div>
     </Link>
   );
 }

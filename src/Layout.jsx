@@ -19,8 +19,30 @@ const districts = [
   "Agua Buena",
   "Limoncito",
   "Pittier",
-  "Gutiérrez Braun"
+  "Gutiérrez Braun",
 ];
+
+function Logo() {
+  return (
+    <div className="flex flex-col leading-none select-none">
+      <div className="flex items-baseline gap-0">
+        <span className="font-playfair text-[1.45rem] font-bold text-[#1A1A1A] tracking-tight">
+          AZ
+        </span>
+        <span className="font-playfair text-[1.45rem] font-bold text-[#B07D3A]">.</span>
+        <span className="font-inter text-[1.1rem] font-light text-[#1A1A1A] ml-1.5 tracking-tight">
+          Inmuebles
+        </span>
+      </div>
+      <span
+        className="font-inter text-[0.6rem] tracking-[0.18em] text-[#5C5449] uppercase mt-0.5"
+        style={{ letterSpacing: "0.18em" }}
+      >
+        Coto Brus · Costa Rica
+      </span>
+    </div>
+  );
+}
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
@@ -30,9 +52,7 @@ export default function Layout({ children, currentPageName }) {
   const { t } = useTranslation();
 
   React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -56,30 +76,34 @@ export default function Layout({ children, currentPageName }) {
     <div className="min-h-screen bg-[var(--bg)] flex flex-col">
 
       {/* Header */}
-      <header className={`sticky top-0 z-50 py-2 transition-colors duration-300 ${
-        isScrolled ? "bg-[var(--bg-elev)] shadow-lg" : "bg-[rgba(42,42,42,0.95)] backdrop-blur-md shadow-md"
-      }`}>
+      <header
+        className={`sticky top-0 z-50 py-3 transition-all duration-300 ${
+          isScrolled
+            ? "bg-white shadow-md border-b border-[var(--border)]"
+            : "bg-[#F0EDE6] shadow-sm"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
+
             {/* Logo */}
-            <Link to={createPageUrl("Home")} className="flex items-center group shrink-0">
-              <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
-                alt="AZ Inmuebles - Coto Brus, Costa Rica"
-                className="h-16 md:h-20 group-hover:scale-105 transition-transform duration-300"
-              />
+            <Link
+              to={createPageUrl("Home")}
+              className="flex items-center group shrink-0 hover:opacity-80 transition-opacity duration-200"
+            >
+              <Logo />
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-2">
+            <nav className="hidden lg:flex items-center gap-1">
               {navigationLinks.map((link) => (
                 <Link
                   key={link.url}
                   to={link.url}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all font-medium ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-inter font-medium text-sm transition-all duration-200 ${
                     location.pathname === link.url
-                      ? "bg-[#C46542] text-white shadow-md"
-                      : "text-[var(--text)] hover:bg-[var(--primary-50)]"
+                      ? "bg-[#B07D3A] text-white shadow-sm"
+                      : "text-[#1A1A1A] hover:bg-[rgba(176,125,58,0.08)] hover:text-[#B07D3A]"
                   }`}
                 >
                   <link.icon className="w-4 h-4" />
@@ -88,119 +112,129 @@ export default function Layout({ children, currentPageName }) {
               ))}
             </nav>
 
-            {/* Header Search (Desktop) */}
-            <form onSubmit={onSearch} className="hidden xl:flex items-center gap-2 flex-1 max-w-md">
+            {/* Search (Desktop XL) */}
+            <form
+              onSubmit={onSearch}
+              className="hidden xl:flex items-center gap-2 flex-1 max-w-sm"
+            >
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
                 <Input
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   placeholder={t("nav.searchPlaceholder")}
-                  className="pl-9 h-10 border-2 focus:border-[#C46542]"
+                  className="pl-9 h-9"
                 />
               </div>
-              <Button type="submit" size="sm" className="bg-[#C46542] hover:bg-[#A35436]">
+              <Button type="submit" size="sm">
                 {t("nav.search")}
               </Button>
             </form>
 
-            {/* Contact Buttons + Language Switch */}
-            <div className="hidden lg:flex items-center gap-3 shrink-0">
+            {/* Contact + Language (Desktop) */}
+            <div className="hidden lg:flex items-center gap-2 shrink-0">
               <LanguageSwitch />
               <a href={PHONE_URL}>
-                <Button variant="outline" size="sm" className="gap-2 border-2 border-[#C46542] text-[var(--text)] hover:bg-[var(--primary-50)]">
-                  <Phone className="w-4 h-4" />
+                <Button variant="outline" size="sm" className="gap-1.5 text-sm">
+                  <Phone className="w-3.5 h-3.5" />
                   {CONTACT.phoneDisplay}
                 </Button>
               </a>
               <a href={whatsappUrlFull} target="_blank" rel="noopener noreferrer">
-                <Button size="sm" className="gap-2 bg-green-600 hover:bg-green-700 shadow-lg">
-                  <MessageCircle className="w-4 h-4" />
+                <Button size="sm" className="gap-1.5 text-sm">
+                  <MessageCircle className="w-3.5 h-3.5" />
                   WhatsApp
                 </Button>
               </a>
             </div>
 
-            {/* Mobile: Language Switch + Menu */}
+            {/* Mobile: Language + Burger */}
             <div className="flex lg:hidden items-center gap-2">
               <LanguageSwitch />
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Menu className="w-6 h-6" />
+                  <Button variant="ghost" size="icon" className="text-[#1A1A1A]">
+                    <Menu className="w-5 h-5" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-80">
-                  <div className="flex flex-col gap-6 mt-8">
+                <SheetContent side="right" className="w-80 bg-white border-l border-[var(--border)]">
+                  <div className="flex flex-col gap-6 mt-6">
+
                     {/* Logo in mobile menu */}
-                    <div className="flex justify-center pb-6 border-b border-[var(--border)]">
-                      <img
-                        src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
-                        alt="AZ Inmuebles"
-                        className="h-20"
-                        loading="lazy"
-                        decoding="async"
-                      />
+                    <div className="pb-5 border-b border-[var(--border)]">
+                      <Logo />
                     </div>
 
-                    {/* Quick Search (Mobile) */}
-                    <form onSubmit={onSearch} className="xl:hidden">
+                    {/* Quick Search */}
+                    <form onSubmit={onSearch}>
                       <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
                         <Input
                           value={q}
                           onChange={(e) => setQ(e.target.value)}
                           placeholder={t("nav.searchShort")}
-                          className="pl-9 h-10 border-2 focus:border-[#C46542]"
+                          className="pl-9 h-10"
                         />
                       </div>
-                      <Button type="submit" className="w-full mt-2 bg-[#C46542] hover:bg-[#A35436]">
+                      <Button type="submit" className="w-full mt-2">
                         {t("nav.search")}
                       </Button>
                     </form>
 
-                    <div className="space-y-2">
+                    {/* Nav links */}
+                    <div className="space-y-1">
                       {navigationLinks.map((link) => (
                         <Link
                           key={link.url}
                           to={link.url}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                          className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors font-inter text-sm font-medium ${
                             location.pathname === link.url
-                              ? "bg-[var(--primary-50)] text-[#C46542] font-medium"
-                              : "text-[var(--text)] hover:bg-[var(--bg-elev2)]"
+                              ? "bg-[rgba(176,125,58,0.1)] text-[#B07D3A]"
+                              : "text-[#1A1A1A] hover:bg-[var(--bg-elev2)]"
                           }`}
                         >
-                          <link.icon className="w-5 h-5" />
+                          <link.icon className="w-4 h-4" />
                           {link.name}
                         </Link>
                       ))}
                     </div>
 
-                    <div className="border-t border-[var(--border)] pt-6">
-                      <h3 className="text-sm font-semibold text-[var(--muted)] mb-3">{t("nav.districts")}</h3>
-                      <div className="space-y-2">
+                    {/* Districts */}
+                    <div className="border-t border-[var(--border)] pt-5">
+                      <h3 className="text-xs font-semibold text-[var(--muted)] uppercase tracking-wider mb-3 font-inter">
+                        {t("nav.districts")}
+                      </h3>
+                      <div className="space-y-1">
                         {districts.map((district) => (
                           <Link
                             key={district}
-                            to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}
-                            className="flex items-center gap-3 px-4 py-2 rounded-lg text-[var(--text)] hover:bg-[var(--bg-elev2)]"
+                            to={createPageUrl(
+                              `Properties?district=${encodeURIComponent(district)}`
+                            )}
+                            className="flex items-center gap-3 px-4 py-2 rounded-lg text-[#1A1A1A] hover:bg-[var(--bg-elev2)] text-sm font-inter"
                           >
-                            <MapPin className="w-4 h-4" />
+                            <MapPin className="w-3.5 h-3.5 text-[#B07D3A]" />
                             {district}
                           </Link>
                         ))}
                       </div>
                     </div>
 
-                    <div className="border-t border-[var(--border)] pt-6 space-y-3">
+                    {/* Contact buttons */}
+                    <div className="border-t border-[var(--border)] pt-5 space-y-2">
                       <a href={PHONE_URL} className="block">
-                        <Button variant="outline" className="w-full gap-2 border-[#C46542] text-[var(--text)]">
+                        <Button variant="outline" className="w-full gap-2">
                           <Phone className="w-4 h-4" />
                           {CONTACT.phoneDisplay}
                         </Button>
                       </a>
-                      <a href={whatsappUrlFull} target="_blank" rel="noopener noreferrer" className="block">
-                        <Button className="w-full gap-2 bg-green-600 hover:bg-green-700">
+                      <a
+                        href={whatsappUrlFull}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        <Button className="w-full gap-2">
                           <MessageCircle className="w-4 h-4" />
                           WhatsApp
                         </Button>
@@ -220,38 +254,44 @@ export default function Layout({ children, currentPageName }) {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1">
-        {children}
-      </main>
+      {/* Main */}
+      <main className="flex-1">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-[#161616] text-[var(--muted)] mt-20">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <div className="grid md:grid-cols-4 gap-8">
+      <footer className="bg-[#1A1A1A] text-[#F8F6F1] mt-20">
+        <div className="max-w-7xl mx-auto px-4 py-14">
+          <div className="grid md:grid-cols-4 gap-10">
+
             {/* Brand */}
             <div className="md:col-span-1">
-              <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/0d438de5b_image.png"
-                alt="AZ Inmuebles"
-                className="h-24 w-auto mb-4 brightness-110"
-                loading="lazy"
-                decoding="async"
-              />
-              <p className="text-sm text-[var(--muted)]">
+              <div className="mb-4">
+                <div className="flex items-baseline gap-0">
+                  <span className="font-playfair text-xl font-bold text-white">AZ</span>
+                  <span className="font-playfair text-xl font-bold text-[#B07D3A]">.</span>
+                  <span className="font-inter text-base font-light text-white ml-1.5">Inmuebles</span>
+                </div>
+                <span className="block font-inter text-[0.6rem] tracking-[0.18em] text-[#5C5449] uppercase mt-0.5">
+                  Coto Brus · Costa Rica
+                </span>
+              </div>
+              <p className="text-sm text-[#5C5449] font-inter leading-relaxed">
                 {t("footer.tagline")}
               </p>
             </div>
 
             {/* Districts */}
             <div>
-              <h3 className="font-semibold text-[var(--text)] mb-4">{t("footer.districtsTitle")}</h3>
+              <h3 className="font-playfair font-semibold text-white mb-4 text-sm uppercase tracking-wider">
+                {t("footer.districtsTitle")}
+              </h3>
               <ul className="space-y-2 text-sm">
                 {districts.map((district) => (
                   <li key={district}>
                     <Link
-                      to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}
-                      className="hover:text-[#E8D5C4] transition-colors"
+                      to={createPageUrl(
+                        `Properties?district=${encodeURIComponent(district)}`
+                      )}
+                      className="text-[#5C5449] hover:text-[#B07D3A] transition-colors font-inter"
                     >
                       {district}
                     </Link>
@@ -260,27 +300,41 @@ export default function Layout({ children, currentPageName }) {
               </ul>
             </div>
 
-            {/* Links */}
+            {/* Navigation */}
             <div>
-              <h3 className="font-semibold text-[var(--text)] mb-4">{t("footer.navigationTitle")}</h3>
+              <h3 className="font-playfair font-semibold text-white mb-4 text-sm uppercase tracking-wider">
+                {t("footer.navigationTitle")}
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link to={createPageUrl("Home")} className="hover:text-[#E8D5C4] transition-colors">
+                  <Link
+                    to={createPageUrl("Home")}
+                    className="text-[#5C5449] hover:text-[#B07D3A] transition-colors font-inter"
+                  >
                     {t("nav.home")}
                   </Link>
                 </li>
                 <li>
-                  <Link to={createPageUrl("Properties")} className="hover:text-[#E8D5C4] transition-colors">
+                  <Link
+                    to={createPageUrl("Properties")}
+                    className="text-[#5C5449] hover:text-[#B07D3A] transition-colors font-inter"
+                  >
                     {t("nav.properties")}
                   </Link>
                 </li>
                 <li>
-                  <Link to={createPageUrl("Contact")} className="hover:text-[#E8D5C4] transition-colors">
+                  <Link
+                    to={createPageUrl("Contact")}
+                    className="text-[#5C5449] hover:text-[#B07D3A] transition-colors font-inter"
+                  >
                     {t("nav.contact")}
                   </Link>
                 </li>
                 <li>
-                  <Link to={createPageUrl("TerminosPrivacidad")} className="hover:text-[#E8D5C4] transition-colors">
+                  <Link
+                    to={createPageUrl("TerminosPrivacidad")}
+                    className="text-[#5C5449] hover:text-[#B07D3A] transition-colors font-inter"
+                  >
                     {t("footer.termsLink")}
                   </Link>
                 </li>
@@ -289,23 +343,36 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Contact */}
             <div>
-              <h3 className="font-semibold text-[var(--text)] mb-4">{t("footer.contactTitle")}</h3>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  <a href={PHONE_URL} className="hover:text-[#E8D5C4] transition-colors">
+              <h3 className="font-playfair font-semibold text-white mb-4 text-sm uppercase tracking-wider">
+                {t("footer.contactTitle")}
+              </h3>
+              <ul className="space-y-3 text-sm font-inter">
+                <li className="flex items-center gap-2 text-[#5C5449]">
+                  <Phone className="w-4 h-4 text-[#B07D3A] flex-shrink-0" />
+                  <a
+                    href={PHONE_URL}
+                    className="hover:text-[#B07D3A] transition-colors"
+                  >
                     {CONTACT.phoneDisplay}
                   </a>
                 </li>
-                <li className="flex items-center gap-2">
-                  <MessageCircle className="w-4 h-4" />
-                  <a href={whatsappUrlFull} target="_blank" rel="noopener noreferrer" className="hover:text-[#E8D5C4] transition-colors">
+                <li className="flex items-center gap-2 text-[#5C5449]">
+                  <MessageCircle className="w-4 h-4 text-[#B07D3A] flex-shrink-0" />
+                  <a
+                    href={whatsappUrlFull}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#B07D3A] transition-colors"
+                  >
                     WhatsApp
                   </a>
                 </li>
-                <li className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  <a href={EMAIL_URL} className="hover:text-[#E8D5C4] transition-colors break-all">
+                <li className="flex items-center gap-2 text-[#5C5449]">
+                  <Mail className="w-4 h-4 text-[#B07D3A] flex-shrink-0" />
+                  <a
+                    href={`mailto:${CONTACT.email}`}
+                    className="hover:text-[#B07D3A] transition-colors break-all"
+                  >
                     {CONTACT.email}
                   </a>
                 </li>
@@ -313,24 +380,22 @@ export default function Layout({ children, currentPageName }) {
             </div>
           </div>
 
-          <div className="border-t border-[var(--border)] mt-8 pt-8 text-center text-sm text-[var(--muted)]">
+          <div className="border-t border-white/10 mt-10 pt-8 text-center text-xs text-[#5C5449] font-inter">
             <p>{t("footer.copyright", { year: new Date().getFullYear() })}</p>
-            <p className="mt-2">
-              {t("footer.disclaimer")}
-            </p>
+            <p className="mt-1.5">{t("footer.disclaimer")}</p>
           </div>
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button */}
+      {/* Floating WhatsApp */}
       <a
         href={whatsappUrlFull}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-600 hover:bg-green-700 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#B07D3A] hover:bg-[#8F6530] rounded-full shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110"
         aria-label={t("nav.whatsappAria")}
       >
-        <MessageCircle className="w-8 h-8 text-white" />
+        <MessageCircle className="w-7 h-7 text-white" />
       </a>
     </div>
   );

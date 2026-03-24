@@ -16,15 +16,15 @@ export default function ContactButtons({ propertyTitle = null }) {
   return (
     <div className="flex flex-wrap gap-3">
       <a href={whatsapp} target="_blank" rel="noopener noreferrer">
-        <Button size="lg" className="gap-2 bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all">
+        <Button size="lg" className="gap-2 bg-[#B07D3A] hover:bg-[#8F6530] text-white shadow-md hover:shadow-lg">
           <MessageCircle className="w-5 h-5" />
           {t("contactButtons.whatsapp")}
         </Button>
       </a>
       <a href={PHONE_URL}>
-        <Button size="lg" variant="outline" className="gap-2 bg-[var(--bg-elev)] shadow-lg hover:shadow-xl transition-all border-2 border-[#C46542] text-[var(--text)] hover:bg-[var(--primary-50)] hover:text-[var(--text)]">
+        <Button size="lg" variant="outline" className="gap-2 border-2 border-[#B07D3A] text-[#B07D3A] hover:bg-[rgba(176,125,58,0.07)] shadow-sm hover:shadow-md">
           <Phone className="w-5 h-5" />
-          {t("contactButtons.callNow")}
+          {CONTACT.phoneDisplay}
         </Button>
       </a>
     </div>

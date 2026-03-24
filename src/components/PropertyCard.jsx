@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Bed, Bath, Ruler, ArrowRight, Sparkles } from "lucide-react";
@@ -23,108 +23,111 @@ export default function PropertyCard({ property }) {
     return `${size.toLocaleString("es-CR")} ${unit || "m²"}`;
   };
 
-  const mainImage = property.images?.[0] || "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop";
+  const mainImage =
+    property.images?.[0] ||
+    "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop";
 
   return (
-    <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full flex flex-col border-2 border-[var(--accent-border)] hover:border-[#C46542]">
-      <div className="relative h-64 overflow-hidden">
+    <div className="group overflow-hidden rounded-2xl bg-white shadow-sm border border-[var(--border)] hover:shadow-xl hover:border-[#B07D3A] transition-all duration-300 h-full flex flex-col">
+      <div className="relative h-56 overflow-hidden">
         <img
           src={mainImage}
           alt={property.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600"
           loading="lazy"
           decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {property.featured && (
-          <div className="absolute top-4 right-4">
-            <Badge className="bg-gradient-to-r from-[#C46542] to-[#A35436] border-0 shadow-lg flex items-center gap-1">
+          <div className="absolute top-3 right-3">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#B07D3A] text-white text-xs font-semibold shadow-md">
               <Sparkles className="w-3 h-3" />
               {t("propertyCard.featured")}
-            </Badge>
+            </span>
           </div>
         )}
-        <div className="absolute top-4 left-4">
-          <Badge variant="secondary" className="bg-[rgba(42,42,42,0.95)] text-[var(--text)] font-semibold shadow-lg">
-            {property.property_type}
-          </Badge>
-        </div>
+        {property.property_type && (
+          <div className="absolute top-3 left-3">
+            <span className="inline-flex px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[var(--text)] text-xs font-semibold shadow-sm">
+              {property.property_type}
+            </span>
+          </div>
+        )}
       </div>
 
-      <CardContent className="p-6 flex-1 flex flex-col">
-        <div className="flex items-start justify-between mb-3">
-          <h3 className="font-bold text-xl text-[var(--text)] line-clamp-2 flex-1 group-hover:text-[#C46542] transition-colors">
-            {property.title}
-          </h3>
-        </div>
+      <CardContent className="p-5 flex-1 flex flex-col">
+        <h3 className="font-playfair font-semibold text-lg text-[var(--text)] line-clamp-2 mb-2 group-hover:text-[#B07D3A] transition-colors">
+          {property.title}
+        </h3>
 
-        <div className="flex items-center gap-2 text-[var(--muted)] mb-4">
-          <MapPin className="w-4 h-4 flex-shrink-0 text-[#C46542]" />
-          <span className="text-sm font-medium">
-            {property.neighborhood ? `${property.neighborhood}, ` : ""}{property.district}
+        <div className="flex items-center gap-1.5 text-[var(--muted)] mb-4">
+          <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-[#B07D3A]" />
+          <span className="text-sm font-inter">
+            {property.neighborhood ? `${property.neighborhood}, ` : ""}
+            {property.district}
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-4 mb-4 pb-4 border-b border-[var(--accent-border)]">
+        <div className="flex flex-wrap gap-3 mb-4 pb-4 border-b border-[var(--border)]">
           {property.bedrooms && (
-            <div className="flex items-center gap-2 text-sm text-[var(--text)]">
-              <div className="w-8 h-8 bg-[var(--primary-50)] rounded-lg flex items-center justify-center">
-                <Bed className="w-4 h-4 text-[#C46542]" />
-              </div>
-              <span className="font-semibold">{property.bedrooms}</span>
+            <div className="flex items-center gap-1.5 text-sm text-[var(--muted)]">
+              <Bed className="w-4 h-4 text-[#B07D3A]" />
+              <span className="font-medium">{property.bedrooms}</span>
             </div>
           )}
           {property.bathrooms && (
-            <div className="flex items-center gap-2 text-sm text-[var(--text)]">
-              <div className="w-8 h-8 bg-[var(--primary-50)] rounded-lg flex items-center justify-center">
-                <Bath className="w-4 h-4 text-[#C46542]" />
-              </div>
-              <span className="font-semibold">{property.bathrooms}</span>
+            <div className="flex items-center gap-1.5 text-sm text-[var(--muted)]">
+              <Bath className="w-4 h-4 text-[#B07D3A]" />
+              <span className="font-medium">{property.bathrooms}</span>
             </div>
           )}
           {property.land_size && (
-            <div className="flex items-center gap-2 text-sm text-[var(--text)]">
-              <div className="w-8 h-8 bg-[var(--primary-50)] rounded-lg flex items-center justify-center">
-                <Ruler className="w-4 h-4 text-[#C46542]" />
-              </div>
-              <span className="font-semibold">{formatArea(property.land_size, property.land_unit)}</span>
+            <div className="flex items-center gap-1.5 text-sm text-[var(--muted)]">
+              <Ruler className="w-4 h-4 text-[#B07D3A]" />
+              <span className="font-medium">
+                {formatArea(property.land_size, property.land_unit)}
+              </span>
             </div>
           )}
         </div>
 
         {property.tags && property.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-1.5 mb-4">
             {property.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs bg-[var(--primary-50)] text-[#C46542] border-[var(--accent-border)]">
+              <span
+                key={tag}
+                className="px-2.5 py-0.5 rounded-full text-xs border border-[#B07D3A]/30 text-[#B07D3A] bg-[rgba(176,125,58,0.06)] font-inter"
+              >
                 {tag}
-              </Badge>
+              </span>
             ))}
           </div>
         )}
 
-        <div className="mt-auto pt-4">
-          <div className="flex items-baseline gap-2 mb-1">
-            <span className="text-3xl font-bold bg-gradient-to-r from-[#C46542] to-[#A35436] bg-clip-text text-transparent">
-              {formatPrice(property.price_dollars)}
-            </span>
-          </div>
+        <div className="mt-auto pt-3">
+          <span className="font-playfair text-2xl font-bold text-[#B07D3A]">
+            {formatPrice(property.price_dollars)}
+          </span>
           {property.price_colones && (
-            <span className="text-sm text-[var(--muted)] font-medium">
+            <p className="text-xs text-[var(--muted)] mt-0.5 font-inter">
               ₡{property.price_colones.toLocaleString("es-CR")}
-            </span>
+            </p>
           )}
         </div>
       </CardContent>
 
-      <CardFooter className="p-6 pt-0">
-        <Link to={createPageUrl(`PropertyDetail?id=${property.id}`)} className="w-full">
-          <Button className="w-full gap-2 bg-gradient-to-r from-[#C46542] to-[#A35436] hover:from-[#A35436] hover:to-[#8B4530] group-hover:gap-3 transition-all shadow-lg text-white">
+      <CardFooter className="p-5 pt-0">
+        <Link
+          to={createPageUrl(`PropertyDetail?id=${property.id}`)}
+          className="w-full"
+        >
+          <Button className="w-full gap-2 group-hover:gap-3 transition-all">
             {t("propertyCard.viewDetails")}
             <ArrowRight className="w-4 h-4" />
           </Button>
         </Link>
       </CardFooter>
-    </Card>
+    </div>
   );
 }
