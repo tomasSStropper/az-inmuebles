@@ -37,45 +37,21 @@ export default function Home() {
   return (
     <div>
       {/* ── Hero ── */}
-      <section
-        className="relative flex flex-col"
-        style={{
-          minHeight: "100vh",
-          backgroundImage:
-            "url(\"https://images.unsplash.com/photo-1518457900213-7b12e3a7e7b1?w=1400&q=80\")",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* Dark overlay */}
-        <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.72)" }} />
+      <section className="bg-[#0D0D0D] text-center pb-[100px]">
 
-        {/* Content — pushed down with padding-top */}
-        <div
-          className="relative z-10 w-full max-w-[800px] mx-auto px-6 text-center flex-1"
-          style={{ paddingTop: "20vh" }}
-        >
-          {/* Eyebrow label */}
+        {/* Text block */}
+        <div className="max-w-[800px] mx-auto px-6 pt-20">
+          {/* Eyebrow */}
           <p
-            className="text-[12px] uppercase text-[#C8A96E]"
+            className="text-[11px] uppercase text-[#C8A96E] mb-4"
             style={{ letterSpacing: "0.2em" }}
           >
-            Coto Brus · Costa Rica
+            COTO BRUS · COSTA RICA
           </p>
-
-          {/* Copper divider line */}
-          <div
-            className="mx-auto mt-5 mb-6"
-            style={{
-              width: "60px",
-              height: "1px",
-              background: "rgba(200,169,110,0.3)",
-            }}
-          />
 
           {/* Heading */}
           <h1
-            className="text-[40px] md:text-[76px] font-light text-[#F0EDE6] leading-[1.05]"
+            className="text-[38px] md:text-[68px] font-light text-[#F0EDE6] leading-[1.05]"
             style={{ letterSpacing: "-0.02em" }}
           >
             Tu próxima propiedad está en Coto Brus.
@@ -83,52 +59,57 @@ export default function Home() {
 
           {/* Subheading */}
           <p
-            className="mt-4 text-[17px] font-normal"
-            style={{ color: "rgba(240,237,230,0.6)" }}
+            className="mt-3 text-[16px] font-normal"
+            style={{ color: "rgba(240,237,230,0.55)" }}
           >
             Venta directa con Carlos Azofeifa Arias — fincas, lotes y locales comerciales.
           </p>
-
-          {/* Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
-            <Link to={createPageUrl("Properties")}>
-              <button
-                className="px-7 py-3 text-sm text-[#F0EDE6] transition-colors"
-                style={{ border: "1px solid rgba(240,237,230,0.4)", background: "transparent" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                Ver propiedades
-              </button>
-            </Link>
-            <a href="https://wa.me/50688319331" target="_blank" rel="noopener noreferrer">
-              <button
-                className="px-7 py-3 text-sm font-medium text-[#0D0D0D] transition-colors"
-                style={{ background: "#C8A96E" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "#A88848")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "#C8A96E")}
-              >
-                WhatsApp
-              </button>
-            </a>
-          </div>
         </div>
 
-        {/* Scroll indicator — pinned to bottom */}
-        <div className="relative z-10 flex flex-col items-center pb-10 gap-2">
-          <span
-            className="text-[11px] tracking-widest uppercase"
-            style={{ color: "rgba(240,237,230,0.3)", fontFamily: "Inter, sans-serif" }}
-          >
-            Scroll
-          </span>
-          <div
-            style={{
-              width: "1px",
-              height: "40px",
-              background: "rgba(200,169,110,0.5)",
-            }}
-          />
+        {/* Photo */}
+        <img
+          src="/images/hero-bg.jpg.jpeg"
+          alt="Coto Brus, Costa Rica"
+          className="w-full block mt-10"
+          style={{ maxHeight: "500px", objectFit: "cover" }}
+        />
+
+        {/* Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mt-10 px-6">
+          <Link to={createPageUrl("Properties")}>
+            <button
+              className="text-[#F0EDE6] transition-colors"
+              style={{
+                padding: "11px 32px",
+                border: "1px solid rgba(240,237,230,0.35)",
+                background: "transparent",
+                borderRadius: 0,
+                fontSize: "13px",
+                letterSpacing: "0.05em",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              Ver propiedades
+            </button>
+          </Link>
+          <a href="https://wa.me/50688319331" target="_blank" rel="noopener noreferrer">
+            <button
+              className="text-[#0D0D0D] font-medium transition-colors"
+              style={{
+                padding: "11px 32px",
+                background: "#C8A96E",
+                borderRadius: 0,
+                fontSize: "13px",
+                letterSpacing: "0.05em",
+                border: "none",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#A88848")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#C8A96E")}
+            >
+              WhatsApp
+            </button>
+          </a>
         </div>
       </section>
 

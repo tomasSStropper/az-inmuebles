@@ -48,7 +48,7 @@ export default function Layout({ children }) {
           {/* Logo */}
           <Link
             to={createPageUrl("Home")}
-            className="text-sm font-medium text-[#F0EDE6] tracking-tight hover:text-[#C8A96E] transition-colors"
+            className="text-sm font-normal text-[#F0EDE6] tracking-tight hover:text-[#C8A96E] transition-colors"
           >
             AZ Inmuebles
           </Link>
