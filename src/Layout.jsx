@@ -48,9 +48,9 @@ export default function Layout({ children }) {
           {/* Logo */}
           <Link
             to={createPageUrl("Home")}
-            className="text-sm font-normal text-[#F0EDE6] tracking-tight hover:text-[#C8A96E] transition-colors"
+            className="text-sm font-normal text-[#F0EDE6] tracking-tight hover:opacity-75 transition-opacity"
           >
-            AZ Inmuebles
+            AZ <span style={{ color: "#2D5A40" }}>·</span> Inmuebles
           </Link>
 
           {/* Desktop nav */}
@@ -61,7 +61,7 @@ export default function Layout({ children }) {
                 to={link.url}
                 className={`text-sm transition-colors ${
                   isActive(link.url)
-                    ? "text-[#C8A96E]"
+                    ? "text-[#2D5A40]"
                     : "text-[#888073] hover:text-[#F0EDE6]"
                 }`}
               >
@@ -75,7 +75,7 @@ export default function Layout({ children }) {
             <LanguageSwitch />
             <a
               href={PHONE_URL}
-              className="text-sm text-[#888073] hover:text-[#C8A96E] transition-colors"
+              className="text-sm text-[#888073] hover:text-[#F0EDE6] transition-colors"
             >
               {CONTACT.phoneDisplay}
             </a>
@@ -94,9 +94,9 @@ export default function Layout({ children }) {
                 <div className="flex flex-col gap-8 mt-8">
                   <Link
                     to={createPageUrl("Home")}
-                    className="text-sm font-medium text-[#F0EDE6]"
+                    className="text-sm font-normal text-[#F0EDE6]"
                   >
-                    AZ Inmuebles
+                    AZ <span style={{ color: "#2D5A40" }}>·</span> Inmuebles
                   </Link>
                   <nav className="flex flex-col gap-4">
                     {navLinks.map((link) => (
@@ -105,7 +105,7 @@ export default function Layout({ children }) {
                         to={link.url}
                         className={`text-sm transition-colors ${
                           isActive(link.url)
-                            ? "text-[#C8A96E]"
+                            ? "text-[#2D5A40]"
                             : "text-[#888073] hover:text-[#F0EDE6]"
                         }`}
                       >
@@ -114,10 +114,10 @@ export default function Layout({ children }) {
                     ))}
                   </nav>
                   <div className="flex flex-col gap-3 pt-6 border-t border-[rgba(255,255,255,0.07)]">
-                    <a href={PHONE_URL} className="text-sm text-[#888073] hover:text-[#C8A96E] transition-colors">
+                    <a href={PHONE_URL} className="text-sm text-[#888073] hover:text-[#F0EDE6] transition-colors">
                       {CONTACT.phoneDisplay}
                     </a>
-                    <a href={EMAIL_URL} className="text-sm text-[#888073] hover:text-[#C8A96E] transition-colors break-all">
+                    <a href={EMAIL_URL} className="text-sm text-[#888073] hover:text-[#F0EDE6] transition-colors break-all">
                       {CONTACT.email}
                     </a>
                     <a
@@ -146,10 +146,10 @@ export default function Layout({ children }) {
             AZ Inmuebles · Coto Brus, Costa Rica
           </span>
           <div className="flex flex-wrap gap-6 text-sm text-[#888073]">
-            <a href={PHONE_URL} className="hover:text-[#C8A96E] transition-colors">
+            <a href={PHONE_URL} className="hover:text-[#F0EDE6] transition-colors">
               {CONTACT.phoneDisplay}
             </a>
-            <a href={EMAIL_URL} className="hover:text-[#C8A96E] transition-colors break-all">
+            <a href={EMAIL_URL} className="hover:text-[#F0EDE6] transition-colors break-all">
               {CONTACT.email}
             </a>
           </div>
@@ -168,10 +168,10 @@ export default function Layout({ children }) {
         href={whatsappUrlFull}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-[#C8A96E] hover:bg-[#A88848] rounded flex items-center justify-center transition-colors duration-200 shadow-lg"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-[#1A3A2A] hover:bg-[#2D5A40] rounded flex items-center justify-center transition-colors duration-200 shadow-lg"
         aria-label={t("nav.whatsappAria")}
       >
-        <MessageCircle className="w-5 h-5 text-[#0D0D0D]" />
+        <MessageCircle className="w-5 h-5 text-[#F0EDE6]" />
       </a>
     </div>
   );

@@ -10,18 +10,19 @@
     --bg-elev2:    #1C1C1C;
     --text:        #F0EDE6;
     --muted:       #888073;
-    --accent:      #C8A96E;
-    --accent-dark: #A88848;
+    --accent:      #1A3A2A;
+    --accent-dark: #2D5A40;
+    --accent-light: #2D5A40;
     --border:      rgba(255, 255, 255, 0.07);
     --border-strong: rgba(255, 255, 255, 0.12);
 
-    /* Legacy aliases kept so unchanged components still compile */
-    --primary-600:   #C8A96E;
-    --primary-700:   #A88848;
-    --primary-800:   #8B7040;
-    --primary-50:    rgba(200, 169, 110, 0.08);
-    --secondary-500: #C8A96E;
-    --accent-border: rgba(200, 169, 110, 0.20);
+    /* Legacy aliases */
+    --primary-600:   #1A3A2A;
+    --primary-700:   #2D5A40;
+    --primary-800:   #142E1C;
+    --primary-50:    rgba(26, 58, 42, 0.08);
+    --secondary-500: #1A3A2A;
+    --accent-border: rgba(26, 58, 42, 0.25);
   }
 
   body {
@@ -48,4 +49,22 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroZoomOut {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+
+.hero-fade-up {
+  animation: heroFadeUp 0.9s ease-out 0.2s both;
+}
+
+.hero-zoom-out {
+  animation: heroZoomOut 1.8s ease-out both;
 }

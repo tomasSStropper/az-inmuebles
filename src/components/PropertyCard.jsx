@@ -24,7 +24,7 @@ export default function PropertyCard({ property }) {
     "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600&fit=crop";
 
   return (
-    <div className="group overflow-hidden rounded bg-[#1C1C1C] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(200,169,110,0.35)] transition-colors duration-300 h-full flex flex-col">
+    <div className="group overflow-hidden rounded bg-[#1C1C1C] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(45,90,64,0.4)] transition-colors duration-300 h-full flex flex-col">
       <div className="relative h-52 overflow-hidden">
         <img
           src={mainImage}
@@ -77,7 +77,7 @@ export default function PropertyCard({ property }) {
         )}
 
         <div className="mt-auto pt-2 border-t border-[rgba(255,255,255,0.06)]">
-          <span className="text-lg font-semibold text-[#C8A96E]">
+          <span className="text-lg font-semibold text-[#2D5A40]">
             {formatPrice(property.price_dollars)}
           </span>
           {property.price_colones && (

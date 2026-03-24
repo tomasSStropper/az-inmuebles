@@ -37,21 +37,35 @@ export default function Home() {
   return (
     <div>
       {/* ── Hero ── */}
-      <section className="bg-[#0D0D0D] text-center pb-[100px]">
-
-        {/* Text block */}
-        <div className="max-w-[800px] mx-auto px-6 pt-20">
+      <section
+        className="text-center"
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(to bottom, #0D0D0D 0%, #111810 100%)",
+          paddingTop: "80px",
+          paddingBottom: "80px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* Text block — fade-in animation, desktop left-border accent */}
+        <div
+          className="hero-fade-up w-full max-w-[800px] px-6
+                     md:border-l-2 md:text-left"
+          style={{ borderColor: "#1A3A2A" }}
+        >
           {/* Eyebrow */}
           <p
-            className="text-[11px] uppercase text-[#C8A96E] mb-4"
-            style={{ letterSpacing: "0.2em" }}
+            className="text-[11px] uppercase mb-4"
+            style={{ letterSpacing: "0.2em", color: "#2D5A40" }}
           >
             COTO BRUS · COSTA RICA
           </p>
 
           {/* Heading */}
           <h1
-            className="text-[38px] md:text-[68px] font-light text-[#F0EDE6] leading-[1.05]"
+            className="text-[38px] md:text-[68px] font-light text-[#F0EDE6] leading-[1.05] md:pl-5"
             style={{ letterSpacing: "-0.02em" }}
           >
             Tu próxima propiedad está en Coto Brus.
@@ -59,26 +73,29 @@ export default function Home() {
 
           {/* Subheading */}
           <p
-            className="mt-3 text-[16px] font-normal"
+            className="mt-3 text-[16px] font-normal md:pl-5"
             style={{ color: "rgba(240,237,230,0.55)" }}
           >
             Venta directa con Carlos Azofeifa Arias — fincas, lotes y locales comerciales.
           </p>
         </div>
 
-        {/* Photo */}
+        {/* Photo — zoom-out animation */}
         <img
           src="/images/hero-bg.jpg.jpeg"
           alt="Coto Brus, Costa Rica"
-          className="w-full block mt-10"
-          style={{ maxHeight: "500px", objectFit: "cover" }}
+          className="hero-zoom-out w-full block"
+          style={{ maxHeight: "340px", objectFit: "cover", marginTop: "48px" }}
         />
 
         {/* Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mt-10 px-6">
+        <div
+          className="flex flex-wrap items-center justify-center gap-3 px-6"
+          style={{ marginTop: "48px" }}
+        >
           <Link to={createPageUrl("Properties")}>
             <button
-              className="text-[#F0EDE6] transition-colors"
+              className="text-[#F0EDE6]"
               style={{
                 padding: "11px 32px",
                 border: "1px solid rgba(240,237,230,0.35)",
@@ -86,6 +103,7 @@ export default function Home() {
                 borderRadius: 0,
                 fontSize: "13px",
                 letterSpacing: "0.05em",
+                transition: "background 0.25s ease",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
@@ -95,17 +113,18 @@ export default function Home() {
           </Link>
           <a href="https://wa.me/50688319331" target="_blank" rel="noopener noreferrer">
             <button
-              className="text-[#0D0D0D] font-medium transition-colors"
+              className="font-medium text-[#F0EDE6]"
               style={{
                 padding: "11px 32px",
-                background: "#C8A96E",
+                background: "#1A3A2A",
                 borderRadius: 0,
                 fontSize: "13px",
                 letterSpacing: "0.05em",
                 border: "none",
+                transition: "background 0.25s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#A88848")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#C8A96E")}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#2D5A40")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#1A3A2A")}
             >
               WhatsApp
             </button>
@@ -164,7 +183,7 @@ export default function Home() {
                 href={whatsappUrl(WHATSAPP_MSG)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[15px] text-[#C8A96E] hover:text-[#A88848] transition-colors"
+                className="text-[15px] text-[#2D5A40] hover:opacity-75 transition-opacity"
               >
                 Escribinos al 8381-9331
               </a>

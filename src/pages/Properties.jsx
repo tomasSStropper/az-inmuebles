@@ -172,7 +172,7 @@ export default function Properties() {
                   href={whatsappUrl(WHATSAPP_MSG)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[15px] text-[#C8A96E] hover:text-[#A88848] transition-colors"
+                  className="text-[15px] text-[#2D5A40] hover:opacity-75 transition-colors"
                 >
                   Escribinos al 8381-9331
                 </a>

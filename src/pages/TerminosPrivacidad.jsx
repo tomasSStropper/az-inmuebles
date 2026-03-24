@@ -65,7 +65,7 @@ export default function TerminosPrivacidad() {
               <h3 className="text-sm font-medium text-[#F0EDE6] mb-2">{t("terms.contactSection")}</h3>
               <p>
                 {t("terms.contactText")}
-                <a href={`mailto:${CONTACT.email}`} className="text-[#C8A96E] hover:underline ml-1">
+                <a href={`mailto:${CONTACT.email}`} className="text-[#2D5A40] hover:underline ml-1">
                   {CONTACT.email}
                 </a>
               </p>
@@ -136,7 +136,7 @@ export default function TerminosPrivacidad() {
             <p className="text-[15px] text-[#888073] mb-3">{t("terms.questionsText")}</p>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="text-[15px] text-[#C8A96E] hover:underline"
+              className="text-[15px] text-[#2D5A40] hover:underline"
             >
               {CONTACT.email}
             </a>

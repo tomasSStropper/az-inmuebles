@@ -78,11 +78,11 @@ export default function PropertyDetail() {
       {/* Breadcrumb */}
       <div className="border-b border-[rgba(255,255,255,0.07)] py-3">
         <div className="max-w-7xl mx-auto px-6 flex items-center gap-2 text-xs text-[#888073]">
-          <Link to={createPageUrl("Home")} className="hover:text-[#C8A96E] transition-colors">
+          <Link to={createPageUrl("Home")} className="hover:text-[#2D5A40] transition-colors">
             {t("propertyDetail.breadcrumbHome")}
           </Link>
           <span>/</span>
-          <Link to={createPageUrl("Properties")} className="hover:text-[#C8A96E] transition-colors">
+          <Link to={createPageUrl("Properties")} className="hover:text-[#2D5A40] transition-colors">
             {t("propertyDetail.breadcrumbProperties")}
           </Link>
           <span>/</span>
@@ -134,7 +134,7 @@ export default function PropertyDetail() {
                       onClick={() => setCurrentImageIndex(i)}
                       className={`relative h-16 rounded overflow-hidden cursor-pointer transition-opacity ${
                         i === currentImageIndex
-                          ? "ring-1 ring-[#C8A96E]"
+                          ? "ring-1 ring-[#1A3A2A]"
                           : "opacity-50 hover:opacity-75"
                       }`}
                     >
@@ -162,7 +162,7 @@ export default function PropertyDetail() {
                 {property.neighborhood ? `${property.neighborhood}, ` : ""}
                 {property.district}
               </p>
-              <p className="text-2xl font-semibold text-[#C8A96E]">
+              <p className="text-2xl font-semibold text-[#2D5A40]">
                 {formatPrice(property.price_dollars)}
               </p>
               {property.price_colones && (
@@ -343,8 +343,8 @@ export default function PropertyDetail() {
               <Card>
                 <CardContent className="p-5">
                   <div className="text-center">
-                    <div className="w-14 h-14 bg-[#C8A96E] rounded flex items-center justify-center mx-auto mb-3">
-                      <span className="text-[#0D0D0D] font-semibold text-sm tracking-tight">AZ</span>
+                    <div className="w-14 h-14 bg-[#1A3A2A] rounded flex items-center justify-center mx-auto mb-3">
+                      <span className="text-[#F0EDE6] font-semibold text-sm tracking-tight">AZ</span>
                     </div>
                     <p className="text-sm font-medium text-[#F0EDE6] mb-1">AZ Inmuebles</p>
                     <p className="text-xs text-[#888073] mb-4">{t("propertyDetail.agentSubtitle")}</p>

@@ -2,7 +2,7 @@ import React from "react";
 
 export function Badge({ className = "", variant = "default", ...props }) {
   const variants = {
-    default: "bg-[#C8A96E] text-[#0D0D0D]",
+    default: "bg-[#1A3A2A] text-[#F0EDE6]",
     secondary: "bg-[#1C1C1C] text-[#F0EDE6] border border-[rgba(255,255,255,0.07)]",
     outline: "border border-[rgba(255,255,255,0.12)] bg-transparent text-[#888073]",
   };

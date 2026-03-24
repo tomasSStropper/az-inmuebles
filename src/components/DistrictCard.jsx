@@ -9,7 +9,7 @@ export default function DistrictCard({ district, image }) {
 
   return (
     <Link to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}>
-      <div className="group overflow-hidden rounded bg-[#1C1C1C] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(200,169,110,0.4)] transition-colors duration-300">
+      <div className="group overflow-hidden rounded bg-[#1C1C1C] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(45,90,64,0.5)] transition-colors duration-300">
         <div className="relative h-52 overflow-hidden">
           {!imgError ? (
             <img

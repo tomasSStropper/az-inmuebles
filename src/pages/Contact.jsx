@@ -82,7 +82,7 @@ export default function Contact() {
                 </p>
                 <a
                   href={PHONE_URL}
-                  className="text-[15px] text-[#F0EDE6] hover:text-[#C8A96E] transition-colors"
+                  className="text-[15px] text-[#F0EDE6] hover:text-[#2D5A40] transition-colors"
                 >
                   {CONTACT.phoneDisplay}
                 </a>
@@ -96,7 +96,7 @@ export default function Contact() {
                   href={whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[15px] text-[#F0EDE6] hover:text-[#C8A96E] transition-colors"
+                  className="text-[15px] text-[#F0EDE6] hover:text-[#2D5A40] transition-colors"
                 >
                   {CONTACT.phoneDisplay}
                 </a>
@@ -108,7 +108,7 @@ export default function Contact() {
                 </p>
                 <a
                   href={EMAIL_URL}
-                  className="text-[15px] text-[#F0EDE6] hover:text-[#C8A96E] transition-colors break-all"
+                  className="text-[15px] text-[#F0EDE6] hover:text-[#2D5A40] transition-colors break-all"
                 >
                   {CONTACT.email}
                 </a>
@@ -141,7 +141,7 @@ export default function Contact() {
 
             {isSuccess ? (
               <div className="py-12">
-                <CheckCircle2 className="w-8 h-8 text-[#C8A96E] mb-4" />
+                <CheckCircle2 className="w-8 h-8 text-[#2D5A40] mb-4" />
                 <h3 className="text-lg font-light text-[#F0EDE6] mb-2">
                   {t("contact.successTitle")}
                 </h3>
@@ -219,7 +219,7 @@ export default function Contact() {
                     {t("contact.consent")}
                     <Link
                       to={createPageUrl("TerminosPrivacidad")}
-                      className="text-[#C8A96E] hover:underline ml-1"
+                      className="text-[#2D5A40] hover:underline ml-1"
                     >
                       {t("contact.termsLink")}
                     </Link>
