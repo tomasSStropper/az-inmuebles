@@ -10,6 +10,7 @@ import DistrictCard from "../components/DistrictCard";
 import PropertyCard from "../components/PropertyCard";
 import ContactButtons from "../components/ContactButtons";
 import { useTranslation } from "@/i18n/LanguageContext";
+import { HERO_COTO_BRUS_DATA_URI } from "@/assets/heroCotoBrusDataUri";
 
 const districtKeys = {
   "San Vito": "sanVito",
@@ -21,18 +22,19 @@ const districtKeys = {
 };
 
 const districtData = [
-  { name: "San Vito", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/30d2e28c6_image.png" },
-  { name: "Sabalito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop" },
-  { name: "Agua Buena", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop" },
-  { name: "Limoncito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop" },
-  { name: "Pittier", image: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&h=600&fit=crop" },
-  { name: "Gutiérrez Braun", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop" }
+  { name: "San Vito", image: "/images/distritos/san-vito.jpg" },
+  { name: "Sabalito", image: "/images/distritos/sabalito.jpg" },
+  { name: "Agua Buena", image: "/images/distritos/agua-buena.jpg" },
+  { name: "Limoncito", image: "/images/distritos/limoncito.jpg" },
+  { name: "Pittier", image: "/images/distritos/pittier.jpg" },
+  { name: "Gutiérrez Braun", image: "/images/distritos/gutierrez-braun.jpg" }
 ];
 
 export default function Home() {
   const [properties, setProperties] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { t } = useTranslation();
+  const heroBackgroundImage = import.meta.env.VITE_HERO_BG_IMAGE_URL || HERO_COTO_BRUS_DATA_URI;
 
   useEffect(() => {
     loadProperties();
@@ -86,17 +88,16 @@ export default function Home() {
     <div>
       {/* Hero Section */}
       <section className="relative h-[650px] md:h-[750px] overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/d1ec5528a_image.png"
-            alt="Coto Brus, Puntarenas"
-            className="w-full h-full object-cover"
-            loading="lazy"
-            decoding="async" />
-
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        </div>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${heroBackgroundImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat"
+          }}
+          aria-label="Coto Brus, Puntarenas"
+        />
 
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
           <motion.div
