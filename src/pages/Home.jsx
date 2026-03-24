@@ -22,12 +22,12 @@ const districtKeys = {
 };
 
 const districtData = [
-  { name: "San Vito", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68e2af09a469dc2a8b31b446/30d2e28c6_image.png" },
-  { name: "Sabalito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop" },
-  { name: "Agua Buena", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop" },
-  { name: "Limoncito", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop" },
-  { name: "Pittier", image: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&h=600&fit=crop" },
-  { name: "Gutiérrez Braun", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop" }
+  { name: "San Vito", image: "/images/distritos/san-vito.jpg" },
+  { name: "Sabalito", image: "/images/distritos/sabalito.jpg" },
+  { name: "Agua Buena", image: "/images/distritos/agua-buena.jpg" },
+  { name: "Limoncito", image: "/images/distritos/limoncito.jpg" },
+  { name: "Pittier", image: "/images/distritos/pittier.jpg" },
+  { name: "Gutiérrez Braun", image: "/images/distritos/gutierrez-braun.jpg" }
 ];
 
 export default function Home() {

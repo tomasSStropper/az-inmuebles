@@ -7,18 +7,26 @@ import { useTranslation } from "@/i18n/LanguageContext";
 
 export default function DistrictCard({ district, image, description }) {
   const { t } = useTranslation();
+  const [imgError, setImgError] = React.useState(false);
 
   return (
     <Link to={createPageUrl(`Properties?district=${encodeURIComponent(district)}`)}>
       <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-500 h-full border-2 border-[var(--accent-border)] hover:border-[#C46542]">
         <div className="relative h-64 overflow-hidden">
-          <img
-            src={image}
-            alt={`${t("districtCard.altPrefix")} ${district}`}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-            loading="lazy"
-            decoding="async"
-          />
+          {!imgError ? (
+            <img
+              src={image}
+              alt={`${t("districtCard.altPrefix")} ${district}`}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              loading="lazy"
+              decoding="async"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#C46542]/30 to-[#A35436]/10 flex items-center justify-center">
+              <MapPin className="w-16 h-16 text-[#C46542]/40" />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <div className="flex items-center gap-2 mb-2">
