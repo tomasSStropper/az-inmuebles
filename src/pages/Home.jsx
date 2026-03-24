@@ -91,7 +91,7 @@ export default function Home() {
         <div
           className="absolute inset-0"
           style={{
-> main
+            backgroundImage: `url(${heroBackgroundImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat"
