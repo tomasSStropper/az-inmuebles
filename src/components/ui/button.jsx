@@ -2,18 +2,18 @@ import React from "react";
 
 export function Button({ className = "", variant = "default", size = "md", ...props }) {
   const base =
-    "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#B07D3A]/40 disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center rounded font-medium transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-[#C8A96E]/50 disabled:opacity-40 disabled:pointer-events-none";
   const variants = {
-    default: "bg-[#B07D3A] text-white hover:bg-[#8F6530] shadow-sm hover:shadow-md",
+    default: "bg-[#C8A96E] text-[#0D0D0D] hover:bg-[#A88848]",
     outline:
-      "border-2 border-[#B07D3A] bg-transparent text-[#B07D3A] hover:bg-[rgba(176,125,58,0.07)]",
-    ghost: "hover:bg-[var(--bg-elev2)] text-[var(--text)]",
+      "border border-[rgba(255,255,255,0.15)] bg-transparent text-[#F0EDE6] hover:border-[#C8A96E] hover:text-[#C8A96E]",
+    ghost: "hover:bg-[#1C1C1C] text-[#F0EDE6]",
   };
   const sizes = {
-    sm: "h-9 px-3 text-sm",
-    md: "h-10 px-4 text-sm",
-    lg: "h-12 px-6 text-base",
-    icon: "h-10 w-10",
+    sm: "h-8 px-3 text-xs",
+    md: "h-9 px-4 text-sm",
+    lg: "h-11 px-6 text-sm",
+    icon: "h-9 w-9",
   };
   const v = variants[variant] ?? variants.default;
   const s = sizes[size] ?? sizes.md;

@@ -3,18 +3,18 @@ import React from "react";
 export function Card({ className = "", ...props }) {
   return (
     <div
-      className={`rounded-2xl bg-white shadow-sm border border-[var(--border)] ${className}`}
+      className={`rounded bg-[#1C1C1C] border border-[rgba(255,255,255,0.07)] ${className}`}
       {...props}
     />
   );
 }
 export function CardHeader({ className = "", ...props }) {
-  return <div className={`p-6 pb-2 ${className}`} {...props} />;
+  return <div className={`p-6 pb-3 ${className}`} {...props} />;
 }
 export function CardTitle({ className = "", ...props }) {
   return (
     <h3
-      className={`text-lg font-semibold text-[var(--text)] font-playfair ${className}`}
+      className={`text-base font-medium text-[#F0EDE6] ${className}`}
       {...props}
     />
   );

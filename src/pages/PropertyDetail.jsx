@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  MapPin,
   Bed,
   Bath,
   Ruler,
@@ -16,7 +15,7 @@ import {
   Phone,
   ChevronLeft,
   ChevronRight,
-  Download
+  Download,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -28,317 +27,223 @@ export default function PropertyDetail() {
   const [property, setProperty] = useState(null);
   const [relatedProperties, setRelatedProperties] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    loadProperty();
-  }, []);
+  useEffect(() => { loadProperty(); }, []);
 
   const loadProperty = async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-
-    if (id) {
-      const data = await Property.list();
-      const foundProperty = data.find(p => p.id === id);
-
-      if (foundProperty) {
-        setProperty(foundProperty);
-        loadRelatedProperties(foundProperty);
-      }
+    const id = new URLSearchParams(window.location.search).get("id");
+    if (!id) return;
+    const data = await Property.list();
+    const found = data.find((p) => p.id === id);
+    if (found) {
+      setProperty(found);
+      const related = data
+        .filter((p) => p.id !== id && (p.district === found.district || p.property_type === found.property_type))
+        .slice(0, 3);
+      setRelatedProperties(related);
     }
   };
 
-  const loadRelatedProperties = async (currentProperty) => {
-    const allProperties = await Property.list();
-    const related = allProperties
-      .filter(p =>
-        p.id !== currentProperty.id &&
-        (p.district === currentProperty.district || p.property_type === currentProperty.property_type)
-      )
-      .slice(0, 3);
-    setRelatedProperties(related);
-  };
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("es-CR", { style: "currency", currency: "USD", minimumFractionDigits: 0 }).format(price);
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat("es-CR", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
-
-  const formatArea = (size, unit) => {
-    if (!size) return "N/A";
-    return `${size.toLocaleString("es-CR")} ${unit || "m²"}`;
-  };
-
-  const nextImage = () => {
-    if (property.images) {
-      setCurrentImageIndex((prev) =>
-        prev === property.images.length - 1 ? 0 : prev + 1
-      );
-    }
-  };
-
-  const prevImage = () => {
-    if (property.images) {
-      setCurrentImageIndex((prev) =>
-        prev === 0 ? property.images.length - 1 : prev - 1
-      );
-    }
-  };
+  const formatArea = (size, unit) =>
+    size ? `${size.toLocaleString("es-CR")} ${unit || "m²"}` : "N/A";
 
   if (!property) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="text-center">
-          <p className="text-[var(--muted)]">{t("propertyDetail.loading")}</p>
-        </div>
+      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+        <p className="text-[#888073]">{t("propertyDetail.loading")}</p>
       </div>
     );
   }
 
-  const images = property.images && property.images.length > 0
-    ? property.images
-    : ["https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&h=800&fit=crop"];
+  const images =
+    property.images?.length > 0
+      ? property.images
+      : ["https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&h=800&fit=crop"];
 
   const whatsapp = whatsappUrl(
     t("whatsapp.propertyDetailMessage", { title: property.title, district: property.district })
   );
 
+  const nextImage = () =>
+    setCurrentImageIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+  const prevImage = () =>
+    setCurrentImageIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+
   return (
-    <div>
+    <div className="bg-[#0D0D0D]">
       {/* Breadcrumb */}
-      <div className="bg-[var(--bg-elev)] py-4">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
-            <Link to={createPageUrl("Home")} className="hover:text-emerald-600">
-              {t("propertyDetail.breadcrumbHome")}
-            </Link>
-            <span>/</span>
-            <Link to={createPageUrl("Properties")} className="hover:text-emerald-600">
-              {t("propertyDetail.breadcrumbProperties")}
-            </Link>
-            <span>/</span>
-            <span className="text-[var(--text)]">{property.title}</span>
-          </div>
+      <div className="border-b border-[rgba(255,255,255,0.07)] py-3">
+        <div className="max-w-7xl mx-auto px-6 flex items-center gap-2 text-xs text-[#888073]">
+          <Link to={createPageUrl("Home")} className="hover:text-[#C8A96E] transition-colors">
+            {t("propertyDetail.breadcrumbHome")}
+          </Link>
+          <span>/</span>
+          <Link to={createPageUrl("Properties")} className="hover:text-[#C8A96E] transition-colors">
+            {t("propertyDetail.breadcrumbProperties")}
+          </Link>
+          <span>/</span>
+          <span className="text-[#F0EDE6] truncate max-w-[200px]">{property.title}</span>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="grid lg:grid-cols-3 gap-10">
+
+          {/* Main */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Image Gallery */}
-            <div className="space-y-4">
-              <div className="relative h-[500px] rounded-2xl overflow-hidden bg-[var(--bg-elev)]">
+            {/* Gallery */}
+            <div className="space-y-3">
+              <div className="relative h-[460px] rounded overflow-hidden bg-[#161616]">
                 <img
                   src={images[currentImageIndex]}
                   alt={t("propertyDetail.imageAlt", { title: property.title, index: currentImageIndex + 1 })}
                   className="w-full h-full object-cover cursor-pointer"
                   loading="lazy"
                   decoding="async"
-                  onClick={() => setIsImageModalOpen(true)}
                 />
-
                 {images.length > 1 && (
                   <>
                     <button
                       onClick={prevImage}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[rgba(42,42,42,0.9)] hover:bg-[var(--bg-elev)] rounded-full flex items-center justify-center transition-all shadow-lg"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 hover:bg-black/80 rounded flex items-center justify-center transition-colors"
                     >
-                      <ChevronLeft className="w-6 h-6 text-[var(--text)]" />
+                      <ChevronLeft className="w-5 h-5 text-[#F0EDE6]" />
                     </button>
                     <button
                       onClick={nextImage}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[rgba(42,42,42,0.9)] hover:bg-[var(--bg-elev)] rounded-full flex items-center justify-center transition-all shadow-lg"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 hover:bg-black/80 rounded flex items-center justify-center transition-colors"
                     >
-                      <ChevronRight className="w-6 h-6 text-[var(--text)]" />
+                      <ChevronRight className="w-5 h-5 text-[#F0EDE6]" />
                     </button>
                   </>
                 )}
-
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm">
+                <div className="absolute bottom-3 right-3 bg-black/60 text-[#F0EDE6] text-xs px-2.5 py-1 rounded">
                   {currentImageIndex + 1} / {images.length}
                 </div>
               </div>
 
-              {/* Thumbnail Gallery */}
               {images.length > 1 && (
-                <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
-                  {images.map((img, index) => (
+                <div className="grid grid-cols-6 gap-2">
+                  {images.map((img, i) => (
                     <div
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`relative h-20 rounded-lg overflow-hidden cursor-pointer transition-all ${
-                        index === currentImageIndex
-                          ? "ring-2 ring-emerald-600"
-                          : "hover:opacity-75"
+                      key={i}
+                      onClick={() => setCurrentImageIndex(i)}
+                      className={`relative h-16 rounded overflow-hidden cursor-pointer transition-opacity ${
+                        i === currentImageIndex
+                          ? "ring-1 ring-[#C8A96E]"
+                          : "opacity-50 hover:opacity-75"
                       }`}
                     >
-                      <img
-                        src={img}
-                        alt={t("propertyDetail.thumbnailAlt", { index: index + 1 })}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
+                      <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Title and Price */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h1 className="text-3xl md:text-4xl font-bold text-[var(--text)] mb-2">
-                    {property.title}
-                  </h1>
-                  <div className="flex items-center gap-2 text-[var(--muted)]">
-                    <MapPin className="w-5 h-5" />
-                    <span className="text-lg">
-                      {property.neighborhood ? `${property.neighborhood}, ` : ""}{property.district}
-                    </span>
-                  </div>
-                </div>
-                <Badge className="text-lg px-4 py-2 bg-emerald-600">
-                  {property.property_type}
-                </Badge>
-              </div>
-
-              <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold text-emerald-600">
-                  {formatPrice(property.price_dollars)}
-                </span>
-                {property.price_colones && (
-                  <span className="text-xl text-[var(--muted)]">
-                    ₡{property.price_colones.toLocaleString("es-CR")}
-                  </span>
+            {/* Title & price */}
+            <div className="space-y-3">
+              <div className="flex items-start justify-between gap-4">
+                <h1
+                  className="text-[28px] md:text-[36px] font-light text-[#F0EDE6] leading-snug"
+                  style={{ letterSpacing: "-0.02em" }}
+                >
+                  {property.title}
+                </h1>
+                {property.property_type && (
+                  <Badge className="flex-shrink-0 mt-1">{property.property_type}</Badge>
                 )}
               </div>
+              <p className="text-sm text-[#888073]">
+                {property.neighborhood ? `${property.neighborhood}, ` : ""}
+                {property.district}
+              </p>
+              <p className="text-2xl font-semibold text-[#C8A96E]">
+                {formatPrice(property.price_dollars)}
+              </p>
+              {property.price_colones && (
+                <p className="text-sm text-[#888073]">
+                  ₡{property.price_colones.toLocaleString("es-CR")}
+                </p>
+              )}
             </div>
 
-            {/* Technical Details */}
+            {/* Technical details */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("propertyDetail.technicalData")}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-5">
                   {property.land_size && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-emerald-900/30 rounded-xl flex items-center justify-center">
-                        <Ruler className="w-6 h-6 text-emerald-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.land")}</p>
-                        <p className="font-semibold text-[var(--text)]">
-                          {formatArea(property.land_size, property.land_unit)}
-                        </p>
-                      </div>
+                    <div>
+                      <p className="text-xs text-[#888073] uppercase tracking-wider mb-1">{t("propertyDetail.land")}</p>
+                      <p className="text-sm text-[#F0EDE6] font-medium">{formatArea(property.land_size, property.land_unit)}</p>
                     </div>
                   )}
-
                   {property.construction_size && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-blue-900/30 rounded-xl flex items-center justify-center">
-                        <Ruler className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.construction")}</p>
-                        <p className="font-semibold text-[var(--text)]">
-                          {formatArea(property.construction_size, "m²")}
-                        </p>
-                      </div>
+                    <div>
+                      <p className="text-xs text-[#888073] uppercase tracking-wider mb-1">{t("propertyDetail.construction")}</p>
+                      <p className="text-sm text-[#F0EDE6] font-medium">{formatArea(property.construction_size, "m²")}</p>
                     </div>
                   )}
-
                   {property.bedrooms && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center">
-                        <Bed className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.bedrooms")}</p>
-                        <p className="font-semibold text-[var(--text)]">{property.bedrooms}</p>
-                      </div>
+                    <div>
+                      <p className="text-xs text-[#888073] uppercase tracking-wider mb-1">{t("propertyDetail.bedrooms")}</p>
+                      <p className="text-sm text-[#F0EDE6] font-medium">{property.bedrooms}</p>
                     </div>
                   )}
-
                   {property.bathrooms && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-cyan-900/30 rounded-xl flex items-center justify-center">
-                        <Bath className="w-6 h-6 text-cyan-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.bathrooms")}</p>
-                        <p className="font-semibold text-[var(--text)]">{property.bathrooms}</p>
-                      </div>
+                    <div>
+                      <p className="text-xs text-[#888073] uppercase tracking-wider mb-1">{t("propertyDetail.bathrooms")}</p>
+                      <p className="text-sm text-[#F0EDE6] font-medium">{property.bathrooms}</p>
                     </div>
                   )}
-
                   {property.parking && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-amber-900/30 rounded-xl flex items-center justify-center">
-                        <Car className="w-6 h-6 text-amber-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.parking")}</p>
-                        <p className="font-semibold text-[var(--text)]">{property.parking}</p>
-                      </div>
+                    <div>
+                      <p className="text-xs text-[#888073] uppercase tracking-wider mb-1">{t("propertyDetail.parking")}</p>
+                      <p className="text-sm text-[#F0EDE6] font-medium">{property.parking}</p>
                     </div>
                   )}
-
                   {property.year_built && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-green-900/30 rounded-xl flex items-center justify-center">
-                        <Calendar className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.yearBuilt")}</p>
-                        <p className="font-semibold text-[var(--text)]">{property.year_built}</p>
-                      </div>
+                    <div>
+                      <p className="text-xs text-[#888073] uppercase tracking-wider mb-1">{t("propertyDetail.yearBuilt")}</p>
+                      <p className="text-sm text-[#F0EDE6] font-medium">{property.year_built}</p>
                     </div>
                   )}
-
                   {property.condition && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-pink-900/30 rounded-xl flex items-center justify-center">
-                        <FileText className="w-6 h-6 text-pink-600" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[var(--muted)]">{t("propertyDetail.condition")}</p>
-                        <p className="font-semibold text-[var(--text)]">{property.condition}</p>
-                      </div>
+                    <div>
+                      <p className="text-xs text-[#888073] uppercase tracking-wider mb-1">{t("propertyDetail.condition")}</p>
+                      <p className="text-sm text-[#F0EDE6] font-medium">{property.condition}</p>
                     </div>
                   )}
                 </div>
 
-                {property.services && property.services.length > 0 && (
-                  <div className="mt-6 pt-6 border-t border-[var(--border)]">
-                    <h4 className="font-semibold text-[var(--text)] mb-3">{t("propertyDetail.availableServices")}</h4>
+                {property.services?.length > 0 && (
+                  <div className="mt-6 pt-5 border-t border-[rgba(255,255,255,0.07)]">
+                    <p className="text-xs text-[#888073] uppercase tracking-wider mb-3">
+                      {t("propertyDetail.availableServices")}
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      {property.services.map((service, index) => (
-                        <Badge key={index} variant="secondary">
-                          {service}
-                        </Badge>
+                      {property.services.map((s, i) => (
+                        <Badge key={i} variant="secondary">{s}</Badge>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {property.tags && property.tags.length > 0 && (
-                  <div className="mt-6 pt-6 border-t border-[var(--border)]">
-                    <h4 className="font-semibold text-[var(--text)] mb-3">{t("propertyDetail.characteristics")}</h4>
+                {property.tags?.length > 0 && (
+                  <div className="mt-6 pt-5 border-t border-[rgba(255,255,255,0.07)]">
+                    <p className="text-xs text-[#888073] uppercase tracking-wider mb-3">
+                      {t("propertyDetail.characteristics")}
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      {property.tags.map((tag, index) => (
-                        <Badge key={index} variant="outline" className="bg-emerald-900/20 text-emerald-400 border-emerald-800/40">
-                          {tag}
-                        </Badge>
+                      {property.tags.map((tag, i) => (
+                        <Badge key={i} variant="outline">{tag}</Badge>
                       ))}
                     </div>
                   </div>
@@ -353,7 +258,7 @@ export default function PropertyDetail() {
                   <CardTitle>{t("propertyDetail.description")}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-[var(--text)] leading-relaxed whitespace-pre-line">
+                  <p className="text-[15px] text-[#888073] leading-[1.7] whitespace-pre-line">
                     {property.description}
                   </p>
                 </CardContent>
@@ -361,26 +266,23 @@ export default function PropertyDetail() {
             )}
 
             {/* Documents */}
-            {property.documents && property.documents.length > 0 && (
+            {property.documents?.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle>{t("propertyDetail.documents")}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {property.documents.map((doc, index) => (
+                  <div className="space-y-2">
+                    {property.documents.map((doc, i) => (
                       <a
-                        key={index}
+                        key={i}
                         href={doc.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-between p-4 bg-[var(--bg-elev2)] rounded-lg hover:bg-[var(--bg)] transition-colors"
+                        className="flex items-center justify-between p-3 rounded border border-[rgba(255,255,255,0.07)] hover:border-[rgba(200,169,110,0.3)] transition-colors"
                       >
-                        <div className="flex items-center gap-3">
-                          <FileText className="w-5 h-5 text-emerald-600" />
-                          <span className="font-medium text-[var(--text)]">{doc.name}</span>
-                        </div>
-                        <Download className="w-5 h-5 text-[var(--muted)]" />
+                        <span className="text-sm text-[#F0EDE6]">{doc.name}</span>
+                        <Download className="w-4 h-4 text-[#888073]" />
                       </a>
                     ))}
                   </div>
@@ -395,18 +297,15 @@ export default function PropertyDetail() {
                   <CardTitle>{t("propertyDetail.approximateLocation")}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-96 bg-[var(--bg-elev2)] rounded-lg flex items-center justify-center">
+                  <div className="h-80 rounded overflow-hidden">
                     <iframe
                       src={`https://www.google.com/maps?q=${property.map_coordinates.lat},${property.map_coordinates.lng}&output=embed`}
                       width="100%"
                       height="100%"
-                      className="rounded-lg"
                       loading="lazy"
                     />
                   </div>
-                  <p className="text-sm text-[var(--muted)] mt-3">
-                    {t("propertyDetail.locationNotice")}
-                  </p>
+                  <p className="text-xs text-[#888073] mt-3">{t("propertyDetail.locationNotice")}</p>
                 </CardContent>
               </Card>
             )}
@@ -414,58 +313,54 @@ export default function PropertyDetail() {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-6">
-              {/* Contact Card */}
-              <Card className="bg-emerald-900/20 border-emerald-800/30">
+            <div className="sticky top-20 space-y-5">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="text-center">{t("propertyDetail.interested")}</CardTitle>
+                  <CardTitle>{t("propertyDetail.interested")}</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-2">
                   <a href={whatsapp} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full gap-2 bg-green-600 hover:bg-green-700">
-                      <MessageCircle className="w-5 h-5" />
+                    <Button className="w-full gap-2">
+                      <MessageCircle className="w-4 h-4" />
                       {t("propertyDetail.askWhatsApp")}
                     </Button>
                   </a>
                   <a href={PHONE_URL}>
                     <Button variant="outline" className="w-full gap-2">
-                      <Phone className="w-5 h-5" />
+                      <Phone className="w-4 h-4" />
                       {t("propertyDetail.call", { phone: CONTACT.phoneDisplay })}
                     </Button>
                   </a>
                   <a href={EMAIL_URL}>
                     <Button variant="outline" className="w-full gap-2">
-                      <Mail className="w-5 h-5" />
+                      <Mail className="w-4 h-4" />
                       {t("propertyDetail.sendEmail")}
                     </Button>
                   </a>
                 </CardContent>
               </Card>
 
-              {/* Agent Info */}
               <Card>
-                <CardContent className="p-6">
+                <CardContent className="p-5">
                   <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white font-bold text-2xl">AZ</span>
+                    <div className="w-14 h-14 bg-[#C8A96E] rounded flex items-center justify-center mx-auto mb-3">
+                      <span className="text-[#0D0D0D] font-semibold text-sm tracking-tight">AZ</span>
                     </div>
-                    <h3 className="font-bold text-[var(--text)] mb-1">AZ Inmuebles</h3>
-                    <p className="text-sm text-[var(--muted)] mb-4">
-                      {t("propertyDetail.agentSubtitle")}
-                    </p>
-                    <div className="text-sm text-[var(--muted)]">
-                      <p>📞 {CONTACT.phoneDisplay}</p>
-                      <p>📧 {CONTACT.email}</p>
+                    <p className="text-sm font-medium text-[#F0EDE6] mb-1">AZ Inmuebles</p>
+                    <p className="text-xs text-[#888073] mb-4">{t("propertyDetail.agentSubtitle")}</p>
+                    <div className="text-xs text-[#888073] space-y-1">
+                      <p>{CONTACT.phoneDisplay}</p>
+                      <p>{CONTACT.email}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Legal Notice */}
-              <Card className="bg-yellow-900/20 border-yellow-800/30">
+              <Card>
                 <CardContent className="p-4">
-                  <p className="text-xs text-[var(--muted)]">
-                    <strong>{t("propertyDetail.legalNoticeLabel")}</strong> {t("propertyDetail.legalNotice")}
+                  <p className="text-xs text-[#888073] leading-relaxed">
+                    <strong className="text-[#F0EDE6]">{t("propertyDetail.legalNoticeLabel")}</strong>{" "}
+                    {t("propertyDetail.legalNotice")}
                   </p>
                 </CardContent>
               </Card>
@@ -473,15 +368,15 @@ export default function PropertyDetail() {
           </div>
         </div>
 
-        {/* Related Properties */}
+        {/* Related */}
         {relatedProperties.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-3xl font-bold text-[var(--text)] mb-8">
+          <div className="mt-20 pt-10 border-t border-[rgba(255,255,255,0.07)]">
+            <p className="text-xs font-medium tracking-[0.12em] text-[#888073] uppercase mb-8">
               {t("propertyDetail.relatedProperties")}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedProperties.map((relProp) => (
-                <PropertyCard key={relProp.id} property={relProp} />
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedProperties.map((p) => (
+                <PropertyCard key={p.id} property={p} />
               ))}
             </div>
           </div>

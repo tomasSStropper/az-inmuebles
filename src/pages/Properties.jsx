@@ -9,12 +9,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, ArrowRight } from "lucide-react";
+import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { whatsappUrl } from "@/config/contact";
 import PropertyCard from "../components/PropertyCard";
 import PropertyFilters from "../components/PropertyFilters";
 import { useTranslation } from "@/i18n/LanguageContext";
+
+const WHATSAPP_MSG =
+  "Hola, estoy interesado en conocer más sobre las propiedades disponibles en Coto Brus.";
 
 export default function Properties() {
   const [properties, setProperties] = useState([]);
@@ -22,34 +26,22 @@ export default function Properties() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("-created_date");
   const [filters, setFilters] = useState({
-    minPrice: "",
-    maxPrice: "",
-    propertyType: "",
-    condition: "",
-    bedrooms: "",
-    bathrooms: "",
-    parking: "",
-    tags: [],
-    district: "",
-    minLandSize: "",
-    maxLandSize: "",
-    minConstructionSize: "",
-    maxConstructionSize: "",
+    minPrice: "", maxPrice: "", propertyType: "", condition: "",
+    bedrooms: "", bathrooms: "", parking: "", tags: [], district: "",
+    minLandSize: "", maxLandSize: "", minConstructionSize: "", maxConstructionSize: "",
   });
   const { t } = useTranslation();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const search = urlParams.get("search");
-    const district = urlParams.get("district");
+    const params = new URLSearchParams(window.location.search);
+    const search = params.get("search");
+    const district = params.get("district");
     if (search) setSearchQuery(search);
     if (district) setFilters((prev) => ({ ...prev, district }));
     loadProperties();
   }, []);
 
-  useEffect(() => {
-    applyFilters();
-  }, [properties, searchQuery, filters, sortBy]);
+  useEffect(() => { applyFilters(); }, [properties, searchQuery, filters, sortBy]);
 
   const loadProperties = async () => {
     const data = await Property.list("-created_date");
@@ -57,41 +49,39 @@ export default function Properties() {
   };
 
   const applyFilters = () => {
-    let filtered = [...properties];
-
+    let f = [...properties];
     if (searchQuery) {
-      filtered = filtered.filter(
-        (p) =>
-          p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.neighborhood?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.district.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          p.property_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          (p.tags || []).some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()))
+      const q = searchQuery.toLowerCase();
+      f = f.filter((p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.description?.toLowerCase().includes(q) ||
+        p.neighborhood?.toLowerCase().includes(q) ||
+        p.district.toLowerCase().includes(q) ||
+        p.property_type?.toLowerCase().includes(q) ||
+        (p.tags || []).some((t) => t.toLowerCase().includes(q))
       );
     }
+    if (filters.district) f = f.filter((p) => p.district === filters.district);
+    if (filters.minPrice) f = f.filter((p) => p.price_dollars >= parseFloat(filters.minPrice));
+    if (filters.maxPrice) f = f.filter((p) => p.price_dollars <= parseFloat(filters.maxPrice));
+    if (filters.propertyType) f = f.filter((p) => p.property_type === filters.propertyType);
+    if (filters.condition) f = f.filter((p) => p.condition === filters.condition);
+    if (filters.bedrooms) f = f.filter((p) => p.bedrooms >= parseInt(filters.bedrooms));
+    if (filters.bathrooms) f = f.filter((p) => p.bathrooms >= parseInt(filters.bathrooms));
+    if (filters.parking) f = f.filter((p) => p.parking >= parseInt(filters.parking));
+    if (filters.minLandSize) f = f.filter((p) => p.land_size >= parseFloat(filters.minLandSize));
+    if (filters.maxLandSize) f = f.filter((p) => p.land_size <= parseFloat(filters.maxLandSize));
+    if (filters.minConstructionSize) f = f.filter((p) => p.construction_size && p.construction_size >= parseFloat(filters.minConstructionSize));
+    if (filters.maxConstructionSize) f = f.filter((p) => p.construction_size && p.construction_size <= parseFloat(filters.maxConstructionSize));
+    if (filters.tags?.length > 0) f = f.filter((p) => filters.tags.some((tag) => p.tags?.includes(tag)));
 
-    if (filters.district) filtered = filtered.filter((p) => p.district === filters.district);
-    if (filters.minPrice) filtered = filtered.filter((p) => p.price_dollars >= parseFloat(filters.minPrice));
-    if (filters.maxPrice) filtered = filtered.filter((p) => p.price_dollars <= parseFloat(filters.maxPrice));
-    if (filters.propertyType) filtered = filtered.filter((p) => p.property_type === filters.propertyType);
-    if (filters.condition) filtered = filtered.filter((p) => p.condition === filters.condition);
-    if (filters.bedrooms) filtered = filtered.filter((p) => p.bedrooms >= parseInt(filters.bedrooms));
-    if (filters.bathrooms) filtered = filtered.filter((p) => p.bathrooms >= parseInt(filters.bathrooms));
-    if (filters.parking) filtered = filtered.filter((p) => p.parking >= parseInt(filters.parking));
-    if (filters.minLandSize) filtered = filtered.filter((p) => p.land_size >= parseFloat(filters.minLandSize));
-    if (filters.maxLandSize) filtered = filtered.filter((p) => p.land_size <= parseFloat(filters.maxLandSize));
-    if (filters.minConstructionSize) filtered = filtered.filter((p) => p.construction_size && p.construction_size >= parseFloat(filters.minConstructionSize));
-    if (filters.maxConstructionSize) filtered = filtered.filter((p) => p.construction_size && p.construction_size <= parseFloat(filters.maxConstructionSize));
-    if (filters.tags && filters.tags.length > 0) filtered = filtered.filter((p) => filters.tags.some((tag) => p.tags?.includes(tag)));
+    if (sortBy === "price_asc") f.sort((a, b) => a.price_dollars - b.price_dollars);
+    else if (sortBy === "price_desc") f.sort((a, b) => b.price_dollars - a.price_dollars);
+    else if (sortBy === "area_asc") f.sort((a, b) => (a.land_size || 0) - (b.land_size || 0));
+    else if (sortBy === "area_desc") f.sort((a, b) => (b.land_size || 0) - (a.land_size || 0));
+    else f.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
 
-    if (sortBy === "price_asc") filtered.sort((a, b) => a.price_dollars - b.price_dollars);
-    else if (sortBy === "price_desc") filtered.sort((a, b) => b.price_dollars - a.price_dollars);
-    else if (sortBy === "area_asc") filtered.sort((a, b) => (a.land_size || 0) - (b.land_size || 0));
-    else if (sortBy === "area_desc") filtered.sort((a, b) => (b.land_size || 0) - (a.land_size || 0));
-    else filtered.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
-
-    setFilteredProperties(filtered);
+    setFilteredProperties(f);
   };
 
   const clearFilters = () => {
@@ -108,37 +98,39 @@ export default function Properties() {
     : t("properties.allProperties");
 
   return (
-    <div>
-      {/* ── Page header ── */}
-      <section className="bg-[#F0EDE6] py-14">
-        <div className="max-w-7xl mx-auto px-4">
-          <span className="inline-block mb-3 px-4 py-1 bg-[#B07D3A] text-white rounded-full text-sm font-semibold font-inter">
+    <div className="bg-[#0D0D0D]">
+      {/* Page header */}
+      <section className="border-b border-[rgba(255,255,255,0.07)] py-[80px]">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-xs font-medium tracking-[0.12em] text-[#888073] uppercase mb-4">
             {t("properties.catalogBadge")}
-          </span>
-          <h1 className="font-playfair text-4xl md:text-5xl font-bold text-[#1A1A1A] mb-2">
+          </p>
+          <h1
+            className="text-[40px] md:text-[56px] font-light text-[#F0EDE6] leading-tight"
+            style={{ letterSpacing: "-0.025em" }}
+          >
             {districtTitle}
           </h1>
-          <p className="font-inter text-[#5C5449]">{t("properties.findPerfect")}</p>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Search + sort */}
-        <div className="mb-8 flex flex-col md:flex-row gap-3">
+        <div className="flex flex-col md:flex-row gap-3 mb-10">
           <div className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888073]" />
             <Input
               placeholder={t("properties.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-11 h-11"
+              className="pl-10 h-10"
             />
           </div>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-full md:w-56 h-11 border border-[var(--border-strong)] rounded-xl text-sm text-[var(--text)] bg-white focus:border-[#B07D3A] focus:ring-2 focus:ring-[#B07D3A]/30">
+            <SelectTrigger className="w-full md:w-48 h-10 rounded border border-[rgba(255,255,255,0.12)] bg-[#161616] text-[#F0EDE6] text-sm px-3">
               <SelectValue placeholder={t("properties.sortBy")} />
             </SelectTrigger>
-            <SelectContent className="bg-white border border-[var(--border)]">
+            <SelectContent>
               <SelectItem value="-created_date">{t("properties.sortRecent")}</SelectItem>
               <SelectItem value="price_asc">{t("properties.sortPriceAsc")}</SelectItem>
               <SelectItem value="price_desc">{t("properties.sortPriceDesc")}</SelectItem>
@@ -149,50 +141,48 @@ export default function Properties() {
         </div>
 
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Filters sidebar */}
           <div className="lg:col-span-1">
-            <PropertyFilters filters={filters} setFilters={setFilters} onClearFilters={clearFilters} />
+            <PropertyFilters
+              filters={filters}
+              setFilters={setFilters}
+              onClearFilters={clearFilters}
+            />
           </div>
 
-          {/* Grid */}
           <div className="lg:col-span-3">
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="font-playfair text-xl font-semibold text-[#1A1A1A]">
-                {filteredProperties.length}{" "}
-                {filteredProperties.length === 1
-                  ? t("properties.propertySingular")
-                  : t("properties.propertyPlural")}
-              </h2>
-            </div>
+            <p className="text-xs text-[#888073] mb-6">
+              {filteredProperties.length}{" "}
+              {filteredProperties.length === 1
+                ? t("properties.propertySingular")
+                : t("properties.propertyPlural")}
+            </p>
 
             {filteredProperties.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {filteredProperties.map((property) => (
                   <PropertyCard key={property.id} property={property} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 bg-white rounded-2xl border border-[var(--border)]">
-                <div className="w-14 h-14 bg-[rgba(176,125,58,0.1)] rounded-full flex items-center justify-center mx-auto mb-5">
-                  <MapPin className="w-7 h-7 text-[#B07D3A]" />
-                </div>
-                <h3 className="font-playfair text-2xl font-semibold text-[#1A1A1A] mb-2">
+              <div className="py-20 border-t border-[rgba(255,255,255,0.07)]">
+                <p className="text-[15px] text-[#F0EDE6] mb-3">
                   Propiedades disponibles próximamente
-                </h3>
-                <p className="font-inter text-[#5C5449] text-sm mb-7 max-w-sm mx-auto">
-                  Estamos preparando el catálogo. Contáctenos para consultas sobre propiedades en Coto Brus.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Button onClick={clearFilters} variant="outline">
-                    {t("properties.clearFilters")}
-                  </Button>
-                  <Link to={createPageUrl("Contact")}>
-                    <Button className="gap-2">
-                      Contactar ahora
-                      <ArrowRight className="w-4 h-4" />
+                <a
+                  href={whatsappUrl(WHATSAPP_MSG)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[15px] text-[#C8A96E] hover:text-[#A88848] transition-colors"
+                >
+                  Escribinos al 8381-9331
+                </a>
+                {properties.length > 0 && (
+                  <div className="mt-8">
+                    <Button variant="outline" size="sm" onClick={clearFilters}>
+                      {t("properties.clearFilters")}
                     </Button>
-                  </Link>
-                </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

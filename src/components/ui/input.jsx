@@ -3,7 +3,7 @@ import React from "react";
 export function Input({ className = "", ...props }) {
   return (
     <input
-      className={`w-full rounded-xl border border-[var(--border-strong)] bg-white px-4 py-2 text-sm text-[var(--text)] outline-none placeholder:text-[var(--muted)] focus:ring-2 focus:ring-[#B07D3A]/30 focus:border-[#B07D3A] transition-colors ${className}`}
+      className={`w-full rounded border border-[rgba(255,255,255,0.12)] bg-[#161616] px-4 py-2 text-sm text-[#F0EDE6] outline-none placeholder:text-[#888073] focus:border-[#C8A96E] focus:ring-1 focus:ring-[#C8A96E]/30 transition-colors ${className}`}
       {...props}
     />
   );
