@@ -37,27 +37,73 @@ export default function Home() {
   return (
     <div>
       {/* ── Hero ── */}
-      <section className="bg-[#0D0D0D] min-h-[85vh] flex items-center">
-        <div className="max-w-7xl mx-auto px-6 py-[120px] w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="max-w-3xl"
+      <section
+        className="relative min-h-screen flex items-center justify-center"
+        style={{
+          backgroundImage:
+            `url("https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/[-83.0,8.95,9,0]/1400x900?access_token=${import.meta.env.VITE_MAPBOX_TOKEN}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Dark overlay */}
+        <div
+          className="absolute inset-0"
+          style={{ background: "rgba(0,0,0,0.65)" }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-[800px] mx-auto px-6 text-center">
+          <p
+            className="text-[12px] uppercase text-[#C8A96E] mb-6"
+            style={{ letterSpacing: "0.2em" }}
           >
-            <h1
-              className="text-[48px] md:text-[72px] font-light text-[#F0EDE6] leading-[1.05] mb-6"
-              style={{ letterSpacing: "-0.03em" }}
-            >
-              Propiedades en<br />Coto Brus
-            </h1>
-            <p className="text-[15px] text-[#888073] leading-[1.7] mb-10 max-w-sm">
-              Encontrá tu lugar en la montaña.
-            </p>
+            Coto Brus · Costa Rica
+          </p>
+
+          <h1
+            className="text-[40px] md:text-[68px] font-light text-[#F0EDE6] leading-[1.05]"
+            style={{ letterSpacing: "-0.02em" }}
+          >
+            Tu próxima propiedad está en Coto Brus.
+          </h1>
+
+          <p
+            className="mt-4 text-[17px] font-normal"
+            style={{ color: "rgba(240,237,230,0.6)" }}
+          >
+            Venta directa con Carlos Azofeifa Arias — fincas, lotes y locales comerciales.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
             <Link to={createPageUrl("Properties")}>
-              <Button size="lg">Ver propiedades</Button>
+              <button
+                className="px-7 py-3 text-sm text-[#F0EDE6] transition-colors"
+                style={{
+                  border: "1px solid rgba(240,237,230,0.4)",
+                  background: "transparent",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+              >
+                Ver propiedades
+              </button>
             </Link>
-          </motion.div>
+            <a
+              href="https://wa.me/50688319331"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button
+                className="px-7 py-3 text-sm font-medium text-[#0D0D0D] transition-colors"
+                style={{ background: "#C8A96E" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#A88848")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#C8A96E")}
+              >
+                WhatsApp
+              </button>
+            </a>
+          </div>
         </div>
       </section>
 
