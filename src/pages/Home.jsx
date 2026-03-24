@@ -22,12 +22,12 @@ const districtKeys = {
 };
 
 const districtData = [
-  { name: "San Vito", image: "/images/distritos/san-vito.jpg" },
-  { name: "Sabalito", image: "/images/distritos/sabalito.jpg" },
-  { name: "Agua Buena", image: "/images/distritos/agua-buena.jpg" },
-  { name: "Limoncito", image: "/images/distritos/limoncito.jpg" },
-  { name: "Pittier", image: "/images/distritos/pittier.jpg" },
-  { name: "Gutiérrez Braun", image: "/images/distritos/gutierrez-braun.jpg" }
+  { name: "San Vito", image: "/images/distritos/san-vito.jpg.jpeg" },
+  { name: "Sabalito", image: "/images/distritos/sabalito.jpg.jpeg" },
+  { name: "Agua Buena", image: "/images/distritos/agua-buena.jpg.jpeg" },
+  { name: "Limoncito", image: "/images/distritos/limoncito.jpg.jpeg" },
+  { name: "Pittier", image: "/images/distritos/pittier.jpg.jpeg" },
+  { name: "Gutiérrez Braun", image: "/images/distritos/gutierrez-braun.jpg.jpeg" }
 ];
 
 export default function Home() {
