@@ -38,36 +38,50 @@ export default function Home() {
     <div>
       {/* ── Hero ── */}
       <section
-        className="relative min-h-screen flex items-center justify-center"
+        className="relative flex flex-col"
         style={{
+          minHeight: "100vh",
           backgroundImage:
-            `url("https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/[-83.0,8.95,9,0]/1400x900?access_token=${import.meta.env.VITE_MAPBOX_TOKEN}")`,
+            "url(\"https://images.unsplash.com/photo-1518457900213-7b12e3a7e7b1?w=1400&q=80\")",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         {/* Dark overlay */}
-        <div
-          className="absolute inset-0"
-          style={{ background: "rgba(0,0,0,0.65)" }}
-        />
+        <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.72)" }} />
 
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-[800px] mx-auto px-6 text-center">
+        {/* Content — pushed down with padding-top */}
+        <div
+          className="relative z-10 w-full max-w-[800px] mx-auto px-6 text-center flex-1"
+          style={{ paddingTop: "20vh" }}
+        >
+          {/* Eyebrow label */}
           <p
-            className="text-[12px] uppercase text-[#C8A96E] mb-6"
+            className="text-[12px] uppercase text-[#C8A96E]"
             style={{ letterSpacing: "0.2em" }}
           >
             Coto Brus · Costa Rica
           </p>
 
+          {/* Copper divider line */}
+          <div
+            className="mx-auto mt-5 mb-6"
+            style={{
+              width: "60px",
+              height: "1px",
+              background: "rgba(200,169,110,0.3)",
+            }}
+          />
+
+          {/* Heading */}
           <h1
-            className="text-[40px] md:text-[68px] font-light text-[#F0EDE6] leading-[1.05]"
+            className="text-[40px] md:text-[76px] font-light text-[#F0EDE6] leading-[1.05]"
             style={{ letterSpacing: "-0.02em" }}
           >
             Tu próxima propiedad está en Coto Brus.
           </h1>
 
+          {/* Subheading */}
           <p
             className="mt-4 text-[17px] font-normal"
             style={{ color: "rgba(240,237,230,0.6)" }}
@@ -75,25 +89,19 @@ export default function Home() {
             Venta directa con Carlos Azofeifa Arias — fincas, lotes y locales comerciales.
           </p>
 
+          {/* Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
             <Link to={createPageUrl("Properties")}>
               <button
                 className="px-7 py-3 text-sm text-[#F0EDE6] transition-colors"
-                style={{
-                  border: "1px solid rgba(240,237,230,0.4)",
-                  background: "transparent",
-                }}
+                style={{ border: "1px solid rgba(240,237,230,0.4)", background: "transparent" }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
                 Ver propiedades
               </button>
             </Link>
-            <a
-              href="https://wa.me/50688319331"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://wa.me/50688319331" target="_blank" rel="noopener noreferrer">
               <button
                 className="px-7 py-3 text-sm font-medium text-[#0D0D0D] transition-colors"
                 style={{ background: "#C8A96E" }}
@@ -104,6 +112,23 @@ export default function Home() {
               </button>
             </a>
           </div>
+        </div>
+
+        {/* Scroll indicator — pinned to bottom */}
+        <div className="relative z-10 flex flex-col items-center pb-10 gap-2">
+          <span
+            className="text-[11px] tracking-widest uppercase"
+            style={{ color: "rgba(240,237,230,0.3)", fontFamily: "Inter, sans-serif" }}
+          >
+            Scroll
+          </span>
+          <div
+            style={{
+              width: "1px",
+              height: "40px",
+              background: "rgba(200,169,110,0.5)",
+            }}
+          />
         </div>
       </section>
 
