@@ -86,3 +86,16 @@
 .hero-logo-anim {
   animation: fadeInLogo 1.4s ease-out 0.4s both;
 }
+
+/* Districts grid responsive */
+@media (max-width: 1024px) {
+  .districts-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .districts-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
