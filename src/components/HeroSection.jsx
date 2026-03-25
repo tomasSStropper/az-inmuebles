@@ -4,204 +4,147 @@ export default function HeroSection() {
   return (
     <section style={{
       minHeight: "100vh",
-      background: "#0A0A0A",
       display: "flex",
-      flexDirection: "column",
+      background: "#0A0A0A",
       position: "relative",
       overflow: "hidden",
     }}>
 
-      {/* Ambient glows */}
+      {/* LADO IZQUIERDO: Contenido y Textos (50%) */}
       <div style={{
-        position: "absolute",
-        bottom: "-15%", left: "-8%",
-        width: "50vw", height: "50vw",
-        background: "radial-gradient(circle, rgba(26,58,42,0.22) 0%, transparent 65%)",
-        pointerEvents: "none",
-      }} />
-      <div style={{
-        position: "absolute",
-        top: "10%", right: "5%",
-        width: "30vw", height: "30vw",
-        background: "radial-gradient(circle, rgba(26,58,42,0.1) 0%, transparent 70%)",
-        pointerEvents: "none",
-      }} />
-
-      {/* MAIN SPLIT */}
-      <div style={{
-        flex: 1,
+        flex: "0 0 50%",
         display: "flex",
-        alignItems: "center",
-        padding: "0 7vw",
-        gap: "4vw",
-        minHeight: "calc(100vh - 80px)",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "0 6vw",
+        zIndex: 2,
       }}>
-
-        {/* LEFT 58% */}
-        <div style={{ flex: "0 0 58%", maxWidth: "58%" }}>
-
-          {/* Badge */}
-          <div style={{ display: "inline-block", marginBottom: "32px" }}>
-            <span style={{
-              display: "inline-flex", alignItems: "center", gap: "8px",
-              border: "1px solid rgba(45,90,64,0.55)",
-              borderRadius: "100px",
-              padding: "6px 14px 6px 10px",
-              fontSize: "11px", letterSpacing: "0.12em",
-              color: "rgba(240,237,230,0.65)",
-              fontFamily: "'Inter', sans-serif",
-              textTransform: "uppercase",
-            }}>
-              <span style={{
-                width: "6px", height: "6px",
-                borderRadius: "50%", background: "#2D5A40", flexShrink: 0,
-              }} />
-              Venta directa · Coto Brus
-            </span>
-          </div>
-
-          {/* Heading */}
-          <div style={{ marginBottom: "20px" }}>
-            <h1 style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "clamp(38px, 4.8vw, 72px)",
-              fontWeight: 300, color: "#F0EDE6",
-              letterSpacing: "-0.03em", lineHeight: 1.08, margin: 0,
-            }}>
-              Tu próxima<br />
-              propiedad está<br />
-              en{" "}
-              <span style={{ fontStyle: "italic", color: "#4a9e6e" }}>
-                Coto Brus.
-              </span>
-            </h1>
-          </div>
-
-          {/* Subtitle */}
-          <div style={{ marginBottom: "44px" }}>
-            <p style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "15px", fontWeight: 400,
-              color: "rgba(240,237,230,0.45)",
-              lineHeight: 1.7, margin: 0, maxWidth: "380px",
-            }}>
-              Venta directa con Carlos Azofeifa Arias,
-              fincas, lotes y locales comerciales.
-            </p>
-          </div>
-
-          {/* Buttons */}
-          <div style={{
-            display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap",
+        
+        {/* Etiqueta / Badge */}
+        <div style={{ marginBottom: "24px" }}>
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: "8px",
+            border: "1px solid rgba(45,90,64,0.55)",
+            borderRadius: "100px",
+            padding: "6px 14px",
+            fontSize: "11px", letterSpacing: "0.12em",
+            color: "#4a9e6e", /* Color más vivo para resaltar */
+            fontFamily: "'Inter', sans-serif",
+            textTransform: "uppercase",
+            background: "rgba(45,90,64,0.1)",
           }}>
-            <Link
-              to="/properties"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "8px",
-                padding: "13px 28px",
-                background: "#1A3A2A", color: "#F0EDE6",
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "13px", fontWeight: 500, letterSpacing: "0.04em",
-                textDecoration: "none", borderRadius: "4px",
-                border: "1px solid #2D5A40",
-                transition: "background 0.25s ease, border-color 0.25s ease",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = "#2D5A40";
-                e.currentTarget.style.borderColor = "#3d7a56";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = "#1A3A2A";
-                e.currentTarget.style.borderColor = "#2D5A40";
-              }}
-            >
-              Ver propiedades →
-            </Link>
-
-            <a
-              href="https://wa.me/50688319331"
-              target="_blank" rel="noopener noreferrer"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "8px",
-                padding: "13px 28px",
-                background: "transparent", color: "rgba(240,237,230,0.6)",
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "13px", fontWeight: 400, letterSpacing: "0.04em",
-                textDecoration: "none",
-                border: "1px solid rgba(240,237,230,0.15)", borderRadius: "4px",
-                transition: "color 0.25s ease, border-color 0.25s ease",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = "#F0EDE6";
-                e.currentTarget.style.borderColor = "rgba(240,237,230,0.35)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = "rgba(240,237,230,0.6)";
-                e.currentTarget.style.borderColor = "rgba(240,237,230,0.15)";
-              }}
-            >
-              WhatsApp →
-            </a>
-          </div>
+            <span style={{
+              width: "6px", height: "6px",
+              borderRadius: "50%", background: "#4a9e6e", flexShrink: 0,
+            }} />
+            Venta directa · Coto Brus
+          </span>
         </div>
 
-        {/* RIGHT 42% */}
-        <div style={{
-          flex: "0 0 42%", maxWidth: "42%",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          position: "relative", minHeight: "400px",
-        }}>
-          <div style={{
-            position: "absolute", top: "5%", right: "5%",
-            width: "36px", height: "36px",
-            borderTop: "1px solid rgba(45,90,64,0.35)",
-            borderRight: "1px solid rgba(45,90,64,0.35)",
-          }} />
-          <div style={{
-            position: "absolute", bottom: "5%", left: "5%",
-            width: "36px", height: "36px",
-            borderBottom: "1px solid rgba(45,90,64,0.35)",
-            borderLeft: "1px solid rgba(45,90,64,0.35)",
-          }} />
-          <div style={{
-            position: "absolute", right: "-16px", top: "50%",
-            transform: "translateY(-50%) rotate(90deg)",
-            fontSize: "10px", letterSpacing: "0.2em",
-            color: "rgba(240,237,230,0.18)",
+        {/* Título Principal */}
+        <div style={{ marginBottom: "20px" }}>
+          <h1 style={{
             fontFamily: "'Inter', sans-serif",
-            textTransform: "uppercase", whiteSpace: "nowrap",
+            fontSize: "clamp(40px, 4.5vw, 64px)",
+            fontWeight: 400, color: "#F0EDE6",
+            letterSpacing: "-0.02em", lineHeight: 1.1, margin: 0,
           }}>
-            Inmuebles · Coto Brus
-          </div>
-          <img
-            src="/images/az-logo.png"
-            alt="AZ Inmuebles"
+            Tu próxima <br />propiedad está en<br />
+            <span style={{ fontWeight: 600, color: "#ffffff" }}>
+              Coto Brus.
+            </span>
+          </h1>
+        </div>
+
+        {/* Subtítulo */}
+        <div style={{ marginBottom: "40px" }}>
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "16px", fontWeight: 300,
+            color: "rgba(240,237,230,0.7)",
+            lineHeight: 1.6, margin: 0, maxWidth: "85%",
+          }}>
+            Venta directa con Carlos Azofeifa Arias. Encuentra fincas, lotes y locales comerciales con el mejor respaldo de la zona.
+          </p>
+        </div>
+
+        {/* Botones de Acción */}
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <Link
+            to="/propiedades"
             style={{
-              width: "78%", maxWidth: "340px",
-              opacity: 0.12,
-              filter: "brightness(1.1)",
-              userSelect: "none", pointerEvents: "none",
+              padding: "14px 32px",
+              background: "#2D5A40", color: "#FFFFFF",
+              fontFamily: "'Inter', sans-serif", fontSize: "14px", fontWeight: 500,
+              textDecoration: "none", borderRadius: "6px",
+              transition: "background 0.3s ease",
             }}
-          />
+            onMouseEnter={e => e.currentTarget.style.background = "#3d7a56"}
+            onMouseLeave={e => e.currentTarget.style.background = "#2D5A40"}
+          >
+            Ver propiedades
+          </Link>
+
+          <a
+            href="https://wa.me/50683819331" // Actualicé el número basándome en tu header
+            target="_blank" rel="noopener noreferrer"
+            style={{
+              padding: "14px 32px",
+              background: "transparent", color: "#F0EDE6",
+              fontFamily: "'Inter', sans-serif", fontSize: "14px", fontWeight: 500,
+              textDecoration: "none", borderRadius: "6px",
+              border: "1px solid rgba(240,237,230,0.3)",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = "#F0EDE6";
+              e.currentTarget.style.background = "rgba(240,237,230,0.05)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = "rgba(240,237,230,0.3)";
+              e.currentTarget.style.background = "transparent";
+            }}
+          >
+            Contactar por WhatsApp
+          </a>
         </div>
       </div>
 
-      {/* SCROLL INDICATOR */}
+      {/* LADO DERECHO: Imagen de la Propiedad (50%) */}
       <div style={{
-        display: "flex", flexDirection: "column",
-        alignItems: "center", paddingBottom: "28px", gap: "8px",
+        flex: "0 0 50%",
+        position: "relative",
+        /* REEMPLAZA ESTA URL CON LA FOTO DE UNA FINCA O PROPIEDAD REAL */
+        backgroundImage: "url('/images/hero-property.jpg')", 
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}>
-        <span style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: "10px", letterSpacing: "0.2em",
-          color: "rgba(240,237,230,0.22)", textTransform: "uppercase",
-        }}>
-          Explorar
-        </span>
+        {/* Filtro degradado para que la imagen se fusione suavemente con el fondo negro */}
         <div style={{
-          width: "1px", height: "36px",
-          background: "linear-gradient(to bottom, rgba(45,90,64,0.5), transparent)",
+          position: "absolute",
+          top: 0, bottom: 0, left: 0,
+          width: "150px",
+          background: "linear-gradient(to right, #0A0A0A 0%, transparent 100%)",
         }} />
+      </div>
+
+      {/* Indicador de Scroll (Centrado en la parte inferior izquierda) */}
+      <div style={{
+        position: "absolute",
+        bottom: "30px", left: "6vw",
+        display: "flex", alignItems: "center", gap: "12px",
+      }}>
+        <div style={{
+          width: "40px", height: "1px",
+          background: "rgba(240,237,230,0.3)",
+        }} />
+        <span style={{
+          fontFamily: "'Inter', sans-serif", fontSize: "11px",
+          letterSpacing: "0.15em", color: "rgba(240,237,230,0.5)",
+          textTransform: "uppercase",
+        }}>
+          Explorar catálogo
+        </span>
       </div>
 
     </section>
