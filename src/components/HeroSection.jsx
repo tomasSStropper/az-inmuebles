@@ -1,34 +1,6 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function HeroSection() {
-  const badgeRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const buttonsRef = useRef(null);
-  const rightRef = useRef(null);
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const els = [
-      { ref: badgeRef, delay: 0 },
-      { ref: titleRef, delay: 120 },
-      { ref: subtitleRef, delay: 220 },
-      { ref: buttonsRef, delay: 340 },
-      { ref: rightRef, delay: 180 },
-      { ref: scrollRef, delay: 600 },
-    ];
-    const timers = els.map(({ ref, delay }) =>
-      setTimeout(() => {
-        if (ref.current) {
-          ref.current.style.opacity = "1";
-          ref.current.style.transform = ref.current.dataset.transform || "translateY(0)";
-        }
-      }, delay)
-    );
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
   return (
     <section style={{
       minHeight: "100vh",
@@ -69,13 +41,7 @@ export default function HeroSection() {
         <div style={{ flex: "0 0 58%", maxWidth: "58%" }}>
 
           {/* Badge */}
-          <div ref={badgeRef} style={{
-            opacity: 0,
-            transform: "translateY(16px)",
-            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
-            display: "inline-block",
-            marginBottom: "32px",
-          }}>
+          <div style={{ display: "inline-block", marginBottom: "32px" }}>
             <span style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               border: "1px solid rgba(45,90,64,0.55)",
@@ -95,11 +61,7 @@ export default function HeroSection() {
           </div>
 
           {/* Heading */}
-          <div ref={titleRef} style={{
-            opacity: 0, transform: "translateY(18px)",
-            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
-            marginBottom: "20px",
-          }}>
+          <div style={{ marginBottom: "20px" }}>
             <h1 style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: "clamp(38px, 4.8vw, 72px)",
@@ -116,11 +78,7 @@ export default function HeroSection() {
           </div>
 
           {/* Subtitle */}
-          <div ref={subtitleRef} style={{
-            opacity: 0, transform: "translateY(18px)",
-            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
-            marginBottom: "44px",
-          }}>
+          <div style={{ marginBottom: "44px" }}>
             <p style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: "15px", fontWeight: 400,
@@ -133,9 +91,7 @@ export default function HeroSection() {
           </div>
 
           {/* Buttons */}
-          <div ref={buttonsRef} style={{
-            opacity: 0, transform: "translateY(18px)",
-            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
+          <div style={{
             display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap",
           }}>
             <Link
@@ -195,7 +151,6 @@ export default function HeroSection() {
           display: "flex", alignItems: "center", justifyContent: "center",
           position: "relative", minHeight: "400px",
         }}>
-          {/* Corner brackets */}
           <div style={{
             position: "absolute", top: "5%", right: "5%",
             width: "36px", height: "36px",
@@ -208,8 +163,6 @@ export default function HeroSection() {
             borderBottom: "1px solid rgba(45,90,64,0.35)",
             borderLeft: "1px solid rgba(45,90,64,0.35)",
           }} />
-
-          {/* Vertical label */}
           <div style={{
             position: "absolute", right: "-16px", top: "50%",
             transform: "translateY(-50%) rotate(90deg)",
@@ -220,29 +173,21 @@ export default function HeroSection() {
           }}>
             Inmuebles · Coto Brus
           </div>
-
-          {/* Logo */}
           <img
-            ref={rightRef}
             src="/images/az-logo.png"
             alt="AZ Inmuebles"
             style={{
-              opacity: 0,
-              transform: "translateY(12px)",
-              transition: "opacity 1.4s ease, transform 1.4s cubic-bezier(0.16,1,0.3,1)",
               width: "78%", maxWidth: "340px",
-              filter: "brightness(0.9)",
+              opacity: 0.12,
+              filter: "brightness(1.1)",
               userSelect: "none", pointerEvents: "none",
-              mixBlendMode: "screen",
             }}
           />
         </div>
       </div>
 
       {/* SCROLL INDICATOR */}
-      <div ref={scrollRef} style={{
-        opacity: 0, transform: "translateY(10px)",
-        transition: "opacity 0.85s ease, transform 0.85s ease",
+      <div style={{
         display: "flex", flexDirection: "column",
         alignItems: "center", paddingBottom: "28px", gap: "8px",
       }}>
