@@ -38,97 +38,122 @@ export default function Home() {
     <div>
       {/* ── Hero ── */}
       <section
-        className="text-center"
         style={{
           minHeight: "100vh",
-          background: "linear-gradient(to bottom, #0D0D0D 0%, #111810 100%)",
-          paddingTop: "80px",
-          paddingBottom: "80px",
+          background: "#0D0D0D",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
         }}
       >
-        {/* Text block — fade-in animation, desktop left-border accent */}
         <div
-          className="hero-fade-up w-full max-w-[800px] px-6
-                     md:border-l-2 md:text-left"
-          style={{ borderColor: "#1A3A2A" }}
+          className="w-full flex flex-col md:flex-row items-center px-6 py-20 mx-auto"
+          style={{ maxWidth: "1280px" }}
         >
-          {/* Eyebrow */}
-          <p
-            className="text-[11px] uppercase mb-4"
-            style={{ letterSpacing: "0.2em", color: "#2D5A40" }}
+          {/* Right column (logo) — DOM first so it appears on top on mobile */}
+          <div className="w-full md:w-2/5 md:order-2 flex items-center justify-center mb-12 md:mb-0">
+            <img
+              className="hero-logo-anim"
+              src="/images/az-logo.png"
+              alt=""
+              style={{ width: "80%", maxWidth: "360px", opacity: 0.12 }}
+            />
+          </div>
+
+          {/* Left column (text) — 60% on desktop */}
+          <div
+            className="hero-left-col-anim w-full md:w-3/5 md:order-1"
+            style={{
+              borderLeft: "2px solid #1A3A2A",
+              paddingLeft: "40px",
+            }}
           >
-            COTO BRUS · COSTA RICA
-          </p>
-
-          {/* Heading */}
-          <h1
-            className="text-[38px] md:text-[68px] font-light text-[#F0EDE6] leading-[1.05] md:pl-5"
-            style={{ letterSpacing: "-0.02em" }}
-          >
-            Tu próxima propiedad está en Coto Brus.
-          </h1>
-
-          {/* Subheading */}
-          <p
-            className="mt-3 text-[16px] font-normal md:pl-5"
-            style={{ color: "rgba(240,237,230,0.55)" }}
-          >
-            Venta directa con Carlos Azofeifa Arias — fincas, lotes y locales comerciales.
-          </p>
-        </div>
-
-        {/* Photo — zoom-out animation */}
-        <img
-          src="/images/hero-bg.jpg.jpeg"
-          alt="Coto Brus, Costa Rica"
-          className="hero-zoom-out w-full block"
-          style={{ maxHeight: "340px", objectFit: "cover", marginTop: "48px" }}
-        />
-
-        {/* Buttons */}
-        <div
-          className="flex flex-wrap items-center justify-center gap-3 px-6"
-          style={{ marginTop: "48px" }}
-        >
-          <Link to={createPageUrl("Properties")}>
-            <button
-              className="text-[#F0EDE6]"
+            {/* Label */}
+            <p
               style={{
-                padding: "11px 32px",
-                border: "1px solid rgba(240,237,230,0.35)",
-                background: "transparent",
-                borderRadius: 0,
-                fontSize: "13px",
-                letterSpacing: "0.05em",
-                transition: "background 0.25s ease",
+                fontSize: "11px",
+                letterSpacing: "0.2em",
+                color: "#1A3A2A",
+                textTransform: "uppercase",
+                marginBottom: "20px",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
             >
-              Ver propiedades
-            </button>
-          </Link>
-          <a href="https://wa.me/50688319331" target="_blank" rel="noopener noreferrer">
-            <button
-              className="font-medium text-[#F0EDE6]"
+              COTO BRUS · COSTA RICA
+            </p>
+
+            {/* Heading */}
+            <h1
+              className="font-light text-[#F0EDE6] text-[36px] md:text-[64px]"
+              style={{ letterSpacing: "-0.02em", lineHeight: 1.15 }}
+            >
+              Tu próxima propiedad está en Coto Brus.
+            </h1>
+
+            {/* Subheading */}
+            <p
               style={{
-                padding: "11px 32px",
-                background: "#1A3A2A",
-                borderRadius: 0,
-                fontSize: "13px",
-                letterSpacing: "0.05em",
-                border: "none",
-                transition: "background 0.25s ease",
+                marginTop: "16px",
+                fontSize: "16px",
+                color: "rgba(240,237,230,0.55)",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#2D5A40")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#1A3A2A")}
             >
-              WhatsApp
-            </button>
-          </a>
+              Venta directa con Carlos Azofeifa Arias, fincas, lotes y locales comerciales.
+            </p>
+
+            {/* Buttons */}
+            <div
+              className="flex flex-wrap"
+              style={{ marginTop: "40px", gap: "12px" }}
+            >
+              <Link to={createPageUrl("Properties")}>
+                <button
+                  className="text-[#F0EDE6]"
+                  style={{
+                    padding: "11px 32px",
+                    border: "1px solid rgba(240,237,230,0.3)",
+                    background: "transparent",
+                    borderRadius: 0,
+                    fontSize: "13px",
+                    letterSpacing: "0.05em",
+                    transition: "background 0.25s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "rgba(255,255,255,0.07)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "transparent")
+                  }
+                >
+                  Ver propiedades
+                </button>
+              </Link>
+              <a
+                href="https://wa.me/50683819331"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button
+                  className="font-medium text-[#F0EDE6]"
+                  style={{
+                    padding: "11px 32px",
+                    background: "#1A3A2A",
+                    borderRadius: 0,
+                    fontSize: "13px",
+                    letterSpacing: "0.05em",
+                    border: "none",
+                    transition: "background 0.25s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "#2D5A40")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "#1A3A2A")
+                  }
+                >
+                  WhatsApp
+                </button>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
