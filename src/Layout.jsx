@@ -39,8 +39,10 @@ export default function Layout({ children }) {
 
       {/* Header */}
       <header
-        className={`sticky top-0 z-50 transition-colors duration-200 ${
-          isScrolled ? "bg-[#0D0D0D] border-b border-[rgba(255,255,255,0.07)]" : "bg-[#0D0D0D]"
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[rgba(255,255,255,0.05)]" 
+            : "bg-[#0A0A0A]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
