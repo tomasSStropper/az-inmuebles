@@ -1,223 +1,247 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 export default function HeroSection() {
-  const leftRef = useRef(null);
-  const logoRef = useRef(null);
-  const lineRef = useRef(null);
+  const badgeRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const buttonsRef = useRef(null);
+  const rightRef = useRef(null);
+  const scrollRef = useRef(null);
   useEffect(() => {
-    const timer1 = setTimeout(() => {
-      if (leftRef.current) {
-        leftRef.current.style.opacity = "1";
-        leftRef.current.style.transform = "translateY(0)";
-      }
-    }, 100);
-    const timer2 = setTimeout(() => {
-      if (logoRef.current) {
-        logoRef.current.style.opacity = "0.11";
-        logoRef.current.style.transform = "scale(1)";
-      }
-    }, 400);
-    const timer3 = setTimeout(() => {
-      if (lineRef.current) {
-        lineRef.current.style.height = "60%";
-        lineRef.current.style.opacity = "1";
-      }
-    }, 200);
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-    };
+    const els = [
+      { ref: badgeRef, delay: 0 },
+      { ref: titleRef, delay: 120 },
+      { ref: subtitleRef, delay: 220 },
+      { ref: buttonsRef, delay: 340 },
+      { ref: rightRef, delay: 180 },
+      { ref: scrollRef, delay: 600 },
+    ];
+    const timers = els.map(({ ref, delay }) =>
+      setTimeout(() => {
+        if (ref.current) {
+          ref.current.style.opacity = "1";
+          ref.current.style.transform = ref.current.dataset.transform || "translateY(0)";
+        }
+      }, delay)
+    );
+    return () => timers.forEach(clearTimeout);
   }, []);
   return (
     <section style={{
       minHeight: "100vh",
       background: "#0A0A0A",
       display: "flex",
-      alignItems: "center",
+      flexDirection: "column",
       position: "relative",
       overflow: "hidden",
-      padding: "0 6vw",
     }}>
-      {/* Subtle grain texture overlay */}
+      {/* Ambient glows */}
       <div style={{
         position: "absolute",
-        inset: 0,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E")`,
-        opacity: 0.4,
+        bottom: "-15%", left: "-8%",
+        width: "50vw", height: "50vw",
+        background: "radial-gradient(circle, rgba(26,58,42,0.22) 0%, transparent 65%)",
         pointerEvents: "none",
-        zIndex: 1,
       }} />
-      {/* Subtle green glow bottom left */}
       <div style={{
         position: "absolute",
-        bottom: "-10%",
-        left: "-5%",
-        width: "40vw",
-        height: "40vw",
-        background: "radial-gradient(circle, rgba(26,58,42,0.18) 0%, transparent 70%)",
+        top: "10%", right: "5%",
+        width: "30vw", height: "30vw",
+        background: "radial-gradient(circle, rgba(26,58,42,0.1) 0%, transparent 70%)",
         pointerEvents: "none",
-        zIndex: 1,
       }} />
-      {/* LEFT COLUMN — 60% */}
+      {/* MAIN SPLIT */}
       <div style={{
-        flex: "0 0 58%",
-        maxWidth: "58%",
+        flex: 1,
         display: "flex",
-        alignItems: "flex-start",
-        gap: "32px",
-        position: "relative",
-        zIndex: 2,
-        paddingRight: "4vw",
+        alignItems: "center",
+        padding: "0 7vw",
+        gap: "4vw",
+        minHeight: "calc(100vh - 80px)",
       }}>
-        {/* Animated vertical line */}
-        <div
-          ref={lineRef}
-          style={{
-            width: "1.5px",
-            height: "0%",
-            background: "linear-gradient(to bottom, transparent, #1A3A2A 30%, #2D5A40 70%, transparent)",
-            flexShrink: 0,
-            marginTop: "8px",
-            transition: "height 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease",
+        {/* LEFT 58% */}
+        <div style={{ flex: "0 0 58%", maxWidth: "58%" }}>
+          {/* Badge */}
+          <div ref={badgeRef} style={{
             opacity: 0,
-            alignSelf: "stretch",
-            minHeight: "180px",
-          }}
-        />
-        {/* Text block */}
-        <div
-          ref={leftRef}
-          style={{
-            opacity: 0,
-            transform: "translateY(28px)",
-            transition: "opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
-          }}
-        >
-          {/* Label */}
-          <p style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "11px",
-            letterSpacing: "0.22em",
-            color: "#2D5A40",
-            textTransform: "uppercase",
-            margin: "0 0 24px 0",
-            fontWeight: 500,
+            transform: "translateY(16px)",
+            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
+            display: "inline-block",
+            marginBottom: "32px",
           }}>
-            Coto Brus · Costa Rica
-          </p>
-          {/* Main heading */}
-          <h1 style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "clamp(36px, 4.5vw, 68px)",
-            fontWeight: 300,
-            color: "#F0EDE6",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.1,
-            margin: "0 0 20px 0",
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              border: "1px solid rgba(45,90,64,0.55)",
+              borderRadius: "100px",
+              padding: "6px 14px 6px 10px",
+              fontSize: "11px", letterSpacing: "0.12em",
+              color: "rgba(240,237,230,0.65)",
+              fontFamily: "'Inter', sans-serif",
+              textTransform: "uppercase",
+            }}>
+              <span style={{
+                width: "6px", height: "6px",
+                borderRadius: "50%", background: "#2D5A40", flexShrink: 0,
+              }} />
+              Venta directa · Coto Brus
+            </span>
+          </div>
+          {/* Heading */}
+          <div ref={titleRef} style={{
+            opacity: 0, transform: "translateY(18px)",
+            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
+            marginBottom: "20px",
           }}>
-            Tu próxima<br />
-            propiedad está<br />
-            en Coto Brus.
-          </h1>
-          {/* Subheading */}
-          <p style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "15px",
-            fontWeight: 400,
-            color: "rgba(240,237,230,0.5)",
-            lineHeight: 1.65,
-            margin: "0 0 44px 0",
-            maxWidth: "420px",
+            <h1 style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "clamp(38px, 4.8vw, 72px)",
+              fontWeight: 300, color: "#F0EDE6",
+              letterSpacing: "-0.03em", lineHeight: 1.08, margin: 0,
+            }}>
+              Tu próxima<br />
+              propiedad está<br />
+              en{" "}
+              <span style={{ fontStyle: "italic", color: "#4a9e6e" }}>
+                Coto Brus.
+              </span>
+            </h1>
+          </div>
+          {/* Subtitle */}
+          <div ref={subtitleRef} style={{
+            opacity: 0, transform: "translateY(18px)",
+            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
+            marginBottom: "44px",
           }}>
-            Venta directa con Carlos Azofeifa Arias,
-            fincas, lotes y locales comerciales.
-          </p>
+            <p style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "15px", fontWeight: 400,
+              color: "rgba(240,237,230,0.45)",
+              lineHeight: 1.7, margin: 0, maxWidth: "380px",
+            }}>
+              Venta directa con Carlos Azofeifa Arias,
+              fincas, lotes y locales comerciales.
+            </p>
+          </div>
           {/* Buttons */}
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+          <div ref={buttonsRef} style={{
+            opacity: 0, transform: "translateY(18px)",
+            transition: "opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1)",
+            display: "flex", gap: "16px", alignItems: "center", flexWrap: "wrap",
+          }}>
             <Link
               to="/properties"
               style={{
-                display: "inline-block",
-                padding: "12px 32px",
-                border: "1px solid rgba(240,237,230,0.25)",
-                color: "#F0EDE6",
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                padding: "13px 28px",
+                background: "#1A3A2A", color: "#F0EDE6",
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "12px",
-                fontWeight: 400,
-                letterSpacing: "0.08em",
-                textDecoration: "none",
-                textTransform: "uppercase",
+                fontSize: "13px", fontWeight: 500, letterSpacing: "0.04em",
+                textDecoration: "none", borderRadius: "4px",
+                border: "1px solid #2D5A40",
                 transition: "background 0.25s ease, border-color 0.25s ease",
-                background: "transparent",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = "rgba(240,237,230,0.06)";
-                e.currentTarget.style.borderColor = "rgba(240,237,230,0.5)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.borderColor = "rgba(240,237,230,0.25)";
-              }}
-            >
-              Ver propiedades
-            </Link>
-            <a
-              href="https://wa.me/50688319331"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-block",
-                padding: "12px 32px",
-                background: "#1A3A2A",
-                color: "#F0EDE6",
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "12px",
-                fontWeight: 500,
-                letterSpacing: "0.08em",
-                textDecoration: "none",
-                textTransform: "uppercase",
-                transition: "background 0.25s ease",
-                border: "1px solid transparent",
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.background = "#2D5A40";
+                e.currentTarget.style.borderColor = "#3d7a56";
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = "#1A3A2A";
+                e.currentTarget.style.borderColor = "#2D5A40";
               }}
             >
-              WhatsApp
+              Ver propiedades →
+            </Link>
+            <a
+              href="https://wa.me/50688319331"
+              target="_blank" rel="noopener noreferrer"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                padding: "13px 28px",
+                background: "transparent", color: "rgba(240,237,230,0.6)",
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "13px", fontWeight: 400, letterSpacing: "0.04em",
+                textDecoration: "none",
+                border: "1px solid rgba(240,237,230,0.15)", borderRadius: "4px",
+                transition: "color 0.25s ease, border-color 0.25s ease",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = "#F0EDE6";
+                e.currentTarget.style.borderColor = "rgba(240,237,230,0.35)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = "rgba(240,237,230,0.6)";
+                e.currentTarget.style.borderColor = "rgba(240,237,230,0.15)";
+              }}
+            >
+              WhatsApp →
             </a>
           </div>
         </div>
+        {/* RIGHT 42% */}
+        <div style={{
+          flex: "0 0 42%", maxWidth: "42%",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          position: "relative", minHeight: "400px",
+        }}>
+          {/* Corner brackets */}
+          <div style={{
+            position: "absolute", top: "5%", right: "5%",
+            width: "36px", height: "36px",
+            borderTop: "1px solid rgba(45,90,64,0.35)",
+            borderRight: "1px solid rgba(45,90,64,0.35)",
+          }} />
+          <div style={{
+            position: "absolute", bottom: "5%", left: "5%",
+            width: "36px", height: "36px",
+            borderBottom: "1px solid rgba(45,90,64,0.35)",
+            borderLeft: "1px solid rgba(45,90,64,0.35)",
+          }} />
+          {/* Vertical label */}
+          <div style={{
+            position: "absolute", right: "-16px", top: "50%",
+            transform: "translateY(-50%) rotate(90deg)",
+            fontSize: "10px", letterSpacing: "0.2em",
+            color: "rgba(240,237,230,0.18)",
+            fontFamily: "'Inter', sans-serif",
+            textTransform: "uppercase", whiteSpace: "nowrap",
+          }}>
+            Inmuebles · Coto Brus
+          </div>
+          {/* Logo */}
+          <img
+            ref={rightRef}
+            src="/images/az-logo.png"
+            alt="AZ Inmuebles"
+            style={{
+              opacity: 0,
+              transform: "translateY(12px)",
+              transition: "opacity 1.4s ease, transform 1.4s cubic-bezier(0.16,1,0.3,1)",
+              width: "78%", maxWidth: "340px",
+              filter: "brightness(0.9)",
+              userSelect: "none", pointerEvents: "none",
+              mixBlendMode: "screen",
+            }}
+          />
+        </div>
       </div>
-      {/* RIGHT COLUMN — 40% */}
-      <div style={{
-        flex: "0 0 42%",
-        maxWidth: "42%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        zIndex: 2,
-        height: "100vh",
+      {/* SCROLL INDICATOR */}
+      <div ref={scrollRef} style={{
+        opacity: 0, transform: "translateY(10px)",
+        transition: "opacity 0.85s ease, transform 0.85s ease",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", paddingBottom: "28px", gap: "8px",
       }}>
-        <img
-          ref={logoRef}
-          src="/images/az-logo.png"
-          alt="AZ Inmuebles"
-          style={{
-            width: "75%",
-            maxWidth: "380px",
-            opacity: 0,
-            transform: "scale(1.04)",
-            transition: "opacity 1.6s ease, transform 1.6s cubic-bezier(0.16, 1, 0.3, 1)",
-            userSelect: "none",
-            pointerEvents: "none",
-            filter: "brightness(0.9)",
-          }}
-        />
+        <span style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: "10px", letterSpacing: "0.2em",
+          color: "rgba(240,237,230,0.22)", textTransform: "uppercase",
+        }}>
+          Explorar
+        </span>
+        <div style={{
+          width: "1px", height: "36px",
+          background: "linear-gradient(to bottom, rgba(45,90,64,0.5), transparent)",
+        }} />
       </div>
     </section>
   );
